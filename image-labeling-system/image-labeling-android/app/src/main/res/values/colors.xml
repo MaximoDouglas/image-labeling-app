@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+    <color name="GREEN50">#31b057</color>
+    <color name="BLACK50">#25282b</color>
+    <color name="WHITE">#ffffff</color>
+
+    <color name="BLUE50">#388Bf2</color>
+    <color name="RED50">#e52a34</color>
+    <color name="YELLOW50">#fbaf18</color>
+    <color name="ORANGE50">#fc8338</color>
+
+    <color name="GREEN80">#0F752E</color>
+    <color name="GREEN60">#1C9440</color>
+    <color name="GREEN40">#51C273</color>
+    <color name="GREEN10">#E1F7E8</color>
+
+    <color name="ORANGE80">#B85518</color>
+    <color name="ORANGE60">#E6732C</color>
+    <color name="ORANGE40">#FF9A5C</color>
+    <color name="ORANGE10">#FFE7D9</color>
+
+    <color name="BLUE80">#114D96</color>
+    <color name="BLUE60">#216BC4</color>
+    <color name="BLUE40">#5BA0F5</color>
+    <color name="BLUE10">#DBEBFF</color>
+
+    <color name="RED80">#A1131A</color>
+    <color name="RED60">#CF212A</color>
+    <color name="RED40">#ED646A</color>
+    <color name="RED10">#FCE3E4</color>
+
+    <color name="YELLOW80">#C98C10</color>
+    <color name="YELLOW60">#E39E14</color>
+    <color name="YELLOW40">#FCC047</color>
+    <color name="YELLOW10">#FFF0D1</color>
+
+    <color name="BLACK100">#25282B</color>
+    <color name="BLACK80">#52575C</color>
+    <color name="BLACK60">#A0A4A8</color>
+    <color name="BLACK40">#CACCCF</color>
+    <color name="BLACK10">#E8E8E8</color>
+    <color name="BLACK05">#FAFAFA</color>
+
 </resources>
