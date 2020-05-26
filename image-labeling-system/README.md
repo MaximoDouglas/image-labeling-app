@@ -1,1 +1,1 @@
-![](image-labeling-diagrams.png)
+![Image Labelling system simple diagram](image-labeling-diagrams.png)
