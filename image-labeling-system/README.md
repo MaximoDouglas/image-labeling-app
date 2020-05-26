@@ -1,0 +1,1 @@
+![](image-labeling-diagrams.png)
