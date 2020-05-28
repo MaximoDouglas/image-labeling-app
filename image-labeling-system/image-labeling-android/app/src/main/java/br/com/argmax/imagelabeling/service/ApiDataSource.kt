@@ -22,14 +22,14 @@ class ApiDataSource {
 
             httpClient.addInterceptor(loggingInterceptor)
 
-            val gson = GsonBuilder()
+            val gsonBuilder = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .create()
 
             val retrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
                 .client(httpClient.build())
                 .build()
 
