@@ -1,7 +1,8 @@
-package br.com.argmax.imagelabeling
+package br.com.argmax.imagelabeling.application
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.argmax.imagelabeling.R
 
 class MainActivity : AppCompatActivity() {
 
