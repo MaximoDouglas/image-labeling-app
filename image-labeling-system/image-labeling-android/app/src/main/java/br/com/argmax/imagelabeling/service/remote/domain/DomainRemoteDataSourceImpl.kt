@@ -3,9 +3,11 @@ package br.com.argmax.imagelabeling.service.remote.domain
 import androidx.annotation.NonNull
 import br.com.argmax.imagelabeling.domain.entities.Domain
 import br.com.argmax.imagelabeling.service.RemoteDataSourceCallback
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class DomainRemoteDataSourceImpl private constructor(
-    private val domainApiDataSource: DomainApiDataSource
+    private val mDomainApiDataSource: DomainApiDataSource
 ) : DomainRemoteDataSource {
 
     companion object {
@@ -24,7 +26,20 @@ class DomainRemoteDataSourceImpl private constructor(
     }
 
     override fun domainList(callback: RemoteDataSourceCallback<List<Domain>>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mDomainApiDataSource
+            .domainList()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { callback.isLoading(true) }
+            .doAfterTerminate { callback.isLoading(false) }
+            .subscribe(
+                { response ->
+                    callback.onSuccess(response)
+                }, { throwable ->
+                    callback.onError(throwable.message.toString())
+                }
+            )
+            .dispose()
     }
 
 
