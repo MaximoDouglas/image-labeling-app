@@ -27,5 +27,4 @@ class GetDomainUseCase(private val mDomainRemoteDataSource: DomainRemoteDataSour
         })
     }
 
-
 }

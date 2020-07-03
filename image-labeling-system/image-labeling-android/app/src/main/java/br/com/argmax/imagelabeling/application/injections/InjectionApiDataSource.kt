@@ -9,5 +9,4 @@ object InjectionApiDataSource {
         return createService(DomainApiDataSource::class.java)
     }
 
-
 }

@@ -22,7 +22,6 @@ class DomainRemoteDataSourceImpl private constructor(
                 }
             }
 
-
     }
 
     override fun domainList(callback: RemoteDataSourceCallback<List<Domain>>) {
@@ -41,6 +40,5 @@ class DomainRemoteDataSourceImpl private constructor(
             )
             .dispose()
     }
-
 
 }

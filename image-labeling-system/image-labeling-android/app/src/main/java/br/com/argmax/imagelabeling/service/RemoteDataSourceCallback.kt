@@ -8,5 +8,4 @@ interface RemoteDataSourceCallback<R> {
 
     fun onError(errorMessage: String)
 
-
 }

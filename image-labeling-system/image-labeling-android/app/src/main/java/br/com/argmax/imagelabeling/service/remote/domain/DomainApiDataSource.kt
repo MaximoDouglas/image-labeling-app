@@ -9,5 +9,4 @@ interface DomainApiDataSource {
     @GET("domains/")
     fun domainList(): Observable<List<Domain>>
 
-
 }

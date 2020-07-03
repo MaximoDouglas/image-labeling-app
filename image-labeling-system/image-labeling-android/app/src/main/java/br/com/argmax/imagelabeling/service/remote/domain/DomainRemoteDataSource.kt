@@ -7,5 +7,4 @@ interface DomainRemoteDataSource {
 
     fun domainList(callback: RemoteDataSourceCallback<List<Domain>>)
 
-
 }

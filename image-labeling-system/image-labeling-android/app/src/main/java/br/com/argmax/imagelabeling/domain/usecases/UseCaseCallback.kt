@@ -10,5 +10,4 @@ interface UseCaseCallback<R> {
 
     fun onError(errorDescription: String)
 
-
 }

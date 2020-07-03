@@ -36,8 +36,6 @@ class ApiDataSource {
             return retrofit.create(serviceClass)
         }
 
-
     }
-
 
 }

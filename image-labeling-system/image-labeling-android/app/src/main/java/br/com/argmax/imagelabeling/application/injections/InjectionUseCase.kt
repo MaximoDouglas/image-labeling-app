@@ -9,5 +9,4 @@ object InjectionUseCase {
         return GetDomainUseCase(provideDomainRemoteDataSource())
     }
 
-
 }

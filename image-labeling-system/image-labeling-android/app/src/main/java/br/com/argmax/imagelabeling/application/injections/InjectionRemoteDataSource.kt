@@ -10,5 +10,4 @@ object InjectionRemoteDataSource {
         return DomainRemoteDataSourceImpl.getInstance(provideDomainApiDataSource())
     }
 
-
 }
