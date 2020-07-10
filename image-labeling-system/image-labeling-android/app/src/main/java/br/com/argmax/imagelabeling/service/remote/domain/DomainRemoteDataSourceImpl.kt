@@ -23,21 +23,17 @@ class DomainRemoteDataSourceImpl private constructor(
 
     }
 
-    override fun domainList(callback: RemoteDataSourceCallback<List<Domain>>) {
+    override fun domainList() : List<Domain>{
+        var data = listOf<Domain>()
+
         mDomainApiDataSource
             .domainList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { callback.isLoading(true) }
-            .doAfterTerminate { callback.isLoading(false) }
-            .subscribe(
-                { response ->
-                    callback.onSuccess(response)
-                }, { throwable ->
-                    callback.onError(throwable.message.toString())
-                }
-            )
+            .subscribe { response -> data = response }
             .dispose()
+
+        return data
     }
 
 }
