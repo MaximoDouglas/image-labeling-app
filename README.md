@@ -6,7 +6,7 @@ This is the __argMax__ labeling system. This tool has the goal to help on manual
 
 ### Usage description
 - In the device the user fills the form for __imagem domain__ creation, e.g. 'cats and dogs';
-- The device send the __image domain__ object to the __Ruby API__, which will use it to use to store related images;
+- The device send the __image domain__ object to the __Ruby API__ ([Code Here](https://github.com/MaximoDouglas/image-labeling-api)), which will use it to use to store related images;
 - Once the __image domain__ is created, the user may see it on domains screen of the app;
 - Accessing the __image domain__, the user can now create the classes for this domain, if there's not classes created for this domain;
 - Once the user creates the classes, the device send it to the __Ruby API__, which will request image URLs for this classes from the __Google Images API__ and save them in the database;
