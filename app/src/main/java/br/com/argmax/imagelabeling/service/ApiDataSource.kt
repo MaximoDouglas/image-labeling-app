@@ -1,6 +1,6 @@
 package br.com.argmax.imagelabeling.service
 
-import br.com.argmax.imagelabeling.BuildConfig
+import br.com.argmax.imagelabeling.BuildConfig.BASE_URL
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,7 +27,7 @@ class ApiDataSource {
                 .create()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BuildConfig.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
                 .client(httpClient.build())

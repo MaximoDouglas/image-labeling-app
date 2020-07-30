@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.application.injections
+package br.com.argmax.imagelabeling.application.di
 
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
