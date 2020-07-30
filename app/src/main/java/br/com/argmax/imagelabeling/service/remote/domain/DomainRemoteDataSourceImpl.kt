@@ -1,7 +1,7 @@
 package br.com.argmax.imagelabeling.service.remote.domain
 
 import androidx.annotation.NonNull
-import br.com.argmax.imagelabeling.domain.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.Domain
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 

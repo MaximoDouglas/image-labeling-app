@@ -1,6 +1,6 @@
 package br.com.argmax.imagelabeling.service.remote.domain
 
-import br.com.argmax.imagelabeling.domain.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.Domain
 
 interface DomainRemoteDataSource {
 

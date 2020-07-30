@@ -1,10 +1,10 @@
-package br.com.argmax.imagelabeling.domain.entities
+package br.com.argmax.imagelabeling.service.entities
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 
-class Domain(
+data class Domain(
     val id:          Int?,
     val description: String?,
     @SerializedName("created_at")
