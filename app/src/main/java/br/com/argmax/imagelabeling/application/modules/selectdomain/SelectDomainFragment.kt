@@ -42,7 +42,6 @@ class SelectDomainFragment : Fragment() {
 
         setupRecyclerView()
         callApi()
-        setupTryAgainButton()
     }
 
     private fun setupRecyclerView() {
@@ -68,16 +67,11 @@ class SelectDomainFragment : Fragment() {
 
     private fun onSuccess(domainList: List<Domain>) {
         print(domainList.size)
+        mAdapter.addDomainList(domainList)
     }
 
     private fun onError(throwable: Throwable) {
         print(throwable.message)
-    }
-
-    private fun setupTryAgainButton() {
-        mBinding?.selectDomainFragmentTryAgainButton?.setOnClickListener {
-            callApi()
-        }
     }
 
 }
