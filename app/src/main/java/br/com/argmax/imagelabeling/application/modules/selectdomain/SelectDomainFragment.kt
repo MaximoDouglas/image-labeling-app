@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
+import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
-import br.com.argmax.imagelabeling.service.entities.Domain
 import br.com.argmax.imagelabeling.service.ApiDataSource
+import br.com.argmax.imagelabeling.service.entities.Domain
 import br.com.argmax.imagelabeling.service.remote.domain.DomainApiDataSource
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -18,6 +21,8 @@ import io.reactivex.schedulers.Schedulers
 class SelectDomainFragment : Fragment() {
 
     private var mBinding: SelectDomainFragmentBinding? = null
+
+    private val mAdapter = SelectDomainAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +46,10 @@ class SelectDomainFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
 
+        mBinding?.selectDomainFragmentRecyclerView?.layoutManager = linearLayoutManager
+        mBinding?.selectDomainFragmentRecyclerView?.adapter = mAdapter
     }
 
     @SuppressLint("CheckResult")
@@ -66,7 +74,7 @@ class SelectDomainFragment : Fragment() {
         print(throwable.message)
     }
 
-    private fun setupTryAgainButton(){
+    private fun setupTryAgainButton() {
         mBinding?.selectDomainFragmentTryAgainButton?.setOnClickListener {
             callApi()
         }

@@ -13,7 +13,7 @@ import br.com.argmax.imagelabeling.service.entities.Domain
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.domain_card_view_holder.*
 
-class SelectDomainAdapter() : Adapter<DomainViewHolder>() {
+class SelectDomainAdapter : Adapter<DomainViewHolder>() {
 
     private var mData: MutableList<Domain> = mutableListOf()
 
