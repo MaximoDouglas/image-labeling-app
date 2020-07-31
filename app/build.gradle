@@ -6,10 +6,12 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: "androidx.navigation.safeargs"
+
 android {
 
     compileSdkVersion 28
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "28.0.3"
     defaultConfig {
         applicationId "br.com.argmax.imagelabeling"
         minSdkVersion 21
@@ -17,11 +19,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -40,7 +37,20 @@ android {
     }
 
     dataBinding {
-        enabled true
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    androidExtensions {
+        experimental = true
     }
 
 }

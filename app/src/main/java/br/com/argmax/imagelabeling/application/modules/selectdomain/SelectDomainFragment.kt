@@ -35,14 +35,17 @@ class SelectDomainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        foo()
-        mBinding?.tryAgainButton?.setOnClickListener {
-            foo()
-        }
+        setupRecyclerView()
+        callApi()
+        setupTryAgainButton()
+    }
+
+    private fun setupRecyclerView() {
+
     }
 
     @SuppressLint("CheckResult")
-    fun foo() {
+    private fun callApi() {
         val apiDataSource = ApiDataSource.createService(DomainApiDataSource::class.java)
 
         apiDataSource.domainList()
@@ -61,6 +64,12 @@ class SelectDomainFragment : Fragment() {
 
     private fun onError(throwable: Throwable) {
         print(throwable.message)
+    }
+
+    private fun setupTryAgainButton(){
+        mBinding?.selectDomainFragmentTryAgainButton?.setOnClickListener {
+            callApi()
+        }
     }
 
 }
