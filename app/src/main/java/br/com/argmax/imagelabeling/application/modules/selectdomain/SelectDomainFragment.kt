@@ -6,19 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
-import br.com.argmax.imagelabeling.service.ApiDataSource
 import br.com.argmax.imagelabeling.service.entities.Domain
 import br.com.argmax.imagelabeling.service.remote.domain.DomainApiDataSource
+import dagger.android.support.DaggerFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class SelectDomainFragment : Fragment() {
+class SelectDomainFragment : DaggerFragment() {
+
+    @Inject
+    lateinit var mApiDataSource: DomainApiDataSource
 
     private var mBinding: SelectDomainFragmentBinding? = null
 
@@ -53,9 +56,7 @@ class SelectDomainFragment : Fragment() {
 
     @SuppressLint("CheckResult")
     private fun callApi() {
-        val apiDataSource = ApiDataSource.createService(DomainApiDataSource::class.java)
-
-        apiDataSource.domainList()
+        mApiDataSource.domainList()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
