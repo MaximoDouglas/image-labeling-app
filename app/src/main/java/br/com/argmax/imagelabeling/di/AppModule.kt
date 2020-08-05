@@ -33,7 +33,7 @@ object AppModule {
 }
 
 @Module
-object ServiceModule {
+object RemoteServiceModule {
 
     @Provides
     @JvmStatic
