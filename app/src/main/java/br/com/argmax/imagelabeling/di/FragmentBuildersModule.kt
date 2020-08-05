@@ -7,7 +7,9 @@ import dagger.android.ContributesAndroidInjector
 @Module
 abstract class FragmentBuildersModule {
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+        modules = [SelectDomainViewModelsModule::class]
+    )
     abstract fun contributesSelectDomainFragment(): SelectDomainFragment
 
 }

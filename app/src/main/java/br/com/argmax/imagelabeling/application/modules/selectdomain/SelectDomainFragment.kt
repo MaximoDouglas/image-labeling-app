@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
@@ -13,6 +14,7 @@ import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
 import br.com.argmax.imagelabeling.service.ApiRequestCallback
 import br.com.argmax.imagelabeling.service.entities.Domain
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
+import br.com.argmax.imagelabeling.viewmodels.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -20,6 +22,11 @@ class SelectDomainFragment : DaggerFragment() {
 
     @Inject
     lateinit var mDomainRemoteDataSource: DomainRemoteDataSource
+
+    @Inject
+    lateinit var mViewModelProviderFactory: ViewModelProviderFactory
+
+    private var mViewModel: SelectDomainViewModel? = null
 
     private var mBinding: SelectDomainFragmentBinding? = null
 
@@ -31,8 +38,10 @@ class SelectDomainFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-
         mBinding = inflate(inflater, R.layout.select_domain_fragment, container, false)
+
+        mViewModel = ViewModelProviders.of(this, mViewModelProviderFactory)
+            .get(SelectDomainViewModel::class.java)
 
         return mBinding?.root
     }
