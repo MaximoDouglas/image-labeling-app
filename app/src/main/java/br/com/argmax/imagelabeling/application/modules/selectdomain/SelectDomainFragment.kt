@@ -55,6 +55,8 @@ class SelectDomainFragment : DaggerFragment() {
     }
 
     private fun setupViewModel() {
+        mViewModel?.getStateLiveData()?.removeObservers(viewLifecycleOwner)
+
         mViewModel?.getStateLiveData()?.observe(
             viewLifecycleOwner,
             Observer { viewModelState ->
