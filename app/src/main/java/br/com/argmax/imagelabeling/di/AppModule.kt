@@ -2,6 +2,8 @@ package br.com.argmax.imagelabeling.di
 
 import br.com.argmax.imagelabeling.BuildConfig
 import br.com.argmax.imagelabeling.service.remote.domain.DomainApiDataSource
+import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSourceImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -15,6 +17,12 @@ import java.util.concurrent.TimeUnit
 
 @Module
 object AppModule {
+
+    @Provides
+    @JvmStatic
+    fun provideDomainRemoteDataSource(domainApiDataSource: DomainApiDataSource): DomainRemoteDataSource {
+        return DomainRemoteDataSourceImpl(domainApiDataSource)
+    }
 
     @Provides
     @JvmStatic
