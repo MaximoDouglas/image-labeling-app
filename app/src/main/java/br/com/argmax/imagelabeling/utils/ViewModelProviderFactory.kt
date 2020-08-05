@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.viewmodels
+package br.com.argmax.imagelabeling.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

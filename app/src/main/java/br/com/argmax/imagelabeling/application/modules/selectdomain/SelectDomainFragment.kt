@@ -5,31 +5,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
+import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
-import br.com.argmax.imagelabeling.service.ApiRequestCallback
-import br.com.argmax.imagelabeling.service.entities.Domain
-import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
-import br.com.argmax.imagelabeling.viewmodels.ViewModelProviderFactory
+import br.com.argmax.imagelabeling.utils.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class SelectDomainFragment : DaggerFragment() {
 
     @Inject
-    lateinit var mDomainRemoteDataSource: DomainRemoteDataSource
-
-    @Inject
     lateinit var mViewModelProviderFactory: ViewModelProviderFactory
 
     private var mViewModel: SelectDomainViewModel? = null
-
     private var mBinding: SelectDomainFragmentBinding? = null
-
     private val mAdapter = SelectDomainAdapter()
 
     override fun onCreateView(
@@ -40,7 +34,7 @@ class SelectDomainFragment : DaggerFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = inflate(inflater, R.layout.select_domain_fragment, container, false)
 
-        mViewModel = ViewModelProviders.of(this, mViewModelProviderFactory)
+        mViewModel = ViewModelProvider(this, mViewModelProviderFactory)
             .get(SelectDomainViewModel::class.java)
 
         return mBinding?.root
@@ -50,7 +44,7 @@ class SelectDomainFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-        callApi()
+        setupViewModel()
     }
 
     private fun setupRecyclerView() {
@@ -60,25 +54,32 @@ class SelectDomainFragment : DaggerFragment() {
         mBinding?.selectDomainFragmentRecyclerView?.adapter = mAdapter
     }
 
-    private fun callApi() {
-        mDomainRemoteDataSource.domainList(object : ApiRequestCallback<List<Domain>> {
-            override fun onSuccess(result: List<Domain>) {
-                onRequestSuccess(result)
-            }
+    private fun setupViewModel() {
+        mViewModel?.getStateLiveData()?.observe(
+            viewLifecycleOwner,
+            Observer { viewModelState ->
+                handleViewModelState(viewModelState)
+            })
 
-            override fun onError(errorMessage: String) {
-                onRequestError(errorMessage)
-            }
-        })
+        mViewModel?.getDomainList()
     }
 
-    private fun onRequestSuccess(domainList: List<Domain>) {
-        print(domainList.size)
-        mAdapter.addDomainList(domainList)
-    }
+    private fun handleViewModelState(viewModelState: SelectDomainViewModelState) {
+        when (viewModelState) {
+            is SelectDomainViewModelState.Loading -> {
+                if (mAdapter.itemCount == 0) {
+                    println("Is Loading")
+                }
+            }
 
-    private fun onRequestError(errorMessage: String) {
-        print(errorMessage)
+            is SelectDomainViewModelState.Error -> {
+                print(viewModelState.throwable.localizedMessage)
+            }
+
+            is SelectDomainViewModelState.Success -> {
+                mAdapter.addDomainList(viewModelState.data)
+            }
+        }
     }
 
 }

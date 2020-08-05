@@ -7,6 +7,6 @@ import retrofit2.http.GET
 interface DomainApiDataSource {
 
     @GET("domains/")
-    fun domainList(): Observable<List<Domain>>
+    suspend fun domainList(): List<Domain>
 
 }
