@@ -13,14 +13,14 @@ import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
-import br.com.argmax.imagelabeling.utils.ViewModelProviderFactory
+import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class SelectDomainFragment : DaggerFragment() {
 
     @Inject
-    lateinit var mViewModelProviderFactory: ViewModelProviderFactory
+    lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
 
     private var mViewModel: SelectDomainViewModel? = null
     private var mBinding: SelectDomainFragmentBinding? = null
@@ -34,7 +34,7 @@ class SelectDomainFragment : DaggerFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = inflate(inflater, R.layout.select_domain_fragment, container, false)
 
-        mViewModel = ViewModelProvider(this, mViewModelProviderFactory)
+        mViewModel = ViewModelProvider(this, mViewModelFactoryProvider)
             .get(SelectDomainViewModel::class.java)
 
         return mBinding?.root
@@ -43,8 +43,15 @@ class SelectDomainFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupFloatingActionClickListener()
         setupRecyclerView()
         setupViewModel()
+    }
+
+    private fun setupFloatingActionClickListener() {
+        mBinding?.selectDomainFragmentFloatingActionButton?.setOnClickListener {
+
+        }
     }
 
     private fun setupRecyclerView() {

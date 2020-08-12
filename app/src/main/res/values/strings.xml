@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">image-labeling-android</string>
     <string name="select_domain_fragment_toolbar_text">Domain Selection</string>
+    <string name="domain_creation_fragment_toolbar_text">Domain Creation</string>
 </resources>
