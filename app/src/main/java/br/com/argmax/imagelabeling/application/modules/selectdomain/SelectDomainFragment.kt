@@ -117,5 +117,4 @@ class SelectDomainFragment : DaggerFragment() {
         Toast.makeText(context, toastTextMessage, Toast.LENGTH_LONG).show()
     }
 
-
 }
