@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.argmax.imagelabeling.service.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.DomainRequestDto
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -33,14 +34,29 @@ class SelectDomainViewModel @Inject constructor(
                 mDomainRemoteDataSource.domainList()
             }
 
-            stateLiveData.value = SelectDomainViewModelState.Success(data)
+            stateLiveData.value = SelectDomainViewModelState.GetDomainListSuccess(data)
+        }
+    }
+
+    fun createDomain(domainDescription: String) {
+        stateLiveData.value = SelectDomainViewModelState.Loading
+
+        val domainRequestDto = DomainRequestDto(domainDescription)
+
+        viewModelScope.launch(handler) {
+            val data = withContext(contextProvider.IO) {
+                mDomainRemoteDataSource.createDomain(domainRequestDto)
+            }
+
+            stateLiveData.value = SelectDomainViewModelState.CreateDomainSuccess(data)
         }
     }
 
     sealed class SelectDomainViewModelState {
         object Loading : SelectDomainViewModelState()
         data class Error(val throwable: Throwable) : SelectDomainViewModelState()
-        data class Success(val data: List<Domain>) : SelectDomainViewModelState()
+        data class GetDomainListSuccess(val data: List<Domain>) : SelectDomainViewModelState()
+        data class CreateDomainSuccess(val data: Domain) : SelectDomainViewModelState()
     }
 
 }
