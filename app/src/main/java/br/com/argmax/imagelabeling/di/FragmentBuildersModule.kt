@@ -1,5 +1,6 @@
 package br.com.argmax.imagelabeling.di
 
+import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailFragment
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -11,5 +12,8 @@ abstract class FragmentBuildersModule {
         modules = [SelectDomainViewModelsModule::class]
     )
     abstract fun contributesSelectDomainFragment(): SelectDomainFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesDomainDetailFragment(): DomainDetailFragment
 
 }

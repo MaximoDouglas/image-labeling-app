@@ -7,6 +7,23 @@
     <fragment
         android:id="@+id/selectDomainFragment"
         android:name="br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainFragment"
-        android:label="SelectDomainFragment" />
+        android:label="SelectDomainFragment">
+
+        <action
+            android:id="@+id/action_selectDomainFragment_to_domainDetailFragment"
+            app:destination="@id/domainDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/domainDetailFragment"
+        android:name="br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailFragment"
+        android:label="DomainDetailFragment">
+
+        <argument
+            android:name="domain_id"
+            app:argType="integer" />
+
+    </fragment>
 
 </navigation>

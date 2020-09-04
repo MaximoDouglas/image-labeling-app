@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
@@ -20,7 +21,6 @@ import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.Domain
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.domain_card_view_holder.*
 import javax.inject.Inject
 
 class SelectDomainFragment : DaggerFragment() {
@@ -115,6 +115,12 @@ class SelectDomainFragment : DaggerFragment() {
     private fun showToastWithNewDomain(domain: Domain) {
         val toastTextMessage = "id: " + domain.id + "\ndesc: " + domain.description
         Toast.makeText(context, toastTextMessage, Toast.LENGTH_LONG).show()
+
+        findNavController().navigate(
+            SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment(
+                domain.id
+            )
+        )
     }
 
 }
