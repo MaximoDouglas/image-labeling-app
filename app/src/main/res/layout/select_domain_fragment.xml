@@ -15,7 +15,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/select_git_pull_request_fragment_toolbar_title"
+                android:id="@+id/select_domain_request_fragment_toolbar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
