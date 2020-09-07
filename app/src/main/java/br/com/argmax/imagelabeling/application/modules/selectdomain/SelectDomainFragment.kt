@@ -117,12 +117,9 @@ class SelectDomainFragment : DaggerFragment() {
     }
 
     private fun showToastWithNewDomain(domain: Domain) {
-        val toastTextMessage = "id: " + domain.id + "\ndesc: " + domain.description
-        Toast.makeText(context, toastTextMessage, Toast.LENGTH_LONG).show()
-
         findNavController().navigate(
             SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment(
-                domain.id
+                domain
             )
         )
     }

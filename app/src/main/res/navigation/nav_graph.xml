@@ -21,8 +21,9 @@
         android:label="DomainDetailFragment">
 
         <argument
-            android:name="domain_id"
-            app:argType="integer" />
+            android:name="domain"
+            app:argType="br.com.argmax.imagelabeling.service.entities.Domain"
+            app:nullable="false" />
 
     </fragment>
 
