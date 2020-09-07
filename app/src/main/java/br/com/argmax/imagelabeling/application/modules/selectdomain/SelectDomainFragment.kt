@@ -41,10 +41,14 @@ class SelectDomainFragment : DaggerFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = inflate(inflater, R.layout.select_domain_fragment, container, false)
 
-        mViewModel = ViewModelProvider(this, mViewModelFactoryProvider)
-            .get(SelectDomainViewModel::class.java)
+        initViewModel()
 
         return mBinding?.root
+    }
+
+    private fun initViewModel() {
+        mViewModel = ViewModelProvider(this, mViewModelFactoryProvider)
+            .get(SelectDomainViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
