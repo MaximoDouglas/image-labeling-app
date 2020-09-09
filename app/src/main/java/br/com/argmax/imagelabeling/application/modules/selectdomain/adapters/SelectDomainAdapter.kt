@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter.DomainViewHolder
 import br.com.argmax.imagelabeling.databinding.DomainCardViewHolderBinding
-import br.com.argmax.imagelabeling.service.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.domain_card_view_holder.*
 
 class SelectDomainAdapter : Adapter<DomainViewHolder>() {
 
-    private var mData: MutableList<Domain> = mutableListOf()
+    private var mData: MutableList<DomainResponseDto> = mutableListOf()
 
-    fun addDomainList(domainList: List<Domain>) {
-        mData.addAll(domainList)
+    fun addDomainList(domainResponseDtoList: List<DomainResponseDto>) {
+        mData.addAll(domainResponseDtoList)
         notifyDataSetChanged()
     }
 
@@ -49,8 +49,8 @@ class SelectDomainAdapter : Adapter<DomainViewHolder>() {
         override val containerView: View?
             get() = itemView
 
-        fun updateData(domain: Domain) {
-            domainCardComponent.setDomain(domain)
+        fun updateData(domainResponseDto: DomainResponseDto) {
+            domainCardComponent.setDomain(domainResponseDto)
         }
     }
 

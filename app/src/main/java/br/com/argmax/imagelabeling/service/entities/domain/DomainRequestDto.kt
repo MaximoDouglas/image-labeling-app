@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.service.entities
+package br.com.argmax.imagelabeling.service.entities.domain
 
 import java.io.Serializable
 

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.databinding.DomainCardComponentBinding
-import br.com.argmax.imagelabeling.service.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import com.google.android.material.card.MaterialCardView
 
 class DomainCardComponent @JvmOverloads constructor(
@@ -17,8 +17,8 @@ class DomainCardComponent @JvmOverloads constructor(
         LayoutInflater.from(context), R.layout.domain_card_component, this, true
     )
 
-    fun setDomain(domain: Domain) {
-        mBinding?.domain = domain
+    fun setDomain(domainResponseDto: DomainResponseDto) {
+        mBinding?.domain = domainResponseDto
         mBinding?.executePendingBindings()
     }
 

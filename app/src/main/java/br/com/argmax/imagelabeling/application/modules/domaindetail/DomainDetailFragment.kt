@@ -8,13 +8,13 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
-import br.com.argmax.imagelabeling.service.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import dagger.android.support.DaggerFragment
 
 class DomainDetailFragment : DaggerFragment() {
 
     private var mBinding: DomainDetailFragmentBinding? = null
-    private var mDomain: Domain? = null
+    private var mDomainResponseDto: DomainResponseDto? = null
 
     private val args: DomainDetailFragmentArgs by navArgs()
 
@@ -32,15 +32,15 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun unwrapArgs() {
-        mDomain = args.domain
+        mDomainResponseDto = args.domain
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (mDomain != null) {
-            val domainId = mDomain?.id ?: 0
-            val domainDescription = mDomain?.description ?: ""
+        if (mDomainResponseDto != null) {
+            val domainId = mDomainResponseDto?.id ?: 0
+            val domainDescription = mDomainResponseDto?.description ?: ""
 
             mBinding?.domainDetailsFragmentDomainIdTextView?.text = domainId.toString()
             mBinding?.domainDetailsFragmentDomainDescriptionTextView?.text = domainDescription

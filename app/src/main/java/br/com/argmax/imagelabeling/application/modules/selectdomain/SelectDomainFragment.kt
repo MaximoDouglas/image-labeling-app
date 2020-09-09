@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,7 +17,7 @@ import br.com.argmax.imagelabeling.application.components.domaincreationdialog.D
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
-import br.com.argmax.imagelabeling.service.entities.Domain
+import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -116,10 +115,10 @@ class SelectDomainFragment : DaggerFragment() {
         }
     }
 
-    private fun showToastWithNewDomain(domain: Domain) {
+    private fun showToastWithNewDomain(domainResponseDto: DomainResponseDto) {
         findNavController().navigate(
             SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment(
-                domain
+                domainResponseDto
             )
         )
     }
