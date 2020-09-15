@@ -32,7 +32,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun unwrapArgs() {
-        mDomainResponseDto = args.domain
+        mDomainResponseDto = args.domainResponseDto
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
