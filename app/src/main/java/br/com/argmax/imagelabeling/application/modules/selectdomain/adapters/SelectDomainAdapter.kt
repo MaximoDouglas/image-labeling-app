@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.domain_card_view_holder.*
 
 class SelectDomainAdapter : Adapter<DomainViewHolder>() {
 
-    private var mData: MutableList<DomainResponseDto> = mutableListOf()
+    private var mData: List<DomainResponseDto> = listOf()
 
-    fun addDomainList(domainResponseDtoList: List<DomainResponseDto>) {
-        mData.addAll(domainResponseDtoList)
+    fun replaceDomainList(domainResponseDtoList: List<DomainResponseDto>) {
+        mData = domainResponseDtoList.toMutableList()
         notifyDataSetChanged()
     }
 
