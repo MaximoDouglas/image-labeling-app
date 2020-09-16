@@ -18,7 +18,7 @@ class SelectDomainAdapter : Adapter<DomainViewHolder>() {
     private var mData: List<DomainResponseDto> = listOf()
 
     fun replaceDomainList(domainResponseDtoList: List<DomainResponseDto>) {
-        mData = domainResponseDtoList.toMutableList()
+        mData = domainResponseDtoList
         notifyDataSetChanged()
     }
 

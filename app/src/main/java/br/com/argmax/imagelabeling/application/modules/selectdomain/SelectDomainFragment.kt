@@ -107,6 +107,7 @@ class SelectDomainFragment : DaggerFragment() {
 
             is SelectDomainViewModelState.GetDomainListSuccess -> {
                 mAdapter.replaceDomainList(viewModelState.data)
+                mBinding?.executePendingBindings()
             }
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
