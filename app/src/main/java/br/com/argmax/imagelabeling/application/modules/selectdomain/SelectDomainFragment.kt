@@ -14,8 +14,10 @@ import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.domaincreationdialog.DomainCreationDialog
 import br.com.argmax.imagelabeling.application.components.domaincreationdialog.DomainCreationDialog.Companion.DOMAIN_CREATION_DIALOG_TAG
 import br.com.argmax.imagelabeling.application.components.domaincreationdialog.DomainCreationDialogClickListener
+import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
+import br.com.argmax.imagelabeling.application.modules.selectdomain.listeners.OnDomainCardClickListener
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
@@ -29,8 +31,12 @@ class SelectDomainFragment : DaggerFragment() {
 
     private var mViewModel: SelectDomainViewModel? = null
     private var mBinding: SelectDomainFragmentBinding? = null
-    private val mAdapter = SelectDomainAdapter()
     private val mDomainCreationDialog = DomainCreationDialog()
+    private val mAdapter = SelectDomainAdapter(object : OnDomainCardClickListener {
+        override fun onCardClick(domainResponseDto: DomainResponseDto) {
+            navigateToDomainDetailFragment(domainResponseDto)
+        }
+    })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -111,14 +117,14 @@ class SelectDomainFragment : DaggerFragment() {
             }
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
-                showToastWithNewDomain(viewModelState.data)
+                navigateToDomainDetailFragment(viewModelState.data)
             }
         }
     }
 
-    private fun showToastWithNewDomain(domainResponseDto: DomainResponseDto) {
+    private fun navigateToDomainDetailFragment(domainResponseDto: DomainResponseDto) {
         findNavController().navigate(
-            SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment(
+            actionSelectDomainFragmentToDomainDetailFragment(
                 domainResponseDto
             )
         )

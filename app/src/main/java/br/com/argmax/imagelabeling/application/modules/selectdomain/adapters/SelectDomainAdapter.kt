@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter.DomainViewHolder
+import br.com.argmax.imagelabeling.application.modules.selectdomain.listeners.OnDomainCardClickListener
 import br.com.argmax.imagelabeling.databinding.DomainCardViewHolderBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.domain_card_view_holder.*
 
-class SelectDomainAdapter : Adapter<DomainViewHolder>() {
+class SelectDomainAdapter(
+    val onDomainCardClickListener: OnDomainCardClickListener
+) : Adapter<DomainViewHolder>() {
 
     private var mData: List<DomainResponseDto> = listOf()
 
@@ -44,13 +47,21 @@ class SelectDomainAdapter : Adapter<DomainViewHolder>() {
 
     inner class DomainViewHolder(
         itemView: View
-    ) : RecyclerView.ViewHolder(itemView), LayoutContainer {
+    ) : RecyclerView.ViewHolder(itemView), LayoutContainer, View.OnClickListener {
 
         override val containerView: View?
             get() = itemView
 
+        init {
+            itemView.setOnClickListener(this)
+        }
+
         fun updateData(domainResponseDto: DomainResponseDto) {
             domainCardComponent.setDomain(domainResponseDto)
+        }
+
+        override fun onClick(view: View?) {
+            onDomainCardClickListener.onCardClick(mData[adapterPosition])
         }
     }
 
