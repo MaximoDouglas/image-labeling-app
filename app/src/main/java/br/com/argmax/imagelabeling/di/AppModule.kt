@@ -4,6 +4,9 @@ import br.com.argmax.imagelabeling.BuildConfig
 import br.com.argmax.imagelabeling.service.remote.domain.DomainApiDataSource
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSourceImpl
+import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassApiDataSource
+import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSourceImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -31,6 +34,20 @@ object AppModule {
     @JvmStatic
     fun provideDomainApiDataSource(retrofit: Retrofit): DomainApiDataSource {
         return retrofit.create(DomainApiDataSource::class.java)
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideImageClassRemoteDataSource(imageClassApiDataSource: ImageClassApiDataSource): ImageClassRemoteDataSource {
+        return ImageClassRemoteDataSourceImpl(imageClassApiDataSource)
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideImageClassApiDataSource(retrofit: Retrofit): ImageClassApiDataSource {
+        return retrofit.create(ImageClassApiDataSource::class.java)
     }
 
 }
