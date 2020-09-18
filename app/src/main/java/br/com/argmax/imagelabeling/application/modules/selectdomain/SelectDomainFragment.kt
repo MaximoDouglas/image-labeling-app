@@ -28,10 +28,11 @@ class SelectDomainFragment : DaggerFragment() {
 
     @Inject
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
-
     private var mViewModel: SelectDomainViewModel? = null
+
     private var mBinding: SelectDomainFragmentBinding? = null
     private val mDomainCreationDialog = DomainCreationDialog()
+
     private val mAdapter = SelectDomainAdapter(object : OnDomainCardClickListener {
         override fun onCardClick(domainResponseDto: DomainResponseDto) {
             navigateToDomainDetailFragment(domainResponseDto)

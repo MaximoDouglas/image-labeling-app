@@ -13,7 +13,9 @@ abstract class FragmentBuildersModule {
     )
     abstract fun contributesSelectDomainFragment(): SelectDomainFragment
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(
+        modules = [DomainDetailViewModelsModule::class]
+    )
     abstract fun contributesDomainDetailFragment(): DomainDetailFragment
 
 }
