@@ -7,6 +7,6 @@
     <string name="domain_detail_fragment_toolbar_text">Domain Details</string>
     <string name="domain_creation_dialog_title">Domain Creation</string>
     <string name="domain_creation_dialog_edit_text_hint">Type the domain title</string>
-    <string name="domain_details_fragment_id_field_title_text_view">id:</string>
-    <string name="domain_details_fragment_description_field_title_text_view">Description:</string>
+    <string name="domain_detail_fragment_id_field_title_text_view">id:</string>
+    <string name="domain_detail_fragment_description_field_title_text_view">Description:</string>
 </resources>

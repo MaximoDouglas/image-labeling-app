@@ -41,12 +41,12 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
                 android:paddingEnd="8dp"
-                android:text="@string/domain_details_fragment_id_field_title_text_view"
+                android:text="@string/domain_detail_fragment_id_field_title_text_view"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/domain_details_fragment_domain_id_text_view"
+                android:id="@+id/domain_detail_fragment_domain_id_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
@@ -68,11 +68,11 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
                 android:paddingEnd="8dp"
-                android:text="@string/domain_details_fragment_description_field_title_text_view"
+                android:text="@string/domain_detail_fragment_description_field_title_text_view"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/domain_details_fragment_domain_description_text_view"
+                android:id="@+id/domain_detail_fragment_domain_description_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
