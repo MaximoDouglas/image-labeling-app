@@ -64,8 +64,8 @@ class DomainDetailFragment : DaggerFragment() {
             val domainId = mDomainResponseDto?.id ?: 0
             val domainDescription = mDomainResponseDto?.description ?: ""
 
-            mBinding?.domainDetailsFragmentDomainIdTextView?.text = domainId.toString()
-            mBinding?.domainDetailsFragmentDomainDescriptionTextView?.text = domainDescription
+            mBinding?.domainDetailFragmentDomainIdTextView?.text = domainId.toString()
+            mBinding?.domainDetailFragmentDomainDescriptionTextView?.text = domainDescription
         }
     }
 
