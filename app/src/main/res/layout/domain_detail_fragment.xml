@@ -93,6 +93,18 @@
             android:text="@string/domain_detail_fragment_classes_label_text_view"
             android:textStyle="bold" />
 
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/content_loading_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:indeterminate="false"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/domain_detail_fragment_recycler_view"
             android:layout_width="match_parent"

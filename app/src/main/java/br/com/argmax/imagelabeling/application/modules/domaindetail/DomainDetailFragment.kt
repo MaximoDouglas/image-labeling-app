@@ -89,17 +89,25 @@ class DomainDetailFragment : DaggerFragment() {
     private fun handleViewModelState(viewModelState: DomainDetailViewModelState?) {
         when (viewModelState) {
             is DomainDetailViewModelState.Loading -> {
-                println("Is Loading")
+                if (mAdapter.itemCount == 0) {
+                    mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
+                }
             }
 
             is DomainDetailViewModelState.Error -> {
+                hideProgressBar()
                 print(viewModelState.throwable.localizedMessage)
             }
 
             is DomainDetailViewModelState.GetImageClassListSuccess -> {
                 mAdapter.replaceData(viewModelState.data)
+                hideProgressBar()
             }
         }
+    }
+
+    private fun hideProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
     }
 
     private fun setupRecyclerView() {
