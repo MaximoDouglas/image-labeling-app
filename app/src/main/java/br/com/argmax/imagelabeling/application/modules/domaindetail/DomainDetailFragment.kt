@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
+import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel
 import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
@@ -82,7 +83,19 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun handleViewModelState(viewModelState: DomainDetailViewModelState?) {
-        print(viewModelState)
+        when (viewModelState) {
+            is DomainDetailViewModelState.Loading -> {
+                println("Is Loading")
+            }
+
+            is DomainDetailViewModelState.Error -> {
+                print(viewModelState.throwable.localizedMessage)
+            }
+
+            is DomainDetailViewModelState.GetImageClassListSuccess -> {
+                print(viewModelState.data.size)
+            }
+        }
     }
 
 }
