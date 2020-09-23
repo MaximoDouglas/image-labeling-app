@@ -104,20 +104,23 @@ class SelectDomainFragment : DaggerFragment() {
         when (viewModelState) {
             is SelectDomainViewModelState.Loading -> {
                 if (mAdapter.itemCount == 0) {
-                    println("Is Loading")
+                    mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
                 }
             }
 
             is SelectDomainViewModelState.Error -> {
+                mBinding?.contentLoadingProgressBar?.visibility = View.GONE
                 print(viewModelState.throwable.localizedMessage)
             }
 
             is SelectDomainViewModelState.GetDomainListSuccess -> {
                 mAdapter.replaceDomainList(viewModelState.data)
+                mBinding?.contentLoadingProgressBar?.visibility = View.GONE
                 mBinding?.executePendingBindings()
             }
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
+                mBinding?.contentLoadingProgressBar?.visibility = View.GONE
                 navigateToDomainDetailFragment(viewModelState.data)
             }
         }
