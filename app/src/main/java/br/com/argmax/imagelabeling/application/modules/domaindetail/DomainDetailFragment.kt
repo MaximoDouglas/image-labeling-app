@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
@@ -98,7 +97,7 @@ class DomainDetailFragment : DaggerFragment() {
             }
 
             is DomainDetailViewModelState.GetImageClassListSuccess -> {
-                print(viewModelState.data.size)
+                mAdapter.replaceData(viewModelState.data)
             }
         }
     }
