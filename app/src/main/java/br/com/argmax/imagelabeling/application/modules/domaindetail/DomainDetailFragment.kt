@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
-import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel
+import br.com.argmax.imagelabeling.application.modules.domaindetail.adapters.ImageClassAdapter
 import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
@@ -23,10 +26,11 @@ class DomainDetailFragment : DaggerFragment() {
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
     private var mViewModel: DomainDetailViewModel? = null
 
-    private var mBinding: DomainDetailFragmentBinding? = null
-
     private val args: DomainDetailFragmentArgs by navArgs()
     private var mDomainResponseDto: DomainResponseDto? = null
+
+    private var mBinding: DomainDetailFragmentBinding? = null
+    private val mAdapter = ImageClassAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +62,7 @@ class DomainDetailFragment : DaggerFragment() {
 
         setBundleDataIntoView()
         setupViewModelObserver()
+        setupRecyclerView()
     }
 
     private fun setBundleDataIntoView() {
@@ -96,6 +101,14 @@ class DomainDetailFragment : DaggerFragment() {
                 print(viewModelState.data.size)
             }
         }
+    }
+
+    private fun setupRecyclerView() {
+        val spanCount = 2
+        val gridLayoutManager = GridLayoutManager(context, spanCount, RecyclerView.VERTICAL, false)
+
+        mBinding?.domainDetailFragmentRecyclerView?.layoutManager = gridLayoutManager
+        mBinding?.domainDetailFragmentRecyclerView?.adapter = mAdapter
     }
 
 }
