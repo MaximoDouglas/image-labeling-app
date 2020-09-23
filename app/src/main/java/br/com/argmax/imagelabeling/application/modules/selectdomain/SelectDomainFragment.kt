@@ -109,21 +109,24 @@ class SelectDomainFragment : DaggerFragment() {
             }
 
             is SelectDomainViewModelState.Error -> {
-                mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+                hideProgressBar()
                 print(viewModelState.throwable.localizedMessage)
             }
 
             is SelectDomainViewModelState.GetDomainListSuccess -> {
                 mAdapter.replaceDomainList(viewModelState.data)
-                mBinding?.contentLoadingProgressBar?.visibility = View.GONE
-                mBinding?.executePendingBindings()
+                hideProgressBar()
             }
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
-                mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+                hideProgressBar()
                 navigateToDomainDetailFragment(viewModelState.data)
             }
         }
+    }
+
+    private fun hideProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
     }
 
     private fun navigateToDomainDetailFragment(domainResponseDto: DomainResponseDto) {
