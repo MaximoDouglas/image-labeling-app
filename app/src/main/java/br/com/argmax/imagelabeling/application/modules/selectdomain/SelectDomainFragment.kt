@@ -31,7 +31,7 @@ class SelectDomainFragment : DaggerFragment() {
     private var mViewModel: SelectDomainViewModel? = null
 
     private var mBinding: SelectDomainFragmentBinding? = null
-    private val mDomainCreationDialog = ModelCreationDialog()
+    private val mModelCreationDialog = ModelCreationDialog()
 
     private val mAdapter = SelectDomainAdapter(object : OnDomainCardClickListener {
         override fun onCardClick(domainResponseDto: DomainResponseDto) {
@@ -66,19 +66,19 @@ class SelectDomainFragment : DaggerFragment() {
     }
 
     private fun setupFloatingActionButton() {
-        mDomainCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+        mModelCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mViewModel?.createDomain(editTextContent)
             }
         })
 
         mBinding?.selectDomainFragmentFloatingActionButton?.setOnClickListener {
-            showDomainDialogCreation()
+            showModelCreationDialog()
         }
     }
 
-    private fun showDomainDialogCreation() {
-        mDomainCreationDialog.show(childFragmentManager, MODEL_CREATION_DIALOG_TAG)
+    private fun showModelCreationDialog() {
+        mModelCreationDialog.show(childFragmentManager, MODEL_CREATION_DIALOG_TAG)
     }
 
     private fun setupRecyclerView() {

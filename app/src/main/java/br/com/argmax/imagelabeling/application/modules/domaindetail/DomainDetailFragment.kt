@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.modules.domaindetail.adapters.ImageClassAdapter
 import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
@@ -23,13 +25,15 @@ class DomainDetailFragment : DaggerFragment() {
 
     @Inject
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
-    private var mViewModel: DomainDetailViewModel? = null
 
+    private var mViewModel: DomainDetailViewModel? = null
     private val args: DomainDetailFragmentArgs by navArgs()
-    private var mDomainResponseDto: DomainResponseDto? = null
 
     private var mBinding: DomainDetailFragmentBinding? = null
+    private val mModelCreationDialog = ModelCreationDialog()
+
     private val mAdapter = ImageClassAdapter()
+    private var mDomainResponseDto: DomainResponseDto? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +66,7 @@ class DomainDetailFragment : DaggerFragment() {
         setBundleDataIntoView()
         setupViewModelObserver()
         setupRecyclerView()
+        setupFloatingActionButton()
     }
 
     private fun setBundleDataIntoView() {
@@ -116,6 +121,24 @@ class DomainDetailFragment : DaggerFragment() {
 
         mBinding?.domainDetailFragmentRecyclerView?.layoutManager = gridLayoutManager
         mBinding?.domainDetailFragmentRecyclerView?.adapter = mAdapter
+    }
+
+    private fun setupFloatingActionButton() {
+        mModelCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mViewModel?.createImageClass(editTextContent)
+            }
+        })
+
+        mBinding?.domainDetailFragmentFloatingActionButton?.setOnClickListener {
+            showModelCreationDialog()
+        }
+    }
+
+    private fun showModelCreationDialog() {
+        mModelCreationDialog.show(childFragmentManager,
+            ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
+        )
     }
 
 }
