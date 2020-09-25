@@ -5,9 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.databinding.DomainCardComponentBinding
 import br.com.argmax.imagelabeling.databinding.ImageClassCardComponentBinding
-import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import com.google.android.material.card.MaterialCardView
 

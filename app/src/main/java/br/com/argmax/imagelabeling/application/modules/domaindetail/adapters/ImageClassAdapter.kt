@@ -11,7 +11,7 @@ import br.com.argmax.imagelabeling.application.modules.domaindetail.adapters.Ima
 import br.com.argmax.imagelabeling.databinding.ImageClassCardViewHolderBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.image_class_card_view_holder.*
+import kotlinx.android.synthetic.main.image_class_card_view_holder.imageClassCardComponent
 
 class ImageClassAdapter : Adapter<ImageClassCardViewHolder>() {
 
