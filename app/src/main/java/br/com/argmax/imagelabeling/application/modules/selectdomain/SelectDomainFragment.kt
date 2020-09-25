@@ -11,9 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.application.components.domaincreationdialog.DomainCreationDialog
-import br.com.argmax.imagelabeling.application.components.domaincreationdialog.DomainCreationDialog.Companion.DOMAIN_CREATION_DIALOG_TAG
-import br.com.argmax.imagelabeling.application.components.domaincreationdialog.DomainCreationDialogClickListener
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog.Companion.MODEL_CREATION_DIALOG_TAG
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
@@ -31,7 +31,7 @@ class SelectDomainFragment : DaggerFragment() {
     private var mViewModel: SelectDomainViewModel? = null
 
     private var mBinding: SelectDomainFragmentBinding? = null
-    private val mDomainCreationDialog = DomainCreationDialog()
+    private val mDomainCreationDialog = ModelCreationDialog()
 
     private val mAdapter = SelectDomainAdapter(object : OnDomainCardClickListener {
         override fun onCardClick(domainResponseDto: DomainResponseDto) {
@@ -66,7 +66,7 @@ class SelectDomainFragment : DaggerFragment() {
     }
 
     private fun setupFloatingActionButton() {
-        mDomainCreationDialog.setOkButtonClickListener(object : DomainCreationDialogClickListener {
+        mDomainCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mViewModel?.createDomain(editTextContent)
             }
@@ -78,7 +78,7 @@ class SelectDomainFragment : DaggerFragment() {
     }
 
     private fun showDomainDialogCreation() {
-        mDomainCreationDialog.show(childFragmentManager, DOMAIN_CREATION_DIALOG_TAG)
+        mDomainCreationDialog.show(childFragmentManager, MODEL_CREATION_DIALOG_TAG)
     }
 
     private fun setupRecyclerView() {

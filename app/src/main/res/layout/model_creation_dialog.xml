@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/domain_creation_dialog_content_layout"
+        android:id="@+id/model_creation_dialog_content_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/domain_creation_dialog_title_text_view"
+            android:id="@+id/model_creation_dialog_title_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/domain_creation_dialog_title"
+            android:text="@string/model_creation_dialog_title"
             android:textColor="@color/BLACK100"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -20,22 +20,22 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/domain_creation_dialog_edit_text"
+            android:id="@+id/model_creation_dialog_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="22dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="22dp"
-            android:hint="@string/domain_creation_dialog_edit_text_hint"
+            android:hint="@string/model_creation_dialog_edit_text_hint"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/domain_creation_dialog_title_text_view" />
+            app:layout_constraintTop_toBottomOf="@+id/model_creation_dialog_title_text_view" />
 
         <TextView
-            android:id="@+id/domain_creation_dialog_cancel_text_view"
+            android:id="@+id/model_creation_dialog_cancel_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -46,11 +46,11 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/domain_creation_dialog_ok_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/domain_creation_dialog_edit_text" />
+            app:layout_constraintEnd_toStartOf="@id/model_creation_dialog_ok_text_view"
+            app:layout_constraintTop_toBottomOf="@+id/model_creation_dialog_edit_text" />
 
         <TextView
-            android:id="@+id/domain_creation_dialog_ok_text_view"
+            android:id="@+id/model_creation_dialog_ok_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -62,7 +62,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/domain_creation_dialog_edit_text" />
+            app:layout_constraintTop_toBottomOf="@+id/model_creation_dialog_edit_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
