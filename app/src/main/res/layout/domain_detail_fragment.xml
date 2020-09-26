@@ -88,6 +88,7 @@
                     tools:text="001" />
 
                 <ImageView
+                    android:id="@+id/domain_detail_fragment_domain_description_edit_image_view"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:paddingStart="6dp"
