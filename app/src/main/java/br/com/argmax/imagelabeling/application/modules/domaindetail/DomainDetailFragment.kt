@@ -126,7 +126,9 @@ class DomainDetailFragment : DaggerFragment() {
     private fun setupFloatingActionButton() {
         mModelCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
-                mViewModel?.createImageClass(editTextContent)
+                mDomainResponseDto?.id?.let { domainId ->
+                    mViewModel?.createImageClass(editTextContent, domainId)
+                }
             }
         })
 
