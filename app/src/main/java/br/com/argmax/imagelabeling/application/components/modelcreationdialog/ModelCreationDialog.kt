@@ -53,8 +53,8 @@ class ModelCreationDialog : DialogFragment() {
         mBinding?.modelCreationDialogTitleTextView?.text = title
     }
 
-    fun setPlaceholder(placeholder: String) {
-        mBinding?.modelCreationDialogEditText?.hint = placeholder
+    fun setHint(hint: String) {
+        mBinding?.modelCreationDialogEditText?.hint = hint
     }
 
     companion object {

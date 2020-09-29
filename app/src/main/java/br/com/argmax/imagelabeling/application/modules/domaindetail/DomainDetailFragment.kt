@@ -72,6 +72,9 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupEditButton() {
+        mDomainEditDialog.setTitle(getString(R.string.domain_detail_fragment_edit_dialog_title))
+        mDomainEditDialog.setHint(getString(R.string.domain_detail_fragment_edit_dialog_hint))
+
         mDomainEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mDomainResponseDto?.id?.let { domainId ->

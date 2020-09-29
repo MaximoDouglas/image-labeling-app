@@ -10,4 +10,7 @@
     <string name="domain_detail_fragment_id_field_title_text_view">id:</string>
     <string name="domain_detail_fragment_description_field_title_text_view">Description:</string>
     <string name="domain_detail_fragment_classes_label_text_view">Classes:</string>
+    <string name="domain_detail_fragment_edit_dialog_title">Edit domain description</string>
+    <string name="domain_detail_fragment_edit_dialog_hint">Type the new domain description</string>
+
 </resources>
