@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
@@ -50,6 +51,10 @@ class DomainDetailViewModel @Inject constructor(
 
             stateLiveData.value = DomainDetailViewModelState.CreateImageClassSuccess(data)
         }
+    }
+
+    fun editDomain(editTextContent: String, domainId: Int): DomainResponseDto {
+        TODO("Not yet implemented")
     }
 
     sealed class DomainDetailViewModelState {

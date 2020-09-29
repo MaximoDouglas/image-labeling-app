@@ -30,7 +30,8 @@ class DomainDetailFragment : DaggerFragment() {
     private val args: DomainDetailFragmentArgs by navArgs()
 
     private var mBinding: DomainDetailFragmentBinding? = null
-    private val mModelCreationDialog = ModelCreationDialog()
+    private val mImageClassCreationDialog = ModelCreationDialog()
+    private val mDomainEditDialog = ModelCreationDialog()
 
     private val mAdapter = ImageClassAdapter()
     private var mDomainResponseDto: DomainResponseDto? = null
@@ -65,8 +66,29 @@ class DomainDetailFragment : DaggerFragment() {
 
         setBundleDataIntoView()
         setupViewModelObserver()
+        setupEditButton()
         setupRecyclerView()
         setupFloatingActionButton()
+    }
+
+    private fun setupEditButton() {
+        mDomainEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mDomainResponseDto?.id?.let { domainId ->
+                    mViewModel?.editDomain(editTextContent, domainId)
+                }
+            }
+        })
+
+        mBinding?.domainDetailFragmentDomainDescriptionEditImageView?.setOnClickListener {
+            showDomainEditDialog()
+        }
+    }
+
+    private fun showDomainEditDialog() {
+        mDomainEditDialog.show(childFragmentManager,
+            ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
+        )
     }
 
     private fun setBundleDataIntoView() {
@@ -124,7 +146,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupFloatingActionButton() {
-        mModelCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+        mImageClassCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mDomainResponseDto?.id?.let { domainId ->
                     mViewModel?.createImageClass(editTextContent, domainId)
@@ -133,12 +155,12 @@ class DomainDetailFragment : DaggerFragment() {
         })
 
         mBinding?.domainDetailFragmentFloatingActionButton?.setOnClickListener {
-            showModelCreationDialog()
+            showImageClassCreationDialog()
         }
     }
 
-    private fun showModelCreationDialog() {
-        mModelCreationDialog.show(childFragmentManager,
+    private fun showImageClassCreationDialog() {
+        mImageClassCreationDialog.show(childFragmentManager,
             ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
         )
     }
