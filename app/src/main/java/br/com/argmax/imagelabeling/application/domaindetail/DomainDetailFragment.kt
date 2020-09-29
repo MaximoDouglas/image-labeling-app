@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.application.modules.domaindetail
+package br.com.argmax.imagelabeling.application.domaindetail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
-import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
-import br.com.argmax.imagelabeling.application.modules.domaindetail.adapters.ImageClassAdapter
+import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
+import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
 import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider

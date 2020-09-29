@@ -2,7 +2,7 @@ package br.com.argmax.imagelabeling.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailViewModel
+import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel
 import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.Binds

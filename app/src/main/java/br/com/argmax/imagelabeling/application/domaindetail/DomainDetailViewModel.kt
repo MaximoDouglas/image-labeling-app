@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.application.modules.domaindetail
+package br.com.argmax.imagelabeling.application.domaindetail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

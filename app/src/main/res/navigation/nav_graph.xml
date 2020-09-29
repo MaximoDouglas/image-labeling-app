@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/domainDetailFragment"
-        android:name="br.com.argmax.imagelabeling.application.modules.domaindetail.DomainDetailFragment"
+        android:name="br.com.argmax.imagelabeling.application.domaindetail.DomainDetailFragment"
         android:label="DomainDetailFragment">
 
         <argument
