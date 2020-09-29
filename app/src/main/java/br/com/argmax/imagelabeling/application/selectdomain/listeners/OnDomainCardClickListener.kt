@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.application.modules.selectdomain.listeners
+package br.com.argmax.imagelabeling.application.selectdomain.listeners
 
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 

@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.application.modules.selectdomain.adapters
+package br.com.argmax.imagelabeling.application.selectdomain.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter.DomainViewHolder
-import br.com.argmax.imagelabeling.application.modules.selectdomain.listeners.OnDomainCardClickListener
+import br.com.argmax.imagelabeling.application.selectdomain.adapters.SelectDomainAdapter.DomainViewHolder
+import br.com.argmax.imagelabeling.application.selectdomain.listeners.OnDomainCardClickListener
 import br.com.argmax.imagelabeling.databinding.DomainCardViewHolderBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import kotlinx.android.extensions.LayoutContainer

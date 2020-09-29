@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/selectDomainFragment"
-        android:name="br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainFragment"
+        android:name="br.com.argmax.imagelabeling.application.selectdomain.SelectDomainFragment"
         android:label="SelectDomainFragment">
 
         <action

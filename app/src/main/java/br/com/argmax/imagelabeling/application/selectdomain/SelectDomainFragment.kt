@@ -1,4 +1,4 @@
-package br.com.argmax.imagelabeling.application.modules.selectdomain
+package br.com.argmax.imagelabeling.application.selectdomain
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,10 +14,10 @@ import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog.Companion.MODEL_CREATION_DIALOG_TAG
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
-import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment
-import br.com.argmax.imagelabeling.application.modules.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
-import br.com.argmax.imagelabeling.application.modules.selectdomain.adapters.SelectDomainAdapter
-import br.com.argmax.imagelabeling.application.modules.selectdomain.listeners.OnDomainCardClickListener
+import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment
+import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
+import br.com.argmax.imagelabeling.application.selectdomain.adapters.SelectDomainAdapter
+import br.com.argmax.imagelabeling.application.selectdomain.listeners.OnDomainCardClickListener
 import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
