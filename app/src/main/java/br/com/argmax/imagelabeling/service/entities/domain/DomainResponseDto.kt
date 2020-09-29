@@ -2,7 +2,7 @@ package br.com.argmax.imagelabeling.service.entities.domain
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.util.*
+import java.util.Date
 
 data class DomainResponseDto(
     val id: Int,
