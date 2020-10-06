@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.argmax.imagelabeling.service.entities.domain.DomainRequestDto
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
+import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -16,6 +18,7 @@ import javax.inject.Inject
 
 class DomainDetailViewModel @Inject constructor(
     private val mImageClassRemoteDataSource: ImageClassRemoteDataSource,
+    private val mDomainRemoteDataSource: DomainRemoteDataSource
     private val contextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
@@ -53,8 +56,16 @@ class DomainDetailViewModel @Inject constructor(
         }
     }
 
-    fun editDomain(editTextContent: String, domainId: Int): DomainResponseDto {
-        TODO("Not yet implemented")
+    fun editDomain(domainDescription: String, domainId: Int): DomainResponseDto {
+        val domainRequestDto = DomainRequestDto(description = domainDescription)
+
+        viewModelScope.launch(handler) {
+            val data = withContext(contextProvider.IO) {
+                mDomainRemoteDataSource.editDomain(domainRequestDto, domainId)
+            }
+
+            stateLiveData.value = DomainDetailViewModelState.EditDomainSuccess(data)
+        }
     }
 
     sealed class DomainDetailViewModelState {
@@ -66,6 +77,9 @@ class DomainDetailViewModel @Inject constructor(
             DomainDetailViewModelState()
 
         data class CreateImageClassSuccess(val data: ImageClassResponseDto) :
+            DomainDetailViewModelState()
+
+        data class EditDomainSuccess(val data: DomainResponseDto) :
             DomainDetailViewModelState()
     }
 
