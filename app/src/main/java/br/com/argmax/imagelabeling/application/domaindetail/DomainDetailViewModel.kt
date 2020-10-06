@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class DomainDetailViewModel @Inject constructor(
     private val mImageClassRemoteDataSource: ImageClassRemoteDataSource,
-    private val mDomainRemoteDataSource: DomainRemoteDataSource
+    private val mDomainRemoteDataSource: DomainRemoteDataSource,
     private val contextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
@@ -56,7 +56,7 @@ class DomainDetailViewModel @Inject constructor(
         }
     }
 
-    fun editDomain(domainDescription: String, domainId: Int): DomainResponseDto {
+    fun editDomain(domainDescription: String, domainId: Int) {
         val domainRequestDto = DomainRequestDto(description = domainDescription)
 
         viewModelScope.launch(handler) {
@@ -79,8 +79,7 @@ class DomainDetailViewModel @Inject constructor(
         data class CreateImageClassSuccess(val data: ImageClassResponseDto) :
             DomainDetailViewModelState()
 
-        data class EditDomainSuccess(val data: DomainResponseDto) :
-            DomainDetailViewModelState()
+        data class EditDomainSuccess(val data: DomainResponseDto) : DomainDetailViewModelState()
     }
 
 }
