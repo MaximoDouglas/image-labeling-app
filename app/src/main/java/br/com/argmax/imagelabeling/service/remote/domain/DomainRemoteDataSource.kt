@@ -9,6 +9,6 @@ interface DomainRemoteDataSource {
 
     suspend fun createDomain(domainRequestDto: DomainRequestDto): DomainResponseDto
 
-    suspend fun editDomain(domainRequestDto: DomainRequestDto, domainId: Int): DomainResponseDto
+    suspend fun editDomain(domainId: Int, domainRequestDto: DomainRequestDto): DomainResponseDto
 
 }

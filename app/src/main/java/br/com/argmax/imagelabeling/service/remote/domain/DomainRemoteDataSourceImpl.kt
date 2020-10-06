@@ -15,4 +15,14 @@ class DomainRemoteDataSourceImpl(
         return mDomainApiDataSource.createDomain(domainRequestDto)
     }
 
+    override suspend fun editDomain(
+        domainId: Int,
+        domainRequestDto: DomainRequestDto
+    ): DomainResponseDto {
+        return mDomainApiDataSource.editDomain(
+            domainId = domainId,
+            domainRequestDto = domainRequestDto
+        )
+    }
+
 }
