@@ -32,6 +32,14 @@
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
+                <ImageView
+                    android:id="@+id/domain_detail_fragment_toolbar_delete_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="12dp"
+                    android:src="@drawable/ic_delete" />
+
             </androidx.appcompat.widget.Toolbar>
 
             <LinearLayout
@@ -88,7 +96,7 @@
                     tools:text="001" />
 
                 <ImageView
-                    android:id="@+id/domain_detail_fragment_domain_description_edit_image_view"
+                    android:id="@+id/domain_detail_fragment_domain_description_edit_icon"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:paddingStart="6dp"

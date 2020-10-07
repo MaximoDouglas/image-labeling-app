@@ -1,5 +1,7 @@
 package br.com.argmax.imagelabeling.application.domaindetail
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,7 @@ import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+
 
 class DomainDetailFragment : DaggerFragment() {
 
@@ -67,6 +70,7 @@ class DomainDetailFragment : DaggerFragment() {
         setDomainDataIntoView()
         setupViewModelObserver()
         setupEditButton()
+        setupDeleteButton()
         setupRecyclerView()
         setupImageClassCreationDialog()
     }
@@ -80,15 +84,32 @@ class DomainDetailFragment : DaggerFragment() {
             }
         })
 
-        mBinding?.domainDetailFragmentDomainDescriptionEditImageView?.setOnClickListener {
+        mBinding?.domainDetailFragmentDomainDescriptionEditIcon?.setOnClickListener {
             showDomainEditDialog()
         }
     }
 
     private fun showDomainEditDialog() {
-        mDomainEditDialog.show(childFragmentManager,
+        mDomainEditDialog.show(
+            childFragmentManager,
             ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
         )
+    }
+
+    private fun setupDeleteButton() {
+        mBinding?.domainDetailFragmentToolbarDeleteIcon?.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(getString(R.string.domain_detail_fragment_delete_domain_dialog_title))
+                .setMessage(getString(R.string.domain_detail_fragment_delete_domain_dialog_body))
+                .setPositiveButton("Yes") { _, _ -> deleteDomain() }
+                .setNegativeButton("No", null)
+                .show()
+        }
+    }
+
+    private fun deleteDomain() {
+
     }
 
     private fun setDomainDataIntoView() {
@@ -157,13 +178,14 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupImageClassCreationDialog() {
-       mImageClassCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
-            override fun onConfirm(editTextContent: String) {
-                mDomainResponseDto?.id?.let { domainId ->
-                    mViewModel?.createImageClass(editTextContent, domainId)
-                }
-            }
-        })
+       mImageClassCreationDialog.setOkButtonClickListener(object :
+           ModelCreationDialogClickListener {
+           override fun onConfirm(editTextContent: String) {
+               mDomainResponseDto?.id?.let { domainId ->
+                   mViewModel?.createImageClass(editTextContent, domainId)
+               }
+           }
+       })
 
         mBinding?.domainDetailFragmentFloatingActionButton?.setOnClickListener {
             showImageClassCreationDialog()
@@ -171,7 +193,8 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun showImageClassCreationDialog() {
-        mImageClassCreationDialog.show(childFragmentManager,
+        mImageClassCreationDialog.show(
+            childFragmentManager,
             ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
         )
     }

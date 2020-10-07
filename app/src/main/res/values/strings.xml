@@ -16,5 +16,7 @@
     <string name="domain_detail_fragment_edit_dialog_hint">Type the new domain description</string>
     <string name="domain_detail_fragment_image_class_creation_dialog_title">Image class creation</string>
     <string name="domain_detail_fragment_image_class_creation_dialog_hint">Type the image class name</string>
+    <string name="domain_detail_fragment_delete_domain_dialog_title">Deleting domain</string>
+    <string name="domain_detail_fragment_delete_domain_dialog_body">Are you sure you want to delete this domain?</string>
 
 </resources>
