@@ -25,9 +25,7 @@ class DomainDetailFragment : DaggerFragment() {
 
     @Inject
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
-
     private var mViewModel: DomainDetailViewModel? = null
-    private val args: DomainDetailFragmentArgs by navArgs()
 
     private var mBinding: DomainDetailFragmentBinding? = null
     private val mImageClassCreationDialog = ModelCreationDialog()
@@ -35,6 +33,8 @@ class DomainDetailFragment : DaggerFragment() {
 
     private val mAdapter = ImageClassAdapter()
     private var mDomainResponseDto: DomainResponseDto? = null
+
+    private val args: DomainDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +64,7 @@ class DomainDetailFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setBundleDataIntoView()
+        setDomainDataIntoView()
         setupViewModelObserver()
         setupEditButton()
         setupRecyclerView()
@@ -94,7 +94,7 @@ class DomainDetailFragment : DaggerFragment() {
         )
     }
 
-    private fun setBundleDataIntoView() {
+    private fun setDomainDataIntoView() {
         if (mDomainResponseDto != null) {
             val domainId = mDomainResponseDto?.id ?: 0
             val domainDescription = mDomainResponseDto?.description ?: ""
@@ -131,6 +131,11 @@ class DomainDetailFragment : DaggerFragment() {
 
             is DomainDetailViewModelState.GetImageClassListSuccess -> {
                 mAdapter.replaceData(viewModelState.data)
+                hideProgressBar()
+            }
+
+            is DomainDetailViewModelState.CreateImageClassSuccess -> {
+                mAdapter.addImageClass(viewModelState.data)
                 hideProgressBar()
             }
         }

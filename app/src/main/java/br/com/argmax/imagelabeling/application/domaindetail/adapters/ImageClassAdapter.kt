@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.image_class_card_view_holder.imageClassCar
 
 class ImageClassAdapter : Adapter<ImageClassCardViewHolder>() {
 
-    private var mData: List<ImageClassResponseDto> = listOf()
+    private var mData: MutableList<ImageClassResponseDto> = mutableListOf()
 
     fun replaceData(imageClassResponseDtoList: List<ImageClassResponseDto>) {
-        mData = imageClassResponseDtoList
+        mData = imageClassResponseDtoList.toMutableList()
         notifyDataSetChanged()
     }
 
@@ -40,6 +40,11 @@ class ImageClassAdapter : Adapter<ImageClassCardViewHolder>() {
 
     override fun onBindViewHolder(holder: ImageClassCardViewHolder, position: Int) {
         holder.updateData(mData[position])
+    }
+
+    fun addImageClass(imageClassResponseDto: ImageClassResponseDto) {
+        mData.add(imageClassResponseDto)
+        notifyItemChanged(itemCount)
     }
 
     inner class ImageClassCardViewHolder(
