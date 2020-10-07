@@ -72,9 +72,6 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupEditButton() {
-        mDomainEditDialog.setTitle(getString(R.string.domain_detail_fragment_edit_dialog_title))
-        mDomainEditDialog.setHint(getString(R.string.domain_detail_fragment_edit_dialog_hint))
-
         mDomainEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mDomainResponseDto?.id?.let { domainId ->
@@ -138,6 +135,12 @@ class DomainDetailFragment : DaggerFragment() {
                 mAdapter.addImageClass(viewModelState.data)
                 hideProgressBar()
             }
+
+            is DomainDetailViewModelState.EditDomainSuccess -> {
+                mDomainResponseDto = viewModelState.data
+                setDomainDataIntoView()
+                hideProgressBar()
+            }
         }
     }
 
@@ -154,10 +157,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupImageClassCreationDialog() {
-        mImageClassCreationDialog.setTitle(getString(R.string.domain_detail_fragment_image_class_creation_dialog_title))
-        mImageClassCreationDialog.setHint(getString(R.string.domain_detail_fragment_image_class_creation_dialog_hint))
-
-        mImageClassCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+       mImageClassCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mDomainResponseDto?.id?.let { domainId ->
                     mViewModel?.createImageClass(editTextContent, domainId)

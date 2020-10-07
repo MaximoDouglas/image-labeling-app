@@ -19,7 +19,7 @@ interface DomainApiDataSource {
     ): DomainResponseDto
 
     @PUT("domains/{domain_id}")
-    fun editDomain(
+    suspend fun editDomain(
         @Path(value = "domain_id") domainId: Int,
         @Body domainRequestDto: DomainRequestDto
     ): DomainResponseDto

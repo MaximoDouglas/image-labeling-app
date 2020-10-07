@@ -49,14 +49,6 @@ class ModelCreationDialog : DialogFragment() {
         mModelCreationDialogClickListener = modelCreationDialogClickListener
     }
 
-    fun setTitle(title: String) {
-        mBinding?.modelCreationDialogTitleTextView?.text = title
-    }
-
-    fun setHint(hint: String) {
-        mBinding?.modelCreationDialogEditText?.hint = hint
-    }
-
     companion object {
         const val MODEL_CREATION_DIALOG_TAG = "model-creation-dialog-tag"
     }
