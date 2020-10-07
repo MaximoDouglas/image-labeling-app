@@ -68,7 +68,7 @@ class DomainDetailFragment : DaggerFragment() {
         setupViewModelObserver()
         setupEditButton()
         setupRecyclerView()
-        setupFloatingActionButton()
+        setupImageClassCreationDialog()
     }
 
     private fun setupEditButton() {
@@ -153,7 +153,10 @@ class DomainDetailFragment : DaggerFragment() {
         mBinding?.domainDetailFragmentRecyclerView?.adapter = mAdapter
     }
 
-    private fun setupFloatingActionButton() {
+    private fun setupImageClassCreationDialog() {
+        mImageClassCreationDialog.setTitle(getString(R.string.domain_detail_fragment_image_class_creation_dialog_title))
+        mImageClassCreationDialog.setHint(getString(R.string.domain_detail_fragment_image_class_creation_dialog_hint))
+
         mImageClassCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mDomainResponseDto?.id?.let { domainId ->

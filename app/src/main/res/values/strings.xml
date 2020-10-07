@@ -4,13 +4,17 @@
     <string name="OK">OK</string>
 
     <string name="select_domain_fragment_toolbar_text">Domain Selection</string>
-    <string name="domain_detail_fragment_toolbar_text">Domain Details</string>
+
     <string name="model_creation_dialog_title">Model Creation</string>
     <string name="model_creation_dialog_edit_text_hint">Type the model name</string>
+
+    <string name="domain_detail_fragment_toolbar_text">Domain Details</string>
     <string name="domain_detail_fragment_id_field_title_text_view">id:</string>
     <string name="domain_detail_fragment_description_field_title_text_view">Description:</string>
     <string name="domain_detail_fragment_classes_label_text_view">Classes:</string>
     <string name="domain_detail_fragment_edit_dialog_title">Edit domain description</string>
     <string name="domain_detail_fragment_edit_dialog_hint">Type the new domain description</string>
+    <string name="domain_detail_fragment_image_class_creation_dialog_title">Image class creation</string>
+    <string name="domain_detail_fragment_image_class_creation_dialog_hint">Type the image class name</string>
 
 </resources>
