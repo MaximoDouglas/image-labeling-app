@@ -5,8 +5,8 @@
 
     <string name="select_domain_fragment_toolbar_text">Domain Selection</string>
 
-    <string name="model_creation_dialog_title">Model Creation</string>
-    <string name="model_creation_dialog_edit_text_hint">Type the model name</string>
+    <string name="model_dialog_title">Model</string>
+    <string name="model_dialog_edit_text_hint">Type the model name/description</string>
 
     <string name="domain_detail_fragment_toolbar_text">Domain Details</string>
     <string name="domain_detail_fragment_id_field_title_text_view">id:</string>
