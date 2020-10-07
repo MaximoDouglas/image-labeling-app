@@ -109,7 +109,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun deleteDomain() {
-
+        mDomainResponseDto?.id?.let { mViewModel?.deleteDomain(it) }
     }
 
     private fun setDomainDataIntoView() {

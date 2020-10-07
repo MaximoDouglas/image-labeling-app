@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.service.entities.domain.DomainRequestDto
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
@@ -71,8 +72,22 @@ class DomainDetailViewModel @Inject constructor(
         }
     }
 
+    fun deleteDomain(domainId: Int) {
+        viewModelScope.launch(handler) {
+            withContext(contextProvider.IO) {
+                mDomainRemoteDataSource.deleteDomain(
+                    domainId = domainId
+                )
+            }
+
+            stateLiveData.value = DomainDetailViewModelState.DeleteDomainSuccess
+        }
+    }
+
     sealed class DomainDetailViewModelState {
         object Loading : DomainDetailViewModelState()
+
+        object DeleteDomainSuccess : DomainDetailViewModelState()
 
         data class Error(val throwable: Throwable) : DomainDetailViewModelState()
 
