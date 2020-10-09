@@ -25,4 +25,8 @@ class DomainRemoteDataSourceImpl(
         )
     }
 
+    override suspend fun deleteDomain(domainId: Int) {
+        mDomainApiDataSource.deleteDomain(domainId = domainId)
+    }
+
 }
