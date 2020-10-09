@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -161,6 +162,10 @@ class DomainDetailFragment : DaggerFragment() {
                 mDomainResponseDto = viewModelState.data
                 setDomainDataIntoView()
                 hideProgressBar()
+            }
+
+            is DomainDetailViewModelState.DeleteDomainSuccess -> {
+                findNavController().navigateUp()
             }
         }
     }

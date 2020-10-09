@@ -2,6 +2,7 @@ package br.com.argmax.imagelabeling.service.remote.domain
 
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.domain.DomainRequestDto
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -28,6 +29,6 @@ interface DomainApiDataSource {
     @DELETE("domains/{domain_id}")
     suspend fun deleteDomain(
         @Path(value = "domain_id") domainId: Int
-    )
+    ): Response<Unit>
 
 }
