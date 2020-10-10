@@ -57,6 +57,10 @@ class ImageClassAdapter(
         override val containerView: View?
             get() = itemView
 
+        init {
+            imageClassCardComponent.setOnClickListener(this)
+        }
+
         fun updateData(imageClassResponseDto: ImageClassResponseDto) {
             imageClassCardComponent.setImageClassResponseDto(imageClassResponseDto)
         }

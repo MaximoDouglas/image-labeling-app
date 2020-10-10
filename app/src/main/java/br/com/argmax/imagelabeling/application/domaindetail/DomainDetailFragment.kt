@@ -1,7 +1,6 @@
 package br.com.argmax.imagelabeling.application.domaindetail
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +17,13 @@ import br.com.argmax.imagelabeling.application.components.modelcreationdialog.Mo
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
+import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
 import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
+import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-
 
 class DomainDetailFragment : DaggerFragment() {
 
@@ -35,10 +35,18 @@ class DomainDetailFragment : DaggerFragment() {
     private val mImageClassCreationDialog = ModelCreationDialog()
     private val mDomainEditDialog = ModelCreationDialog()
 
-    private val mAdapter = ImageClassAdapter()
     private var mDomainResponseDto: DomainResponseDto? = null
-
     private val args: DomainDetailFragmentArgs by navArgs()
+
+    private val mAdapter = ImageClassAdapter(object : OnImageClassCardClickListener {
+        override fun onCardClick(imageCLassResponseDto: ImageClassResponseDto) {
+            navigateToImageClassDetailFragment(imageCLassResponseDto)
+        }
+    })
+
+    private fun navigateToImageClassDetailFragment(imageCLassResponseDto: ImageClassResponseDto) {
+        print(imageCLassResponseDto.name)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
