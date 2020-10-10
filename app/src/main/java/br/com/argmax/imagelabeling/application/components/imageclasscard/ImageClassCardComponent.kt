@@ -22,4 +22,8 @@ class ImageClassCardComponent @JvmOverloads constructor(
         mBinding?.executePendingBindings()
     }
 
+    fun getImageClassResponseDto(): ImageClassResponseDto? {
+        return mBinding?.imageClassResponseDto
+    }
+
 }

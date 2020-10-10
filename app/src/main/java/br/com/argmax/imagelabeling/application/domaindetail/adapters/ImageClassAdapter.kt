@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter.ImageClassCardViewHolder
+import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
 import br.com.argmax.imagelabeling.databinding.ImageClassCardViewHolderBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.image_class_card_view_holder.imageClassCardComponent
 
-class ImageClassAdapter : Adapter<ImageClassCardViewHolder>() {
+class ImageClassAdapter(
+    val mOnImageClassCardClickListener: OnImageClassCardClickListener
+) : Adapter<ImageClassCardViewHolder>() {
 
     private var mData: MutableList<ImageClassResponseDto> = mutableListOf()
 
@@ -49,13 +52,20 @@ class ImageClassAdapter : Adapter<ImageClassCardViewHolder>() {
 
     inner class ImageClassCardViewHolder(
         itemView: View
-    ) : RecyclerView.ViewHolder(itemView), LayoutContainer {
+    ) : RecyclerView.ViewHolder(itemView), LayoutContainer, View.OnClickListener {
 
         override val containerView: View?
             get() = itemView
 
         fun updateData(imageClassResponseDto: ImageClassResponseDto) {
             imageClassCardComponent.setImageClassResponseDto(imageClassResponseDto)
+        }
+
+        override fun onClick(p0: View?) {
+            val imageClassResponseDto = imageClassCardComponent.getImageClassResponseDto()
+            imageClassResponseDto?.let {
+                mOnImageClassCardClickListener.onCardClick(it)
+            }
         }
     }
 
