@@ -29,7 +29,7 @@ class SelectDomainAdapter(
         val domainCardViewHolderBinding: DomainCardViewHolderBinding =
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.domain_card_view_holder,
+                R.layout.view_holder_domain_card,
                 parent,
                 false
             )

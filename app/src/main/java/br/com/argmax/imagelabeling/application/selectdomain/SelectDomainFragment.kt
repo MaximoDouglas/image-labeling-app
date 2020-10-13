@@ -45,7 +45,7 @@ class SelectDomainFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        mBinding = inflate(inflater, R.layout.select_domain_fragment, container, false)
+        mBinding = inflate(inflater, R.layout.fragment_select_domain, container, false)
 
         initViewModel()
 

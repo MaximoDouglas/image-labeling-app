@@ -14,7 +14,7 @@ class ImageClassCardComponent @JvmOverloads constructor(
 ) : MaterialCardView(context, attrs, defStyle) {
 
     private var mBinding: ImageClassCardComponentBinding? = DataBindingUtil.inflate(
-        LayoutInflater.from(context), R.layout.image_class_card_component, this, true
+        LayoutInflater.from(context), R.layout.component_image_class_card, this, true
     )
 
     fun setImageClassResponseDto(imageClassResponseDto: ImageClassResponseDto) {

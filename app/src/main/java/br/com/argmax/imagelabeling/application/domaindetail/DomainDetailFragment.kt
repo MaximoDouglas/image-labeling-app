@@ -54,7 +54,7 @@ class DomainDetailFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        mBinding = inflate(inflater, R.layout.domain_detail_fragment, container, false)
+        mBinding = inflate(inflater, R.layout.fragment_domain_detail, container, false)
 
         unwrapArgs()
         initViewModel()

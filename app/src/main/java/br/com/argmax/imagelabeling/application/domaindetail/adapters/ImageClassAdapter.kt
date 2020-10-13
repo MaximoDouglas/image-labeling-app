@@ -29,7 +29,7 @@ class ImageClassAdapter(
         val imageClassViewHolderBinding: ImageClassCardViewHolderBinding =
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
-                R.layout.image_class_card_view_holder,
+                R.layout.view_holder_image_class_card,
                 parent,
                 false
             )

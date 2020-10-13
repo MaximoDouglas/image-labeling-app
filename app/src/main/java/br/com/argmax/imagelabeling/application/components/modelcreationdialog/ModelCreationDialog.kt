@@ -21,7 +21,7 @@ class ModelCreationDialog : DialogFragment() {
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        mBinding = inflate(inflater, R.layout.model_creation_dialog, container, false)
+        mBinding = inflate(inflater, R.layout.dialog_model_creation, container, false)
 
         return mBinding?.root
     }
