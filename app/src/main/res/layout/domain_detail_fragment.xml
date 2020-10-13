@@ -37,7 +37,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/domain_detail_fragment_toolbar_text"
                     android:textColor="@color/WHITE"
                     android:textSize="18sp"
                     android:textStyle="bold" />

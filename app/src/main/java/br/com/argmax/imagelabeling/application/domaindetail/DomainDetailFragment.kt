@@ -134,10 +134,11 @@ class DomainDetailFragment : DaggerFragment() {
 
     private fun setDomainDataIntoView() {
         if (mDomainResponseDto != null) {
-            val domainId = mDomainResponseDto?.id ?: 0
+            val domainId = (mDomainResponseDto?.id ?: 0).toString()
             val domainDescription = mDomainResponseDto?.description ?: ""
 
-            mBinding?.domainDetailFragmentDomainIdTextView?.text = domainId.toString()
+            mBinding?.domainDetailFragmentToolbarTitle?.text = domainDescription
+            mBinding?.domainDetailFragmentDomainIdTextView?.text = domainId
             mBinding?.domainDetailFragmentDomainDescriptionTextView?.text = domainDescription
         }
     }
