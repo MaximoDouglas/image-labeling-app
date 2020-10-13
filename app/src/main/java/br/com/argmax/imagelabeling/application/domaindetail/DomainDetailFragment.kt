@@ -78,6 +78,7 @@ class DomainDetailFragment : DaggerFragment() {
 
         setDomainDataIntoView()
         setupViewModelObserver()
+        setupToolbarBackButton()
         setupEditButton()
         setupDeleteButton()
         setupRecyclerView()
@@ -103,6 +104,16 @@ class DomainDetailFragment : DaggerFragment() {
             childFragmentManager,
             ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
         )
+    }
+
+    private fun setupToolbarBackButton() {
+        mBinding?.domainDetailFragmentToolbarBackIcon?.setOnClickListener {
+            navigateBack()
+        }
+    }
+
+    private fun navigateBack() {
+        findNavController().navigateUp()
     }
 
     private fun setupDeleteButton() {
@@ -173,7 +184,7 @@ class DomainDetailFragment : DaggerFragment() {
             }
 
             is DomainDetailViewModelState.DeleteDomainSuccess -> {
-                findNavController().navigateUp()
+                navigateBack()
             }
         }
     }
