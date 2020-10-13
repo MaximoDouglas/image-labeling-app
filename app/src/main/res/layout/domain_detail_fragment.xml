@@ -22,6 +22,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <ImageView
+                    android:id="@+id/domain_detail_fragment_toolbar_back_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="6dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="6dp"
+                    android:paddingBottom="6dp"
+                    android:src="@drawable/ic_arrow_back" />
+
                 <TextView
                     android:id="@+id/domain_detail_fragment_toolbar_title"
                     android:layout_width="wrap_content"
