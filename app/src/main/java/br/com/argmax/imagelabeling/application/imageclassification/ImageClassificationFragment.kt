@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import br.com.argmax.imagelabeling.R
+import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
@@ -27,7 +28,7 @@ class ImageClassificationFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        mBinding = inflate(inflater, R.layout.fragment_select_domain, container, false)
+        mBinding = inflate(inflater, R.layout.fragment_image_classification, container, false)
 
         initViewModel()
 
@@ -54,15 +55,13 @@ class ImageClassificationFragment : DaggerFragment() {
                 handleViewModelState(viewModelState)
             })
 
-        mViewModel?.getDomainList()
+        mViewModel?.getImage()
     }
 
     private fun handleViewModelState(viewModelState: ImageClassificationViewModelState) {
         when (viewModelState) {
             is ImageClassificationViewModelState.Loading -> {
-                if (mAdapter.itemCount == 0) {
-                    mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
-                }
+                mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
             }
 
             is ImageClassificationViewModelState.Error -> {
