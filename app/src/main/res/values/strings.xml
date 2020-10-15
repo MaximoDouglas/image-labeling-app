@@ -18,8 +18,8 @@
     <string name="domain_detail_fragment_delete_domain_dialog_title">Deleting domain</string>
     <string name="domain_detail_fragment_delete_domain_dialog_body">Are you sure you want to delete this domain?</string>
 
-    <string name="image_class_detail_fragment_id_label_text_view">id:</string>
-    <string name="image_class_detail_fragment_name_label_text_view">Name:</string>
-    <string name="image_class_detail_fragment_search_term_label">Search term:</string>
+    <string name="image_classification_fragment_id_label_text_view">id:</string>
+    <string name="image_classification_fragment_name_label_text_view">Name:</string>
+    <string name="image_classification_fragment_search_term_label">Search term:</string>
 
 </resources>

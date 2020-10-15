@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="0dp"
                 android:paddingEnd="8dp"
-                android:text="@string/image_class_detail_fragment_id_label_text_view"
+                android:text="@string/image_classification_fragment_id_label_text_view"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
 
@@ -88,7 +88,7 @@
                 android:layout_gravity="center"
                 android:paddingStart="0dp"
                 android:paddingEnd="8dp"
-                android:text="@string/image_class_detail_fragment_name_label_text_view"
+                android:text="@string/image_classification_fragment_name_label_text_view"
                 android:textStyle="bold" />
 
             <TextView
@@ -126,7 +126,7 @@
                 android:layout_gravity="center"
                 android:paddingStart="0dp"
                 android:paddingEnd="8dp"
-                android:text="@string/image_class_detail_fragment_search_term_label"
+                android:text="@string/image_classification_fragment_search_term_label"
                 android:textStyle="bold" />
 
             <LinearLayout
