@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.service.entities.domain.DomainRequestDto
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto

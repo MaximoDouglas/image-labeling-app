@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.databinding.ImageClassCardComponentBinding
+import br.com.argmax.imagelabeling.databinding.ComponentImageClassCardBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import com.google.android.material.card.MaterialCardView
 
@@ -13,7 +13,7 @@ class ImageClassCardComponent @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : MaterialCardView(context, attrs, defStyle) {
 
-    private var mBinding: ImageClassCardComponentBinding? = DataBindingUtil.inflate(
+    private var mBinding: ComponentImageClassCardBinding? = DataBindingUtil.inflate(
         LayoutInflater.from(context), R.layout.component_image_class_card, this, true
     )
 

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.DialogFragment
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.databinding.ModelCreationDialogBinding
+import br.com.argmax.imagelabeling.databinding.DialogModelCreationBinding
 
 class ModelCreationDialog : DialogFragment() {
 
-    private var mBinding: ModelCreationDialogBinding? = null
+    private var mBinding: DialogModelCreationBinding? = null
     private var mModelCreationDialogClickListener: ModelCreationDialogClickListener? = null
 
     override fun onCreateView(

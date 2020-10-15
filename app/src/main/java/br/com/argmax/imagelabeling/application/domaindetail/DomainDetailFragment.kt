@@ -18,7 +18,7 @@ import br.com.argmax.imagelabeling.application.components.modelcreationdialog.Mo
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
 import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
-import br.com.argmax.imagelabeling.databinding.DomainDetailFragmentBinding
+import br.com.argmax.imagelabeling.databinding.FragmentDomainDetailBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
@@ -31,7 +31,7 @@ class DomainDetailFragment : DaggerFragment() {
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
     private var mViewModel: DomainDetailViewModel? = null
 
-    private var mBinding: DomainDetailFragmentBinding? = null
+    private var mBinding: FragmentDomainDetailBinding? = null
     private val mImageClassCreationDialog = ModelCreationDialog()
     private val mDomainEditDialog = ModelCreationDialog()
 

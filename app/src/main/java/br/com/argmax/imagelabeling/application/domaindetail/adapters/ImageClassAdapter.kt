@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter.ImageClassCardViewHolder
 import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
-import br.com.argmax.imagelabeling.databinding.ImageClassCardViewHolderBinding
+import br.com.argmax.imagelabeling.databinding.ViewHolderImageClassCardBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.image_class_card_view_holder.imageClassCardComponent
+import kotlinx.android.synthetic.main.view_holder_image_class_card.imageClassCardComponent
 
 class ImageClassAdapter(
     val mOnImageClassCardClickListener: OnImageClassCardClickListener
@@ -26,7 +26,7 @@ class ImageClassAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageClassCardViewHolder {
-        val imageClassViewHolderBinding: ImageClassCardViewHolderBinding =
+        val imageClassViewHolderBinding: ViewHolderImageClassCardBinding =
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.view_holder_image_class_card,

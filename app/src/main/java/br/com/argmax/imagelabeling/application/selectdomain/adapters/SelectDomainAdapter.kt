@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.selectdomain.adapters.SelectDomainAdapter.DomainViewHolder
 import br.com.argmax.imagelabeling.application.selectdomain.listeners.OnDomainCardClickListener
-import br.com.argmax.imagelabeling.databinding.DomainCardViewHolderBinding
+import br.com.argmax.imagelabeling.databinding.ViewHolderDomainCardBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.domain_card_view_holder.domainCardComponent
+import kotlinx.android.synthetic.main.view_holder_domain_card.domainCardComponent
 
 class SelectDomainAdapter(
     val onDomainCardClickListener: OnDomainCardClickListener
@@ -26,7 +26,7 @@ class SelectDomainAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DomainViewHolder {
-        val domainCardViewHolderBinding: DomainCardViewHolderBinding =
+        val domainCardViewHolderBinding: ViewHolderDomainCardBinding =
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.view_holder_domain_card,

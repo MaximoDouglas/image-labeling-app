@@ -18,7 +18,7 @@ import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainFragment
 import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.selectdomain.adapters.SelectDomainAdapter
 import br.com.argmax.imagelabeling.application.selectdomain.listeners.OnDomainCardClickListener
-import br.com.argmax.imagelabeling.databinding.SelectDomainFragmentBinding
+import br.com.argmax.imagelabeling.databinding.FragmentSelectDomainBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
@@ -30,7 +30,7 @@ class SelectDomainFragment : DaggerFragment() {
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
     private var mViewModel: SelectDomainViewModel? = null
 
-    private var mBinding: SelectDomainFragmentBinding? = null
+    private var mBinding: FragmentSelectDomainBinding? = null
     private val mModelCreationDialog = ModelCreationDialog()
 
     private val mAdapter = SelectDomainAdapter(object : OnDomainCardClickListener {
