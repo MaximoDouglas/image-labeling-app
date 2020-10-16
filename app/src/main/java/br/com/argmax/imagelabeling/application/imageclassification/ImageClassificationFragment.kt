@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
@@ -54,20 +55,32 @@ class ImageClassificationFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setDataIntoView()
+        setupView()
 
         setupViewModel()
     }
 
-    private fun setDataIntoView() {
-        if (mImageClassResponseDto != null) {
-            val imageClassId = mImageClassResponseDto?.id.toString()
-            val imageClassName = mImageClassResponseDto?.name
+    private fun setupView() {
+        setupToolbarBackNavigation()
 
-            mBinding?.toolbarTitle?.text = imageClassName
-            mBinding?.imageClassIdTextView?.text = imageClassId
-            mBinding?.imageClassNameTextView?.text = imageClassName
+        mImageClassResponseDto?.let {
+            setImageClassDataIntoView(it)
         }
+    }
+
+    private fun setupToolbarBackNavigation() {
+        mBinding?.toolbarBackIcon?.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun setImageClassDataIntoView(imageClassResponseDto: ImageClassResponseDto) {
+        val imageClassId = imageClassResponseDto.id.toString()
+        val imageClassName = imageClassResponseDto.name
+
+        mBinding?.toolbarTitle?.text = imageClassName
+        mBinding?.imageClassIdTextView?.text = imageClassId
+        mBinding?.imageClassNameTextView?.text = imageClassName
     }
 
     private fun setupViewModel() {
