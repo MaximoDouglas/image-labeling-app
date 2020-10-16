@@ -40,12 +40,16 @@ class DomainDetailFragment : DaggerFragment() {
 
     private val mAdapter = ImageClassAdapter(object : OnImageClassCardClickListener {
         override fun onCardClick(imageCLassResponseDto: ImageClassResponseDto) {
-            navigateToImageClassDetailFragment(imageCLassResponseDto)
+            navigateToImageClassificationFragment(imageCLassResponseDto)
         }
     })
 
-    private fun navigateToImageClassDetailFragment(imageCLassResponseDto: ImageClassResponseDto) {
-        print(imageCLassResponseDto.name)
+    private fun navigateToImageClassificationFragment(imageCLassResponseDto: ImageClassResponseDto) {
+        findNavController().navigate(
+            DomainDetailFragmentDirections.actionDomainDetailFragmentToImageClassificationFragment(
+                imageCLassResponseDto
+            )
+        )
     }
 
     override fun onCreateView(

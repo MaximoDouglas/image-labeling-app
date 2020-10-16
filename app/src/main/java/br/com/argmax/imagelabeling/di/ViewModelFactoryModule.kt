@@ -3,6 +3,7 @@ package br.com.argmax.imagelabeling.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel
+import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel
 import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainViewModel
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.Binds
@@ -36,6 +37,16 @@ abstract class DomainDetailViewModelsModule {
     @IntoMap
     @ViewModelKey(DomainDetailViewModel::class)
     abstract fun bindsDomainDetailViewModel(domainDetailViewModel: DomainDetailViewModel): ViewModel
+
+}
+
+@Module
+abstract class ImageClassificationViewModelsModule {
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ImageClassificationViewModel::class)
+    abstract fun bindsImageClassificationViewModel(imageClassificationViewModel: ImageClassificationViewModel): ViewModel
 
 }
 

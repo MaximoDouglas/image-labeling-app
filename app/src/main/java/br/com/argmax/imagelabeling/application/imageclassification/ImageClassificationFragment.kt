@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
+import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -18,7 +20,11 @@ class ImageClassificationFragment : DaggerFragment() {
 
     @Inject
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
+
     private var mViewModel: ImageClassificationViewModel? = null
+
+    private val args: ImageClassificationFragmentArgs by navArgs()
+    private var mImageClassResponseDto: ImageClassResponseDto? = null
 
     private var mBinding: FragmentImageClassificationBinding? = null
 
@@ -30,9 +36,14 @@ class ImageClassificationFragment : DaggerFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         mBinding = inflate(inflater, R.layout.fragment_image_classification, container, false)
 
+        unwrapArgs()
         initViewModel()
 
         return mBinding?.root
+    }
+
+    private fun unwrapArgs() {
+        mImageClassResponseDto = args.imageCLassResponseDto
     }
 
     private fun initViewModel() {
@@ -43,7 +54,20 @@ class ImageClassificationFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setDataIntoView()
+
         setupViewModel()
+    }
+
+    private fun setDataIntoView() {
+        if (mImageClassResponseDto != null) {
+            val imageClassId = mImageClassResponseDto?.id.toString()
+            val imageClassName = mImageClassResponseDto?.name
+
+            mBinding?.toolbarTitle?.text = imageClassName
+            mBinding?.imageClassIdTextView?.text = imageClassId
+            mBinding?.imageClassNameTextView?.text = imageClassName
+        }
     }
 
     private fun setupViewModel() {

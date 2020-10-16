@@ -24,6 +24,21 @@
             android:name="domainResponseDto"
             app:argType="br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto" />
 
+        <action
+            android:id="@+id/action_domainDetailFragment_to_imageClassificationFragment"
+            app:destination="@id/imageClassificationFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageClassificationFragment"
+        android:name="br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationFragment"
+        android:label="ImageClassificationFragment" >
+
+        <argument
+            android:name="imageCLassResponseDto"
+            app:argType="br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto" />
+
     </fragment>
 
 </navigation>
