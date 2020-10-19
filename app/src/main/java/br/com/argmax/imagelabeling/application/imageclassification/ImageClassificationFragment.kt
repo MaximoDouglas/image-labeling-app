@@ -91,8 +91,6 @@ class ImageClassificationFragment : DaggerFragment() {
             Observer { viewModelState ->
                 handleViewModelState(viewModelState)
             })
-
-        mViewModel?.getImage()
     }
 
     private fun handleViewModelState(viewModelState: ImageClassificationViewModelState) {
@@ -106,7 +104,7 @@ class ImageClassificationFragment : DaggerFragment() {
                 print(viewModelState.throwable.localizedMessage)
             }
 
-            is ImageClassificationViewModelState.GetImageSuccess -> {
+            is ImageClassificationViewModelState.GetGoogleImageSuccess -> {
                 hideProgressBar()
             }
 
