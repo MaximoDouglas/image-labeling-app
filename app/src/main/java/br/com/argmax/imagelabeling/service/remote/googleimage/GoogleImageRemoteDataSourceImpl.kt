@@ -1,18 +1,13 @@
 package br.com.argmax.imagelabeling.service.remote.googleimage
 
-import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
-import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
+import br.com.argmax.imagelabeling.service.entities.googleimage.GoogleImageResponseDto
 
 class GoogleImageRemoteDataSourceImpl(
-    private val mImageClassApiDataSource: ImageClassApiDataSource
-) : ImageClassRemoteDataSource {
+    private val mGoogleImageApiDataSource: GoogleImageApiDataSource
+) : GoogleImageRemoteDataSource {
 
-    override suspend fun imageClassListByDomainId(domainId: Int): List<ImageClassResponseDto> {
-        return mImageClassApiDataSource.imageClassList(domainId)
-    }
-
-    override suspend fun createImageClass(imageClassRequestDto: ImageClassRequestDto): ImageClassResponseDto {
-        return mImageClassApiDataSource.createImageClass(imageClassRequestDto)
+    override suspend fun googleImageListBySearchTerm(searchTerm: String): List<GoogleImageResponseDto> {
+        return mGoogleImageApiDataSource.googleImageList(searchTerm)
     }
 
 }

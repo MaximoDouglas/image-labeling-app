@@ -4,6 +4,9 @@ import br.com.argmax.imagelabeling.BuildConfig
 import br.com.argmax.imagelabeling.service.remote.domain.DomainApiDataSource
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSourceImpl
+import br.com.argmax.imagelabeling.service.remote.googleimage.GoogleImageApiDataSource
+import br.com.argmax.imagelabeling.service.remote.googleimage.GoogleImageRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.googleimage.GoogleImageRemoteDataSourceImpl
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassApiDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSourceImpl
@@ -48,6 +51,20 @@ object AppModule {
     @JvmStatic
     fun provideImageClassApiDataSource(retrofit: Retrofit): ImageClassApiDataSource {
         return retrofit.create(ImageClassApiDataSource::class.java)
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideGoogleImageRemoteDataSource(googleImageApiDataSource: GoogleImageApiDataSource): GoogleImageRemoteDataSource {
+        return GoogleImageRemoteDataSourceImpl(googleImageApiDataSource)
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideGoogleImageApiDataSource(retrofit: Retrofit): GoogleImageApiDataSource {
+        return retrofit.create(GoogleImageApiDataSource::class.java)
     }
 
 }
