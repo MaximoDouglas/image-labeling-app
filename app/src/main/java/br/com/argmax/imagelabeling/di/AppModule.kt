@@ -77,6 +77,7 @@ object RemoteServiceModule {
     @JvmStatic
     fun provideRetrofitService(gsonBuilder: Gson, httpClient: OkHttpClient.Builder): Retrofit {
         return Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
             .client(httpClient.build())
