@@ -16,7 +16,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
+import retrofit2.Retrofit.Builder
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -35,8 +35,10 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideDomainApiDataSource(retrofit: Retrofit): DomainApiDataSource {
-        return retrofit.create(DomainApiDataSource::class.java)
+    fun provideDomainApiDataSource(retrofitBuilder: Builder): DomainApiDataSource {
+        return retrofitBuilder
+            .baseUrl(BuildConfig.BASE_URL).build()
+            .create(DomainApiDataSource::class.java)
     }
 
     @Singleton
@@ -49,8 +51,10 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideImageClassApiDataSource(retrofit: Retrofit): ImageClassApiDataSource {
-        return retrofit.create(ImageClassApiDataSource::class.java)
+    fun provideImageClassApiDataSource(retrofitBuilder: Builder): ImageClassApiDataSource {
+        return retrofitBuilder
+            .baseUrl(BuildConfig.BASE_URL).build()
+            .create(ImageClassApiDataSource::class.java)
     }
 
     @Singleton
@@ -63,8 +67,10 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideGoogleImageApiDataSource(retrofit: Retrofit): GoogleImageApiDataSource {
-        return retrofit.create(GoogleImageApiDataSource::class.java)
+    fun provideGoogleImageApiDataSource(retrofitBuilder: Builder): GoogleImageApiDataSource {
+        return retrofitBuilder
+            .baseUrl(BuildConfig.SERP_BASE_URL).build()
+            .create(GoogleImageApiDataSource::class.java)
     }
 
 }
@@ -75,13 +81,11 @@ object RemoteServiceModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideRetrofitService(gsonBuilder: Gson, httpClient: OkHttpClient.Builder): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+    fun provideRetrofitBuilder(gsonBuilder: Gson, httpClient: OkHttpClient.Builder): Builder {
+        return Builder()
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder))
             .client(httpClient.build())
-            .build()
     }
 
     @Singleton
