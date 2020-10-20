@@ -1,5 +1,6 @@
 package br.com.argmax.imagelabeling.service.remote.domain
 
+import br.com.argmax.imagelabeling.BuildConfig
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.domain.DomainRequestDto
 import retrofit2.Response
@@ -12,21 +13,21 @@ import retrofit2.http.Path
 
 interface DomainApiDataSource {
 
-    @GET("domains/")
+    @GET(BuildConfig.BASE_URL + "domains/")
     suspend fun domainList(): List<DomainResponseDto>
 
-    @POST("domains/")
+    @POST(BuildConfig.BASE_URL + "domains/")
     suspend fun createDomain(
         @Body request: DomainRequestDto
     ): DomainResponseDto
 
-    @PUT("domains/{domain_id}")
+    @PUT(BuildConfig.BASE_URL + "domains/{domain_id}")
     suspend fun editDomain(
         @Path(value = "domain_id") domainId: Int,
         @Body domainRequestDto: DomainRequestDto
     ): DomainResponseDto
 
-    @DELETE("domains/{domain_id}")
+    @DELETE(BuildConfig.BASE_URL + "domains/{domain_id}")
     suspend fun deleteDomain(
         @Path(value = "domain_id") domainId: Int
     ): Response<Unit>

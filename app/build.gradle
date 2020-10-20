@@ -32,6 +32,7 @@ android {
     productFlavors {
         local {
             buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:3000/\""
+            buildConfigField "String", "SERP_BASE_URL", "\"https://serpapi.com/\""
         }
     }
 

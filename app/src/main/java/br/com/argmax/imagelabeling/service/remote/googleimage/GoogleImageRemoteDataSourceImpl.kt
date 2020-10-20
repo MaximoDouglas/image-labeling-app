@@ -7,7 +7,7 @@ class GoogleImageRemoteDataSourceImpl(
 ) : GoogleImageRemoteDataSource {
 
     override suspend fun googleImageListBySearchTerm(searchTerm: String): List<GoogleImageResponseDto> {
-        return mGoogleImageApiDataSource.googleImageList(searchTerm)
+        return mGoogleImageApiDataSource.googleImageList(searchTerm).googleImageResponseDtoList
     }
 
 }
