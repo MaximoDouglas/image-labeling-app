@@ -8,6 +8,10 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs"
 
+def apiSecretsFile = rootProject.file("apikey.properties")
+def apiSecretsProperties = new Properties()
+apiSecretsProperties.load(new FileInputStream(apiSecretsFile))
+
 android {
 
     compileSdkVersion 30
@@ -18,6 +22,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "RAPID_API_HOST", apiSecretsProperties['RAPID_API_HOST'])
+        buildConfigField("String", "RAPID_API_KEY", apiSecretsProperties['RAPID_API_KEY'])
     }
 
     buildTypes {
@@ -31,8 +38,8 @@ android {
 
     productFlavors {
         local {
-            buildConfigField "String", "BASE_URL", "\"http://10.0.2.2:3000/\""
-            buildConfigField "String", "SERP_BASE_URL", "\"https://rapidapi.p.rapidapi.com/\""
+            buildConfigField "String", "IMAGE_LABELING_API_URL", "\"http://10.0.2.2:3000/\""
+            buildConfigField "String", "RAPID_BASE_URL", "\"https://rapidapi.p.rapidapi.com/\""
         }
     }
 

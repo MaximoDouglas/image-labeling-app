@@ -37,7 +37,7 @@ object AppModule {
     @JvmStatic
     fun provideDomainApiDataSource(retrofitBuilder: Builder): DomainApiDataSource {
         return retrofitBuilder
-            .baseUrl(BuildConfig.BASE_URL).build()
+            .baseUrl(BuildConfig.IMAGE_LABELING_API_URL).build()
             .create(DomainApiDataSource::class.java)
     }
 
@@ -53,7 +53,7 @@ object AppModule {
     @JvmStatic
     fun provideImageClassApiDataSource(retrofitBuilder: Builder): ImageClassApiDataSource {
         return retrofitBuilder
-            .baseUrl(BuildConfig.BASE_URL).build()
+            .baseUrl(BuildConfig.IMAGE_LABELING_API_URL).build()
             .create(ImageClassApiDataSource::class.java)
     }
 
@@ -69,7 +69,7 @@ object AppModule {
     @JvmStatic
     fun provideGoogleImageApiDataSource(retrofitBuilder: Builder): GoogleImageApiDataSource {
         return retrofitBuilder
-            .baseUrl(BuildConfig.SERP_BASE_URL).build()
+            .baseUrl(BuildConfig.RAPID_BASE_URL).build()
             .create(GoogleImageApiDataSource::class.java)
     }
 
