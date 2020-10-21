@@ -1,3 +1,6 @@
+### Secret keys file
+apikey.properties
+
 ### Android ###
 # Built application files
 *.apk
