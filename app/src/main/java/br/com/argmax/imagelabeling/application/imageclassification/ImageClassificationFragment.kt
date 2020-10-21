@@ -56,21 +56,13 @@ class ImageClassificationFragment : DaggerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupView()
-
         setupViewModel()
+        setupInteractions()
     }
 
     private fun setupView() {
-        setupToolbarBackNavigation()
-
         mImageClassResponseDto?.let {
             setImageClassDataIntoView(it)
-        }
-    }
-
-    private fun setupToolbarBackNavigation() {
-        mBinding?.toolbarBackIcon?.setOnClickListener {
-            findNavController().navigateUp()
         }
     }
 
@@ -106,6 +98,7 @@ class ImageClassificationFragment : DaggerFragment() {
 
             is ImageClassificationViewModelState.GetGoogleImageSuccess -> {
                 hideProgressBar()
+                swapSearchTermViewVisibility()
             }
 
             is ImageClassificationViewModelState.SetImageClassificationSuccess -> {
@@ -116,6 +109,35 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun hideProgressBar() {
         mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+    }
+
+    private fun setupInteractions() {
+        setupToolbarBackNavigation()
+        setupSearchButtonClick()
+    }
+
+    private fun setupToolbarBackNavigation() {
+        mBinding?.toolbarBackIcon?.setOnClickListener {
+            findNavController().navigateUp()
+        }
+    }
+
+    private fun setupSearchButtonClick() {
+        mBinding?.searchTermSearchIcon?.setOnClickListener {
+            mBinding?.searchTermEditText?.text.toString().let { searchTerm ->
+                mViewModel?.getGoogleImage(searchTerm)
+            }
+        }
+    }
+
+    private fun swapSearchTermViewVisibility() {
+        if (mBinding?.searchTermDefaultView?.visibility == View.GONE) {
+            mBinding?.searchTermEditView?.visibility = View.GONE
+            mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
+        } else {
+            mBinding?.searchTermDefaultView?.visibility = View.GONE
+            mBinding?.searchTermEditView?.visibility = View.VISIBLE
+        }
     }
 
 }

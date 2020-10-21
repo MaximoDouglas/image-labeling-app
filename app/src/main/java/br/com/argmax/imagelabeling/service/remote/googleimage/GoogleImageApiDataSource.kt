@@ -1,14 +1,15 @@
 package br.com.argmax.imagelabeling.service.remote.googleimage
 
-import br.com.argmax.imagelabeling.service.entities.googleimage.SerpApiImageResults
+import br.com.argmax.imagelabeling.service.entities.googleimage.SerpApiResult
 import retrofit2.http.GET
-import retrofit2.http.Path
-
+import retrofit2.http.Header
+import retrofit2.http.Query
 interface GoogleImageApiDataSource {
 
-    @GET("playground")
+    @GET("images/search")
     suspend fun googleImageList(
-        @Path(value = "search_term") searchTerm: String
-    ): SerpApiImageResults
+        @Query(value = "q") searchTerm: String
+    ): SerpApiResult
 
 }
+
