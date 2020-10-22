@@ -60,14 +60,14 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideGoogleImageRemoteDataSource(googleImageApiDataSource: RapidApiImageApiDataSource): RapidApiImageRemoteDataSource {
-        return RapidApiImageRemoteDataSourceImpl(googleImageApiDataSource)
+    fun provideRapidImageRemoteDataSource(rapidImageApiDataSource: RapidApiImageApiDataSource): RapidApiImageRemoteDataSource {
+        return RapidApiImageRemoteDataSourceImpl(rapidImageApiDataSource)
     }
 
     @Singleton
     @Provides
     @JvmStatic
-    fun provideGoogleImageApiDataSource(retrofitBuilder: Builder): RapidApiImageApiDataSource {
+    fun provideRapidImageApiDataSource(retrofitBuilder: Builder): RapidApiImageApiDataSource {
         return retrofitBuilder
             .baseUrl(BuildConfig.RAPID_BASE_URL).build()
             .create(RapidApiImageApiDataSource::class.java)

@@ -96,7 +96,7 @@ class ImageClassificationFragment : DaggerFragment() {
                 print(viewModelState.throwable.localizedMessage)
             }
 
-            is ImageClassificationViewModelState.GetGoogleImageSuccess -> {
+            is ImageClassificationViewModelState.GetRapidImageSuccess -> {
                 hideProgressBar()
                 swapSearchTermViewVisibility()
             }
@@ -125,7 +125,7 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun setupSearchButtonClick() {
         mBinding?.searchTermSearchIcon?.setOnClickListener {
             mBinding?.searchTermEditText?.text.toString().let { searchTerm ->
-                mViewModel?.getGoogleImage(searchTerm)
+                mViewModel?.getRapidImage(searchTerm)
             }
         }
     }

@@ -25,7 +25,7 @@ class ImageClassificationViewModel @Inject constructor(
         stateLiveData.value = ImageClassificationViewModelState.Error(exception)
     }
 
-    fun getGoogleImage(searchTerm: String) {
+    fun getRapidImage(searchTerm: String) {
         stateLiveData.value = ImageClassificationViewModelState.Loading
 
         viewModelScope.launch(handler) {
@@ -33,7 +33,7 @@ class ImageClassificationViewModel @Inject constructor(
                 mRapidApiImageRemoteDataSource.rapidApiImageListBySearchTerm(searchTerm)
             }
 
-            stateLiveData.value = ImageClassificationViewModelState.GetGoogleImageSuccess(data)
+            stateLiveData.value = ImageClassificationViewModelState.GetRapidImageSuccess(data)
         }
     }
 
@@ -41,7 +41,7 @@ class ImageClassificationViewModel @Inject constructor(
         object Loading : ImageClassificationViewModelState()
         object SetImageClassificationSuccess : ImageClassificationViewModelState()
         data class Error(val throwable: Throwable) : ImageClassificationViewModelState()
-        data class GetGoogleImageSuccess(val data: List<ImageResponseDto>?) :
+        data class GetRapidImageSuccess(val data: List<ImageResponseDto>?) :
             ImageClassificationViewModelState()
     }
 
