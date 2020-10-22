@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.argmax.imagelabeling.service.entities.googleimage.SerpApiImageResponseDto
+import br.com.argmax.imagelabeling.service.entities.rapidapientities.ImageResponseDto
 import br.com.argmax.imagelabeling.service.remote.googleimage.GoogleImageRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -41,7 +41,7 @@ class ImageClassificationViewModel @Inject constructor(
         object Loading : ImageClassificationViewModelState()
         object SetImageClassificationSuccess : ImageClassificationViewModelState()
         data class Error(val throwable: Throwable) : ImageClassificationViewModelState()
-        data class GetGoogleImageSuccess(val data: List<SerpApiImageResponseDto>?) :
+        data class GetGoogleImageSuccess(val data: List<ImageResponseDto>?) :
             ImageClassificationViewModelState()
     }
 
