@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.argmax.imagelabeling.service.entities.rapidapientities.ImageResponseDto
-import br.com.argmax.imagelabeling.service.remote.googleimage.GoogleImageRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class ImageClassificationViewModel @Inject constructor(
-    private val mGoogleImageRemoteDataSource: GoogleImageRemoteDataSource,
+    private val mRapidApiImageRemoteDataSource: RapidApiImageRemoteDataSource,
     private val contextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
@@ -30,7 +30,7 @@ class ImageClassificationViewModel @Inject constructor(
 
         viewModelScope.launch(handler) {
             val data = withContext(contextProvider.IO) {
-                mGoogleImageRemoteDataSource.googleImageListBySearchTerm(searchTerm)
+                mRapidApiImageRemoteDataSource.rapidApiImageListBySearchTerm(searchTerm)
             }
 
             stateLiveData.value = ImageClassificationViewModelState.GetGoogleImageSuccess(data)
