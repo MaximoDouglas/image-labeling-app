@@ -21,5 +21,7 @@
     <string name="image_classification_fragment_id_label_text_view">id:</string>
     <string name="image_classification_fragment_name_label_text_view">Name:</string>
     <string name="image_classification_fragment_search_term_label">Search term:</string>
+    <string name="image_classification_fragment_discard_button_label">Discard</string>
+    <string name="image_classification_fragment_confirm_button_label">Confirm</string>
 
 </resources>

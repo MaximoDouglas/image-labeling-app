@@ -64,6 +64,8 @@ class ImageClassificationFragment : DaggerFragment() {
         mImageClassResponseDto?.let {
             setImageClassDataIntoView(it)
         }
+
+        setupButtons()
     }
 
     private fun setImageClassDataIntoView(imageClassResponseDto: ImageClassResponseDto) {
@@ -98,7 +100,7 @@ class ImageClassificationFragment : DaggerFragment() {
 
             is ImageClassificationViewModelState.GetRapidImageSuccess -> {
                 hideProgressBar()
-                swapSearchTermViewVisibility()
+                changeSearchTermViewVisibility()
             }
 
             is ImageClassificationViewModelState.SetImageClassificationSuccess -> {
@@ -130,7 +132,7 @@ class ImageClassificationFragment : DaggerFragment() {
         }
     }
 
-    private fun swapSearchTermViewVisibility() {
+    private fun changeSearchTermViewVisibility() {
         if (mBinding?.searchTermDefaultView?.visibility == View.GONE) {
             mBinding?.searchTermEditView?.visibility = View.GONE
             mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
@@ -138,6 +140,14 @@ class ImageClassificationFragment : DaggerFragment() {
             mBinding?.searchTermDefaultView?.visibility = View.GONE
             mBinding?.searchTermEditView?.visibility = View.VISIBLE
         }
+    }
+
+    private fun setupButtons() {
+        mBinding?.discardButton?.setText(getString(R.string.image_classification_fragment_discard_button_label))
+        mBinding?.discardButton?.isConfirmationButton(false)
+
+        mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
+        mBinding?.discardButton?.isConfirmationButton(true)
     }
 
 }
