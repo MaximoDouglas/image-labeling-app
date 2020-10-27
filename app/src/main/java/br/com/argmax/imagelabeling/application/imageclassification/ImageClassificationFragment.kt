@@ -13,7 +13,9 @@ import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
+import br.com.argmax.imagelabeling.service.entities.rapidapientities.ImageResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
+import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -28,6 +30,9 @@ class ImageClassificationFragment : DaggerFragment() {
     private var mImageClassResponseDto: ImageClassResponseDto? = null
 
     private var mBinding: FragmentImageClassificationBinding? = null
+
+    private var mImageResponseDtoList = mutableListOf<ImageResponseDto>()
+    private var mListPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -101,10 +106,26 @@ class ImageClassificationFragment : DaggerFragment() {
             is ImageClassificationViewModelState.GetRapidImageSuccess -> {
                 hideProgressBar()
                 changeSearchTermViewVisibility()
+
+                viewModelState.data?.let {
+                    mImageResponseDtoList.addAll(it)
+                }
+
+                updateImageView()
             }
 
             is ImageClassificationViewModelState.SetImageClassificationSuccess -> {
                 hideProgressBar()
+            }
+        }
+    }
+
+    private fun updateImageView() {
+        mBinding?.imageView?.let { imageView ->
+            context?.let { contextUnShadowed ->
+                Glide.with(contextUnShadowed)
+                    .load(mImageResponseDtoList[mListPosition].url)
+                    .into(imageView)
             }
         }
     }
@@ -134,7 +155,10 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun changeSearchTermViewVisibility() {
         if (mBinding?.searchTermDefaultView?.visibility == View.GONE) {
+            val searchTerm = mBinding?.searchTermEditText?.text.toString()
             mBinding?.searchTermEditView?.visibility = View.GONE
+
+            mBinding?.searchTermTextView?.text = searchTerm
             mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
         } else {
             mBinding?.searchTermDefaultView?.visibility = View.GONE
