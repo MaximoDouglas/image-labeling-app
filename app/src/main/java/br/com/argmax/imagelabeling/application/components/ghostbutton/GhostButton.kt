@@ -5,9 +5,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.DataBindingUtil
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.R.drawable.ghost_button_red_background_selector
 import br.com.argmax.imagelabeling.databinding.ComponentGhostButtonBinding
 
 class GhostButton @JvmOverloads constructor(
@@ -32,7 +32,7 @@ class GhostButton @JvmOverloads constructor(
 
         mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonContainer?.setBackgroundResource(
             if (enabled) {
-                R.drawable.ghost_button_green_background_selector
+                R.drawable.ghost_button_shape_green60
             } else {
                 R.drawable.ghost_button_disabled_shape_black40
             }
@@ -51,14 +51,13 @@ class GhostButton @JvmOverloads constructor(
     fun isConfirmationButton(isConfirmationButton: Boolean) {
         if (!isConfirmationButton) {
             mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonLabelTextView?.setTextColor(
-                R.drawable.ghost_button_text_red_selector
+                getColor(context, R.color.RED40)
             )
 
             mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonContainer?.setBackgroundResource(
-                ghost_button_red_background_selector
+                R.drawable.ghost_button_shape_red60
             )
         }
     }
-
 
 }
