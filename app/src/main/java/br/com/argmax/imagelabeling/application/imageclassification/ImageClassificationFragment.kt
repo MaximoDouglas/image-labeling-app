@@ -169,9 +169,24 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun setupButtons() {
         mBinding?.discardButton?.setText(getString(R.string.image_classification_fragment_discard_button_label))
         mBinding?.discardButton?.isConfirmationButton(false)
+        mBinding?.discardButton?.setOnClickListener {
+            discardImage()
+        }
 
         mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
         mBinding?.discardButton?.isConfirmationButton(true)
+        mBinding?.confirmButton?.setOnClickListener {
+            confirmImage()
+        }
     }
 
+    private fun discardImage() {
+        mListPosition++
+        updateImageView()
+    }
+
+    private fun confirmImage() {
+        mListPosition++
+        updateImageView()
+    }
 }
