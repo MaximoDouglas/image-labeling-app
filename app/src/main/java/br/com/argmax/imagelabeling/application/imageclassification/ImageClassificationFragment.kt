@@ -27,11 +27,13 @@ class ImageClassificationFragment : DaggerFragment() {
     private var mViewModel: ImageClassificationViewModel? = null
 
     private val args: ImageClassificationFragmentArgs by navArgs()
-    private var mImageClassResponseDto: ImageClassResponseDto? = null
 
+    private var mImageClassResponseDto: ImageClassResponseDto? = null
     private var mBinding: FragmentImageClassificationBinding? = null
 
     private var mImageResponseDtoList = mutableListOf<ImageResponseDto>()
+
+    private var mSearchTerm: String? = null
     private var mListPosition = 0
 
     override fun onCreateView(
@@ -155,10 +157,10 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun changeSearchTermViewVisibility() {
         if (mBinding?.searchTermDefaultView?.visibility == View.GONE) {
-            val searchTerm = mBinding?.searchTermEditText?.text.toString()
+            mSearchTerm = mBinding?.searchTermEditText?.text.toString()
             mBinding?.searchTermEditView?.visibility = View.GONE
 
-            mBinding?.searchTermTextView?.text = searchTerm
+            mBinding?.searchTermTextView?.text = mSearchTerm
             mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
         } else {
             mBinding?.searchTermDefaultView?.visibility = View.GONE
@@ -170,23 +172,31 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.discardButton?.setText(getString(R.string.image_classification_fragment_discard_button_label))
         mBinding?.discardButton?.isConfirmationButton(false)
         mBinding?.discardButton?.setOnClickListener {
-            discardImage()
+            showNextImage()
         }
 
         mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
         mBinding?.discardButton?.isConfirmationButton(true)
         mBinding?.confirmButton?.setOnClickListener {
-            confirmImage()
+            showNextImage()
         }
     }
 
-    private fun discardImage() {
-        mListPosition++
-        updateImageView()
+    private fun showNextImage() {
+        val threshold = 10
+
+        mListPosition += 1
+
+        if (mListPosition == mImageResponseDtoList.size - threshold) {
+            mSearchTerm?.let {
+                mViewModel?.getRapidImage(searchTerm = it)
+            }
+        } else {
+            updateImageView()
+        }
     }
 
-    private fun confirmImage() {
-        mListPosition++
-        updateImageView()
+    private fun confirmImage(position: Int) {
+        mViewModel?.confirmImageClassification(mImageResponseDtoList[position])
     }
 }
