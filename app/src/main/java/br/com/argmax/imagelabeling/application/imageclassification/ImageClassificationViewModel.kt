@@ -37,6 +37,10 @@ class ImageClassificationViewModel @Inject constructor(
         }
     }
 
+    fun confirmImageClassification(imageResponseDto: ImageResponseDto) {
+
+    }
+
     sealed class ImageClassificationViewModelState {
         object Loading : ImageClassificationViewModelState()
         object SetImageClassificationSuccess : ImageClassificationViewModelState()

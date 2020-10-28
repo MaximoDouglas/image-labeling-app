@@ -178,6 +178,7 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
         mBinding?.discardButton?.isConfirmationButton(true)
         mBinding?.confirmButton?.setOnClickListener {
+            confirmImageClassification()
             showNextImage()
         }
     }
@@ -196,7 +197,7 @@ class ImageClassificationFragment : DaggerFragment() {
         }
     }
 
-    private fun confirmImage(position: Int) {
-        mViewModel?.confirmImageClassification(mImageResponseDtoList[position])
+    private fun confirmImageClassification() {
+        mViewModel?.confirmImageClassification(mImageResponseDtoList[mListPosition])
     }
 }
