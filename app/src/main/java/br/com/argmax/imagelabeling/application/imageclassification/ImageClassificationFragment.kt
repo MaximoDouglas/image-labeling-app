@@ -1,10 +1,12 @@
 package br.com.argmax.imagelabeling.application.imageclassification
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
@@ -20,7 +22,6 @@ import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-
 
 class ImageClassificationFragment : DaggerFragment() {
 
@@ -154,18 +155,30 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.searchTermSearchIcon?.setOnClickListener {
             mBinding?.searchTermEditText?.text.toString().let { searchTerm ->
                 mViewModel?.getRapidImage(searchTerm)
+                hideKeyboard()
             }
         }
 
-        mBinding?.searchTermEditText?.setOnEditorActionListener(OnEditorActionListener { textView, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val searchTerm = textView.text.toString()
+        mBinding?.searchTermEditText?.setOnEditorActionListener(
+            OnEditorActionListener { textView, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    val searchTerm = textView.text.toString()
 
-                mViewModel?.getRapidImage(searchTerm)
-                return@OnEditorActionListener true
+                    mViewModel?.getRapidImage(searchTerm)
+
+                    hideKeyboard()
+                    return@OnEditorActionListener true
+                }
+                false
             }
-            false
-        })
+        )
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        val flags = 0
+
+        inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, flags)
     }
 
     private fun changeSearchTermViewVisibility() {
