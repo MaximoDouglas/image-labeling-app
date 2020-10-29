@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView.OnEditorActionListener
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +20,7 @@ import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+
 
 class ImageClassificationFragment : DaggerFragment() {
 
@@ -153,6 +156,16 @@ class ImageClassificationFragment : DaggerFragment() {
                 mViewModel?.getRapidImage(searchTerm)
             }
         }
+
+        mBinding?.searchTermEditText?.setOnEditorActionListener(OnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val searchTerm = textView.text.toString()
+
+                mViewModel?.getRapidImage(searchTerm)
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     private fun changeSearchTermViewVisibility() {

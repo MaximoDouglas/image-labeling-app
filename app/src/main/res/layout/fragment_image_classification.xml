@@ -167,6 +167,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
                     android:paddingStart="0dp"
                     android:paddingEnd="8dp"
                     tools:text="cat" />
@@ -212,8 +214,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/BLACK40"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/BLACK40">
 
             <ImageView
                 android:id="@+id/image_view"
