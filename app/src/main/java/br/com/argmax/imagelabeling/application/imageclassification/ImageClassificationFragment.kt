@@ -120,8 +120,10 @@ class ImageClassificationFragment : DaggerFragment() {
                 updateImageView()
             }
 
-            is ImageClassificationViewModelState.SetImageClassificationSuccess -> {
+            is ImageClassificationViewModelState.SendImageSuccess -> {
                 hideProgressBar()
+                incrementPosition()
+                updateImageView()
             }
         }
     }
@@ -175,7 +177,8 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        val inputMethodManager =
+            context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
         val flags = 0
 
         inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, flags)
@@ -210,10 +213,9 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun showNextImage() {
+        incrementPosition()
+
         val threshold = 10
-
-        mListPosition += 1
-
         if (mListPosition == mImageResponseDtoList.size - threshold) {
             mSearchTerm?.let {
                 mViewModel?.getRapidImage(searchTerm = it)
@@ -224,6 +226,15 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun confirmImageClassification() {
-        mViewModel?.confirmImageClassification(mImageResponseDtoList[mListPosition])
+        mImageClassResponseDto?.let { imageClassResponseDto ->
+            mViewModel?.confirmImageClassification(
+                mImageResponseDtoList[mListPosition],
+                imageClassResponseDto
+            )
+        }
+    }
+
+    private fun incrementPosition() {
+        mListPosition += 1
     }
 }

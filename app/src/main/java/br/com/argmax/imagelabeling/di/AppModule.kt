@@ -4,6 +4,9 @@ import br.com.argmax.imagelabeling.BuildConfig
 import br.com.argmax.imagelabeling.service.remote.domain.DomainApiDataSource
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSourceImpl
+import br.com.argmax.imagelabeling.service.remote.image.ImageApiDataSource
+import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSourceImpl
 import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageApiDataSource
 import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSourceImpl
@@ -71,6 +74,22 @@ object AppModule {
         return retrofitBuilder
             .baseUrl(BuildConfig.RAPID_BASE_URL).build()
             .create(RapidApiImageApiDataSource::class.java)
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideImageRemoteDataSource(imageApiDataSource: ImageApiDataSource): ImageRemoteDataSource {
+        return ImageRemoteDataSourceImpl(imageApiDataSource)
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideImageApiDataSource(retrofitBuilder: Builder): ImageApiDataSource {
+        return retrofitBuilder
+            .baseUrl(BuildConfig.IMAGE_LABELING_API_URL).build()
+            .create(ImageApiDataSource::class.java)
     }
 
 }

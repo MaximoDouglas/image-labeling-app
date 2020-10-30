@@ -4,7 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.argmax.imagelabeling.service.entities.image.ImageRequestDto
+import br.com.argmax.imagelabeling.service.entities.image.ImageResponseDto
+import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiImageResponseDto
+import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -14,6 +18,7 @@ import javax.inject.Inject
 
 class ImageClassificationViewModel @Inject constructor(
     private val mRapidApiImageRemoteDataSource: RapidApiImageRemoteDataSource,
+    private val mImageRemoteDataSource: ImageRemoteDataSource,
     private val contextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
@@ -37,14 +42,34 @@ class ImageClassificationViewModel @Inject constructor(
         }
     }
 
-    fun confirmImageClassification(imageResponseDto: RapidApiImageResponseDto) {
+    fun confirmImageClassification(
+        rapidApiImageResponseDto: RapidApiImageResponseDto,
+        imageClass: ImageClassResponseDto
+    ) {
+        stateLiveData.value = ImageClassificationViewModelState.Loading
 
+        viewModelScope.launch(handler) {
+            val data = withContext(contextProvider.IO) {
+                mImageRemoteDataSource.sendImage(
+                    ImageRequestDto(
+                        url = rapidApiImageResponseDto.url,
+                        imageClassId = imageClass.id
+                    )
+                )
+            }
+
+            stateLiveData.value = ImageClassificationViewModelState.SendImageSuccess(data)
+        }
     }
 
     sealed class ImageClassificationViewModelState {
         object Loading : ImageClassificationViewModelState()
-        object SetImageClassificationSuccess : ImageClassificationViewModelState()
+
         data class Error(val throwable: Throwable) : ImageClassificationViewModelState()
+
+        data class SendImageSuccess(val data: ImageResponseDto) :
+            ImageClassificationViewModelState()
+
         data class GetRapidImageSuccess(val data: List<RapidApiImageResponseDto>?) :
             ImageClassificationViewModelState()
     }
