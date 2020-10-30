@@ -5,10 +5,10 @@ import java.io.Serializable
 
 data class RapidApiSearchResponse (
     @SerializedName("value")
-    val imageResponseDto: List<ImageResponseDto>
+    val imageResponseDto: List<RapidApiImageResponseDto>
 ) : Serializable
 
-data class ImageResponseDto(
+data class RapidApiImageResponseDto(
     @SerializedName("contentUrl")
     val url: String
 ) : Serializable

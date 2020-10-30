@@ -17,7 +17,7 @@ import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
-import br.com.argmax.imagelabeling.service.entities.rapidapientities.ImageResponseDto
+import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiImageResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
@@ -35,7 +35,7 @@ class ImageClassificationFragment : DaggerFragment() {
     private var mImageClassResponseDto: ImageClassResponseDto? = null
     private var mBinding: FragmentImageClassificationBinding? = null
 
-    private var mImageResponseDtoList = mutableListOf<ImageResponseDto>()
+    private var mImageResponseDtoList = mutableListOf<RapidApiImageResponseDto>()
 
     private var mSearchTerm: String? = null
     private var mListPosition = 0
