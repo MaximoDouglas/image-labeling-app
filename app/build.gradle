@@ -8,7 +8,7 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs"
 
-def apiSecretsFile = rootProject.file("apikey.properties")
+def apiSecretsFile = rootProject.file("local.properties")
 def apiSecretsProperties = new Properties()
 apiSecretsProperties.load(new FileInputStream(apiSecretsFile))
 
