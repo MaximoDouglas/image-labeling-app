@@ -13,7 +13,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
@@ -32,8 +32,8 @@ class DomainDetailFragment : DaggerFragment() {
     private var mViewModel: DomainDetailViewModel? = null
 
     private var mBinding: FragmentDomainDetailBinding? = null
-    private val mImageClassCreationDialog = ModelCreationDialog()
-    private val mDomainEditDialog = ModelCreationDialog()
+    private val mImageClassCreationDialog = UpdateNameDialog()
+    private val mDomainEditDialog = UpdateNameDialog()
 
     private var mDomainResponseDto: DomainResponseDto? = null
     private val args: DomainDetailFragmentArgs by navArgs()
@@ -106,7 +106,7 @@ class DomainDetailFragment : DaggerFragment() {
     private fun showDomainEditDialog() {
         mDomainEditDialog.show(
             childFragmentManager,
-            ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
+            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
         )
     }
 
@@ -224,7 +224,7 @@ class DomainDetailFragment : DaggerFragment() {
     private fun showImageClassCreationDialog() {
         mImageClassCreationDialog.show(
             childFragmentManager,
-            ModelCreationDialog.MODEL_CREATION_DIALOG_TAG
+            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
         )
     }
 

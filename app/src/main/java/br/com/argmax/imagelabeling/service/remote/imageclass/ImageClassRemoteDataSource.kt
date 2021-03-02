@@ -9,4 +9,6 @@ interface ImageClassRemoteDataSource {
     
     suspend fun createImageClass(imageClassRequestDto: ImageClassRequestDto): ImageClassResponseDto
 
+    suspend fun editImageClassName(imageClassId: Int, imageClassRequestDto: ImageClassRequestDto): ImageClassResponseDto
+
 }
