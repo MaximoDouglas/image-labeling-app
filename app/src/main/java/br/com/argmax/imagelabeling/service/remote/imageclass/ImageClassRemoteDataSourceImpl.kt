@@ -15,4 +15,14 @@ class ImageClassRemoteDataSourceImpl(
         return mImageClassApiDataSource.createImageClass(imageClassRequestDto)
     }
 
+    override suspend fun editImageClassName(
+        imageClassId: Int,
+        imageClassRequestDto: ImageClassRequestDto
+    ): ImageClassResponseDto {
+        return mImageClassApiDataSource.editImageClassName(
+            imageClassId = imageClassId,
+            imageClassRequestDto = imageClassRequestDto
+        )
+    }
+
 }
