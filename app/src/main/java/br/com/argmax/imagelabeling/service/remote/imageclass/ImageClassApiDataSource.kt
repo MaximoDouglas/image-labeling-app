@@ -2,10 +2,7 @@ package br.com.argmax.imagelabeling.service.remote.imageclass
 
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ImageClassApiDataSource {
 
@@ -16,6 +13,12 @@ interface ImageClassApiDataSource {
 
     @POST("image_classes/")
     suspend fun createImageClass(
+        @Body imageClassRequestDto: ImageClassRequestDto
+    ): ImageClassResponseDto
+
+    @PUT("image_classes/{image_class_id}")
+    suspend fun editImageClassName(
+        @Path(value = "image_class_id") imageClassId: Int,
         @Body imageClassRequestDto: ImageClassRequestDto
     ): ImageClassResponseDto
 

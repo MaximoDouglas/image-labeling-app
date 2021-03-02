@@ -6,9 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.argmax.imagelabeling.service.entities.image.ImageRequestDto
 import br.com.argmax.imagelabeling.service.entities.image.ImageResponseDto
+import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiImageResponseDto
 import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class ImageClassificationViewModel @Inject constructor(
     private val mRapidApiImageRemoteDataSource: RapidApiImageRemoteDataSource,
     private val mImageRemoteDataSource: ImageRemoteDataSource,
+    private val mImageClassRemoteDataSource: ImageClassRemoteDataSource,
     private val contextProvider: CoroutineContextProvider
 ) : ViewModel() {
 
@@ -62,6 +65,30 @@ class ImageClassificationViewModel @Inject constructor(
         }
     }
 
+    fun editImageClassName(
+        newImageClassName: String,
+        imageClassResponseDto: ImageClassResponseDto
+    ) {
+        val imageClassDomainId = imageClassResponseDto.domainId
+        val imageClassId = imageClassResponseDto.id
+
+        val imageClassRequestDto = ImageClassRequestDto(
+            name = newImageClassName,
+            domainId = imageClassDomainId
+        )
+
+        viewModelScope.launch(handler) {
+            val data = withContext(contextProvider.IO) {
+                mImageClassRemoteDataSource.editImageClassName(
+                    imageClassId = imageClassId,
+                    imageClassRequestDto = imageClassRequestDto
+                )
+            }
+
+            stateLiveData.value = ImageClassificationViewModelState.EditImageClassSuccess(data)
+        }
+    }
+
     sealed class ImageClassificationViewModelState {
         object Loading : ImageClassificationViewModelState()
 
@@ -71,6 +98,9 @@ class ImageClassificationViewModel @Inject constructor(
             ImageClassificationViewModelState()
 
         data class GetRapidImageSuccess(val data: List<RapidApiImageResponseDto>?) :
+            ImageClassificationViewModelState()
+
+        class EditImageClassSuccess(val data: ImageClassResponseDto) :
             ImageClassificationViewModelState()
     }
 

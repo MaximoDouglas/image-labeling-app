@@ -14,6 +14,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
@@ -39,6 +41,9 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private var mSearchTerm: String? = null
     private var mListPosition = 0
+
+
+    private val mClassNameEditDialog = UpdateNameDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,6 +74,7 @@ class ImageClassificationFragment : DaggerFragment() {
         setupView()
         setupViewModel()
         setupInteractions()
+        setupEditButton()
     }
 
     private fun setupView() {
@@ -125,6 +131,11 @@ class ImageClassificationFragment : DaggerFragment() {
                 incrementPosition()
                 updateImageView()
             }
+
+            is ImageClassificationViewModelState.EditImageClassSuccess -> {
+                hideProgressBar()
+                setImageClassDataIntoView(viewModelState.data)
+            }
         }
     }
 
@@ -151,6 +162,27 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.toolbarBackIcon?.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun setupEditButton() {
+        mClassNameEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mImageClassResponseDto?.let { imageClassResponseDto ->
+                    mViewModel?.editImageClassName(editTextContent, imageClassResponseDto)
+                }
+            }
+        })
+
+        mBinding?.imageClassNameEditIcon?.setOnClickListener {
+            showClassNameEditDialog()
+        }
+    }
+
+    private fun showClassNameEditDialog() {
+        mClassNameEditDialog.show(
+            childFragmentManager,
+            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
+        )
     }
 
     private fun setupSearchButtonClick() {

@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.databinding.DialogModelCreationBinding
 
-class ModelCreationDialog : DialogFragment() {
+class UpdateNameDialog : DialogFragment() {
 
     private var mBinding: DialogModelCreationBinding? = null
     private var mModelCreationDialogClickListener: ModelCreationDialogClickListener? = null
