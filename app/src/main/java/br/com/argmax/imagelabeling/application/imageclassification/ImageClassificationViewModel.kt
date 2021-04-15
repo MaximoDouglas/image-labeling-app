@@ -89,6 +89,18 @@ class ImageClassificationViewModel @Inject constructor(
         }
     }
 
+    fun deleteImageClass(imageClassId: Int) {
+        viewModelScope.launch(handler) {
+            withContext(contextProvider.IO) {
+                mImageClassRemoteDataSource.deleteImageClass(
+                    imageClassId = imageClassId
+                )
+            }
+
+            stateLiveData.value = ImageClassificationViewModelState.DeleteImageClassSuccess
+        }
+    }
+
     sealed class ImageClassificationViewModelState {
         object Loading : ImageClassificationViewModelState()
 
@@ -100,8 +112,10 @@ class ImageClassificationViewModel @Inject constructor(
         data class GetRapidImageSuccess(val data: List<RapidApiImageResponseDto>?) :
             ImageClassificationViewModelState()
 
-        class EditImageClassSuccess(val data: ImageClassResponseDto) :
+        data class EditImageClassSuccess(val data: ImageClassResponseDto) :
             ImageClassificationViewModelState()
+
+        object DeleteImageClassSuccess : ImageClassificationViewModelState()
     }
 
 }

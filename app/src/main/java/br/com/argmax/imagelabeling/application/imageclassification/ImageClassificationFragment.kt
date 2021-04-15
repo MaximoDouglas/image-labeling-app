@@ -1,6 +1,7 @@
 package br.com.argmax.imagelabeling.application.imageclassification
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
@@ -24,6 +25,7 @@ import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import com.bumptech.glide.Glide
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
+
 
 class ImageClassificationFragment : DaggerFragment() {
 
@@ -136,6 +138,10 @@ class ImageClassificationFragment : DaggerFragment() {
                 hideProgressBar()
                 setImageClassDataIntoView(viewModelState.data)
             }
+
+            is ImageClassificationViewModelState.DeleteImageClassSuccess -> {
+                navigateUp()
+            }
         }
     }
 
@@ -155,12 +161,41 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun setupInteractions() {
         setupToolbarBackNavigation()
+        setupToolbarDeleteButton()
         setupSearchButtonClick()
     }
 
     private fun setupToolbarBackNavigation() {
         mBinding?.toolbarBackIcon?.setOnClickListener {
-            findNavController().navigateUp()
+            navigateUp()
+        }
+    }
+
+    private fun navigateUp() {
+        findNavController().navigateUp()
+    }
+
+    private fun setupToolbarDeleteButton() {
+        mBinding?.toolbarDeleteIcon?.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setMessage(
+                    getString(R.string.image_classification_fragment_delete_dialog_caution_text)
+                )
+                .setCancelable(true)
+                .setPositiveButton(getString(
+                    R.string.image_classification_fragment_delete_dialog_yes_button_text)
+                ) { _, _ -> deleteImageClass() }
+                .setNegativeButton(
+                    getString(R.string.image_classification_fragment_delete_dialog_no_button_text),
+                    null
+                )
+                .show()
+        }
+    }
+
+    private fun deleteImageClass() {
+        mImageClassResponseDto?.id?.let { imageClassResponse ->
+            mViewModel?.deleteImageClass(imageClassResponse)
         }
     }
 
@@ -259,8 +294,10 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun confirmImageClassification() {
         mImageClassResponseDto?.let { imageClassResponseDto ->
+            val rapidApiImageResponseDto = mImageResponseDtoList[mListPosition]
+
             mViewModel?.confirmImageClassification(
-                mImageResponseDtoList[mListPosition],
+                rapidApiImageResponseDto,
                 imageClassResponseDto
             )
         }

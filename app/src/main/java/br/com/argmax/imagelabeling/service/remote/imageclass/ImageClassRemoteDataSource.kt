@@ -11,4 +11,6 @@ interface ImageClassRemoteDataSource {
 
     suspend fun editImageClassName(imageClassId: Int, imageClassRequestDto: ImageClassRequestDto): ImageClassResponseDto
 
+    suspend fun deleteImageClass(imageClassId: Int)
+
 }
