@@ -2,6 +2,7 @@ package br.com.argmax.imagelabeling.service.remote.imageclass
 
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
+import retrofit2.Response
 import retrofit2.http.*
 
 interface ImageClassApiDataSource {
@@ -21,5 +22,10 @@ interface ImageClassApiDataSource {
         @Path(value = "image_class_id") imageClassId: Int,
         @Body imageClassRequestDto: ImageClassRequestDto
     ): ImageClassResponseDto
+
+    @DELETE("image_classes/{image_class_id}")
+    suspend fun deleteImageClass(
+        @Path(value = "image_class_id") imageClassId: Int
+    ): Response<Unit>
 
 }

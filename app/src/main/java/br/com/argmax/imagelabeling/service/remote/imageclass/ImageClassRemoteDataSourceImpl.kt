@@ -25,4 +25,10 @@ class ImageClassRemoteDataSourceImpl(
         )
     }
 
+    override suspend fun deleteImageClass(imageClassId: Int) {
+        mImageClassApiDataSource.deleteImageClass(
+            imageClassId = imageClassId
+        )
+    }
+
 }
