@@ -186,11 +186,12 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onImageFetchFailed() {
-        TODO("Not yet implemented")
+        incrementPosition()
+        showNextImage()
     }
 
     private fun onImageFetchSuccess() {
-        TODO("Not yet implemented")
+        stopLoadingImageAnimation()
     }
 
     private fun hideProgressBar() {
@@ -320,6 +321,7 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun showNextImage() {
+        startLoadingImageAnimation()
         incrementPosition()
 
         val threshold = 10
@@ -330,6 +332,14 @@ class ImageClassificationFragment : DaggerFragment() {
         } else {
             updateImageView()
         }
+    }
+
+    private fun startLoadingImageAnimation() {
+        mBinding?.imageLoadingProgressBar?.visibility = View.VISIBLE
+    }
+
+    private fun stopLoadingImageAnimation() {
+        mBinding?.imageLoadingProgressBar?.visibility = View.GONE
     }
 
     private fun confirmImageClassification() {
