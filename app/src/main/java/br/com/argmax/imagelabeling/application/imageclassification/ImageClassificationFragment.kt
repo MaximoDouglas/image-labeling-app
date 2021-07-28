@@ -2,6 +2,7 @@ package br.com.argmax.imagelabeling.application.imageclassification
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,10 @@ import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRespons
 import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiImageResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -43,7 +48,6 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private var mSearchTerm: String? = null
     private var mListPosition = 0
-
 
     private val mClassNameEditDialog = UpdateNameDialog()
 
@@ -147,12 +151,46 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun updateImageView() {
         mBinding?.imageView?.let { imageView ->
-            context?.let { contextUnShadowed ->
-                Glide.with(contextUnShadowed)
+            context?.let { contextNotNull ->
+                Glide.with(contextNotNull)
                     .load(mImageResponseDtoList[mListPosition].url)
+                    .listener(getGlideRequestListener())
                     .into(imageView)
             }
         }
+    }
+
+    private fun getGlideRequestListener(): RequestListener<Drawable> {
+        return object: RequestListener<Drawable>{
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                onImageFetchFailed()
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                onImageFetchSuccess()
+                return true
+            }
+        }
+    }
+
+    private fun onImageFetchFailed() {
+        TODO("Not yet implemented")
+    }
+
+    private fun onImageFetchSuccess() {
+        TODO("Not yet implemented")
     }
 
     private fun hideProgressBar() {
@@ -182,8 +220,10 @@ class ImageClassificationFragment : DaggerFragment() {
                     getString(R.string.image_classification_fragment_delete_dialog_caution_text)
                 )
                 .setCancelable(true)
-                .setPositiveButton(getString(
-                    R.string.image_classification_fragment_delete_dialog_yes_button_text)
+                .setPositiveButton(
+                    getString(
+                        R.string.image_classification_fragment_delete_dialog_yes_button_text
+                    )
                 ) { _, _ -> deleteImageClass() }
                 .setNegativeButton(
                     getString(R.string.image_classification_fragment_delete_dialog_no_button_text),
