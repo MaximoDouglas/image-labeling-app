@@ -148,7 +148,7 @@ class ImageClassificationFragment : DaggerFragment() {
             context?.let { contextNotNull ->
                 Glide.with(contextNotNull)
                     .load(mImageResponseDtoList[mListPosition].url)
-                    .listener(getGlideRequestListener())
+                    .error(R.drawable.ic_broken_image)
                     .into(imageView)
             }
         }
@@ -174,7 +174,7 @@ class ImageClassificationFragment : DaggerFragment() {
                 isFirstResource: Boolean
             ): Boolean {
                 onImageFetchSuccess()
-                return true
+                return false
             }
         }
     }
