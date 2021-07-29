@@ -31,7 +31,6 @@ import com.bumptech.glide.request.target.Target
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-
 class ImageClassificationFragment : DaggerFragment() {
 
     @Inject
@@ -115,12 +114,10 @@ class ImageClassificationFragment : DaggerFragment() {
             is ImageClassificationViewModelState.Loading -> {
                 mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
             }
-
             is ImageClassificationViewModelState.Error -> {
                 hideProgressBar()
                 print(viewModelState.throwable.localizedMessage)
             }
-
             is ImageClassificationViewModelState.GetRapidImageSuccess -> {
                 hideProgressBar()
                 changeSearchTermViewVisibility()
@@ -131,18 +128,15 @@ class ImageClassificationFragment : DaggerFragment() {
 
                 updateImageView()
             }
-
             is ImageClassificationViewModelState.SendImageSuccess -> {
                 hideProgressBar()
                 incrementPosition()
                 updateImageView()
             }
-
             is ImageClassificationViewModelState.EditImageClassSuccess -> {
                 hideProgressBar()
                 setImageClassDataIntoView(viewModelState.data)
             }
-
             is ImageClassificationViewModelState.DeleteImageClassSuccess -> {
                 navigateUp()
             }
@@ -335,11 +329,13 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun startLoadingImageAnimation() {
+        mBinding?.imageView?.visibility = View.GONE
         mBinding?.imageLoadingProgressBar?.visibility = View.VISIBLE
     }
 
     private fun stopLoadingImageAnimation() {
         mBinding?.imageLoadingProgressBar?.visibility = View.GONE
+        mBinding?.imageView?.visibility = View.VISIBLE
     }
 
     private fun confirmImageClassification() {
