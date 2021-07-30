@@ -115,18 +115,12 @@ class ImageClassificationFragment : DaggerFragment() {
                 showProgressBar()
             }
             is ImageClassificationViewModelState.Error -> {
-                hideProgressBar()
-                print(viewModelState.throwable.localizedMessage)
+                onLoadImagesFromCloudError(viewModelState.throwable.localizedMessage)
             }
             is ImageClassificationViewModelState.GetRapidImageSuccess -> {
-                hideProgressBar()
-                changeSearchTermViewVisibility()
-
                 viewModelState.data?.let {
-                    mImageResponseDtoList.addAll(it)
+                    onGetImagesSuccess(it)
                 }
-
-                updateImageView()
             }
             is ImageClassificationViewModelState.SendImageSuccess -> {
                 hideProgressBar()
@@ -141,6 +135,19 @@ class ImageClassificationFragment : DaggerFragment() {
                 navigateUp()
             }
         }
+    }
+
+    private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
+        hideProgressBar()
+        changeSearchTermViewVisibility()
+
+        mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
+        updateImageView()
+    }
+
+    private fun onLoadImagesFromCloudError(localizedMessage: String?) {
+        hideProgressBar()
+        print(localizedMessage)
     }
 
     private fun updateImageView() {
