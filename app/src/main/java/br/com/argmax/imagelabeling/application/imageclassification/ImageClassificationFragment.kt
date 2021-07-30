@@ -112,7 +112,7 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun handleViewModelState(viewModelState: ImageClassificationViewModelState) {
         when (viewModelState) {
             is ImageClassificationViewModelState.Loading -> {
-                mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
+                showProgressBar()
             }
             is ImageClassificationViewModelState.Error -> {
                 hideProgressBar()
@@ -149,6 +149,7 @@ class ImageClassificationFragment : DaggerFragment() {
                 Glide.with(contextNotNull)
                     .load(mImageResponseDtoList[mListPosition].url)
                     .error(R.drawable.ic_broken_image)
+                    .listener(getGlideRequestListener())
                     .into(imageView)
             }
         }
@@ -186,6 +187,10 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun onImageFetchSuccess() {
         stopLoadingImageAnimation()
+    }
+
+    private fun showProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
@@ -330,11 +335,11 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun startLoadingImageAnimation() {
         mBinding?.imageView?.visibility = View.GONE
-        mBinding?.imageLoadingProgressBar?.visibility = View.VISIBLE
+        showProgressBar()
     }
 
     private fun stopLoadingImageAnimation() {
-        mBinding?.imageLoadingProgressBar?.visibility = View.GONE
+        hideProgressBar()
         mBinding?.imageView?.visibility = View.VISIBLE
     }
 
