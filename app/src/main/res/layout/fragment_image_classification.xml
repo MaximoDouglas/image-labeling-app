@@ -244,6 +244,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <br.com.argmax.imagelabeling.application.components.ghostbutton.GhostButton
+                android:id="@+id/show_next_image_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="22dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:visibility="visible" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

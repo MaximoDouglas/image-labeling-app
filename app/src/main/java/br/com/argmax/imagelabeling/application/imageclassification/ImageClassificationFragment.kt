@@ -188,12 +188,28 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onImageFetchFailed() {
-        incrementPosition()
-        showNextImage()
+        stopLoadingImageAnimation()
+        enableDisableConfirmDiscardButtons(false)
+        showOnlyNextImageButton(true)
+    }
+
+    private fun enableDisableConfirmDiscardButtons(enabledConfirmDiscardButtons: Boolean) {
+        mBinding?.confirmButton?.isEnabled = enabledConfirmDiscardButtons
+        mBinding?.discardButton?.isEnabled = enabledConfirmDiscardButtons
+    }
+
+    private fun showOnlyNextImageButton(showNextImageButton: Boolean) {
+        mBinding?.confirmButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
+        mBinding?.discardButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
+
+        mBinding
+            ?.showNextImageButton?.visibility = if (showNextImageButton) View.VISIBLE else View.GONE
     }
 
     private fun onImageFetchSuccess() {
         stopLoadingImageAnimation()
+        enableDisableConfirmDiscardButtons(true)
+        showOnlyNextImageButton(false)
     }
 
     private fun showProgressBar() {
@@ -319,9 +335,17 @@ class ImageClassificationFragment : DaggerFragment() {
         }
 
         mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
-        mBinding?.discardButton?.isConfirmationButton(true)
+        mBinding?.confirmButton?.isConfirmationButton(true)
         mBinding?.confirmButton?.setOnClickListener {
             confirmImageClassification()
+            showNextImage()
+        }
+
+        mBinding?.showNextImageButton?.setText(
+            getString(R.string.image_classification_fragment_show_next_image_button_label)
+        )
+        mBinding?.showNextImageButton?.isConfirmationButton(false)
+        mBinding?.showNextImageButton?.setOnClickListener {
             showNextImage()
         }
     }
