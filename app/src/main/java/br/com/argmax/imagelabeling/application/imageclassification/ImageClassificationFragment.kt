@@ -163,7 +163,7 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun getGlideRequestListener(): RequestListener<Drawable> {
-        return object: RequestListener<Drawable>{
+        return object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
                 model: Any?,
@@ -189,7 +189,6 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun onImageFetchFailed() {
         stopLoadingImageAnimation()
-        enableDisableConfirmDiscardButtons(false)
         showOnlyNextImageButton(true)
     }
 
@@ -348,6 +347,8 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.showNextImageButton?.setOnClickListener {
             showNextImage()
         }
+
+        enableDisableConfirmDiscardButtons(false)
     }
 
     private fun showNextImage() {
