@@ -192,9 +192,9 @@ class ImageClassificationFragment : DaggerFragment() {
         showOnlyNextImageButton(true)
     }
 
-    private fun enableDisableConfirmDiscardButtons(enabledConfirmDiscardButtons: Boolean) {
-        mBinding?.confirmButton?.isEnabled = enabledConfirmDiscardButtons
-        mBinding?.discardButton?.isEnabled = enabledConfirmDiscardButtons
+    private fun enableConfirmAndDiscardButtons(enabledConfirmAndDiscardButtons: Boolean) {
+        mBinding?.confirmButton?.isEnabled = enabledConfirmAndDiscardButtons
+        mBinding?.discardButton?.isEnabled = enabledConfirmAndDiscardButtons
     }
 
     private fun showOnlyNextImageButton(showNextImageButton: Boolean) {
@@ -207,7 +207,7 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun onImageFetchSuccess() {
         stopLoadingImageAnimation()
-        enableDisableConfirmDiscardButtons(true)
+        enableConfirmAndDiscardButtons(true)
         showOnlyNextImageButton(false)
     }
 
@@ -348,7 +348,7 @@ class ImageClassificationFragment : DaggerFragment() {
             showNextImage()
         }
 
-        enableDisableConfirmDiscardButtons(false)
+        enableConfirmAndDiscardButtons(false)
     }
 
     private fun showNextImage() {
@@ -366,13 +366,18 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun startLoadingImageAnimation() {
-        mBinding?.imageView?.visibility = View.GONE
+        showImageView(false)
+        enableConfirmAndDiscardButtons(false)
         showProgressBar()
     }
 
     private fun stopLoadingImageAnimation() {
         hideProgressBar()
-        mBinding?.imageView?.visibility = View.VISIBLE
+        showImageView(true)
+    }
+
+    private fun showImageView(showImageView: Boolean) {
+        mBinding?.imageView?.visibility = if (showImageView) View.VISIBLE else View.GONE
     }
 
     private fun confirmImageClassification() {
