@@ -2,6 +2,7 @@ package br.com.argmax.imagelabeling.application.imageclassification
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +24,12 @@ import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRespons
 import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiImageResponseDto
 import br.com.argmax.imagelabeling.utils.ViewModelFactoryProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-
 
 class ImageClassificationFragment : DaggerFragment() {
 
@@ -43,7 +47,6 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private var mSearchTerm: String? = null
     private var mListPosition = 0
-
 
     private val mClassNameEditDialog = UpdateNameDialog()
 
@@ -109,50 +112,107 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun handleViewModelState(viewModelState: ImageClassificationViewModelState) {
         when (viewModelState) {
             is ImageClassificationViewModelState.Loading -> {
-                mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
+                showProgressBar()
             }
-
             is ImageClassificationViewModelState.Error -> {
-                hideProgressBar()
-                print(viewModelState.throwable.localizedMessage)
+                onLoadImagesFromCloudError(viewModelState.throwable.localizedMessage)
             }
-
             is ImageClassificationViewModelState.GetRapidImageSuccess -> {
-                hideProgressBar()
-                changeSearchTermViewVisibility()
-
                 viewModelState.data?.let {
-                    mImageResponseDtoList.addAll(it)
+                    onGetImagesSuccess(it)
                 }
-
-                updateImageView()
             }
-
             is ImageClassificationViewModelState.SendImageSuccess -> {
                 hideProgressBar()
                 incrementPosition()
                 updateImageView()
             }
-
             is ImageClassificationViewModelState.EditImageClassSuccess -> {
                 hideProgressBar()
                 setImageClassDataIntoView(viewModelState.data)
             }
-
             is ImageClassificationViewModelState.DeleteImageClassSuccess -> {
                 navigateUp()
             }
         }
     }
 
+    private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
+        hideProgressBar()
+        changeSearchTermViewVisibility()
+
+        mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
+        updateImageView()
+    }
+
+    private fun onLoadImagesFromCloudError(localizedMessage: String?) {
+        hideProgressBar()
+        print(localizedMessage)
+    }
+
     private fun updateImageView() {
         mBinding?.imageView?.let { imageView ->
-            context?.let { contextUnShadowed ->
-                Glide.with(contextUnShadowed)
+            context?.let { contextNotNull ->
+                Glide.with(contextNotNull)
                     .load(mImageResponseDtoList[mListPosition].url)
+                    .error(R.drawable.ic_broken_image)
+                    .listener(getGlideRequestListener())
                     .into(imageView)
             }
         }
+    }
+
+    private fun getGlideRequestListener(): RequestListener<Drawable> {
+        return object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                onImageFetchFailed()
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                onImageFetchSuccess()
+                return false
+            }
+        }
+    }
+
+    private fun onImageFetchFailed() {
+        stopLoadingImageAnimation()
+        showOnlyNextImageButton(true)
+    }
+
+    private fun enableConfirmAndDiscardButtons(enabledConfirmAndDiscardButtons: Boolean) {
+        mBinding?.confirmButton?.isEnabled = enabledConfirmAndDiscardButtons
+        mBinding?.discardButton?.isEnabled = enabledConfirmAndDiscardButtons
+    }
+
+    private fun showOnlyNextImageButton(showNextImageButton: Boolean) {
+        mBinding?.confirmButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
+        mBinding?.discardButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
+
+        mBinding
+            ?.showNextImageButton?.visibility = if (showNextImageButton) View.VISIBLE else View.GONE
+    }
+
+    private fun onImageFetchSuccess() {
+        stopLoadingImageAnimation()
+        enableConfirmAndDiscardButtons(true)
+        showOnlyNextImageButton(false)
+    }
+
+    private fun showProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
@@ -182,8 +242,10 @@ class ImageClassificationFragment : DaggerFragment() {
                     getString(R.string.image_classification_fragment_delete_dialog_caution_text)
                 )
                 .setCancelable(true)
-                .setPositiveButton(getString(
-                    R.string.image_classification_fragment_delete_dialog_yes_button_text)
+                .setPositiveButton(
+                    getString(
+                        R.string.image_classification_fragment_delete_dialog_yes_button_text
+                    )
                 ) { _, _ -> deleteImageClass() }
                 .setNegativeButton(
                     getString(R.string.image_classification_fragment_delete_dialog_no_button_text),
@@ -272,14 +334,25 @@ class ImageClassificationFragment : DaggerFragment() {
         }
 
         mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
-        mBinding?.discardButton?.isConfirmationButton(true)
+        mBinding?.confirmButton?.isConfirmationButton(true)
         mBinding?.confirmButton?.setOnClickListener {
             confirmImageClassification()
             showNextImage()
         }
+
+        mBinding?.showNextImageButton?.setText(
+            getString(R.string.image_classification_fragment_show_next_image_button_label)
+        )
+        mBinding?.showNextImageButton?.isConfirmationButton(false)
+        mBinding?.showNextImageButton?.setOnClickListener {
+            showNextImage()
+        }
+
+        enableConfirmAndDiscardButtons(false)
     }
 
     private fun showNextImage() {
+        startLoadingImageAnimation()
         incrementPosition()
 
         val threshold = 10
@@ -290,6 +363,21 @@ class ImageClassificationFragment : DaggerFragment() {
         } else {
             updateImageView()
         }
+    }
+
+    private fun startLoadingImageAnimation() {
+        showImageView(false)
+        enableConfirmAndDiscardButtons(false)
+        showProgressBar()
+    }
+
+    private fun stopLoadingImageAnimation() {
+        hideProgressBar()
+        showImageView(true)
+    }
+
+    private fun showImageView(showImageView: Boolean) {
+        mBinding?.imageView?.visibility = if (showImageView) View.VISIBLE else View.GONE
     }
 
     private fun confirmImageClassification() {

@@ -17,7 +17,7 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "br.com.argmax.imagelabeling"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -93,7 +93,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // Dagger
-    def dagger_version = "2.22"
+    def dagger_version = "2.35.1"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     implementation "com.google.dagger:dagger:$dagger_version"
