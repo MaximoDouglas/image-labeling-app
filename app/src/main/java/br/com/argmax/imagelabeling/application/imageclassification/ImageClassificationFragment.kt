@@ -191,8 +191,11 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun onImageFetchFailed() {
         stopLoadingImageAnimation()
         showOnlyNextImageButton(true)
-        Toast.makeText(context, "It was not possible to load this resource", Toast.LENGTH_LONG)
-            .show()
+        Toast.makeText(
+            context,
+            getString(R.string.image_classification_fragment_image_fetch_failed_message),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun enableConfirmAndDiscardButtons(enabledConfirmAndDiscardButtons: Boolean) {
