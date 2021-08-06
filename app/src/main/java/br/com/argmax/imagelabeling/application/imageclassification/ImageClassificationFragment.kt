@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -190,6 +191,11 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun onImageFetchFailed() {
         stopLoadingImageAnimation()
         showOnlyNextImageButton(true)
+        Toast.makeText(
+            context,
+            getString(R.string.image_classification_fragment_image_fetch_failed_message),
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     private fun enableConfirmAndDiscardButtons(enabledConfirmAndDiscardButtons: Boolean) {
