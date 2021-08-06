@@ -27,5 +27,6 @@
     <string name="image_classification_fragment_delete_dialog_caution_text">Are you sure you want delete this image class?</string>
     <string name="image_classification_fragment_delete_dialog_yes_button_text">Yes</string>
     <string name="image_classification_fragment_delete_dialog_no_button_text">No</string>
+    <string name="image_classification_fragment_image_fetch_failed_message">It was not possible to load this resource</string>
 
 </resources>
