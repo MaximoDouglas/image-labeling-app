@@ -123,11 +123,6 @@ class ImageClassificationFragment : DaggerFragment() {
                     onGetImagesSuccess(it)
                 }
             }
-            is ImageClassificationViewModelState.SendImageSuccess -> {
-                hideProgressBar()
-                incrementPosition()
-                updateImageView()
-            }
             is ImageClassificationViewModelState.EditImageClassSuccess -> {
                 hideProgressBar()
                 setImageClassDataIntoView(viewModelState.data)
