@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getColor
 import androidx.databinding.DataBindingUtil
 import br.com.argmax.imagelabeling.R
@@ -14,6 +13,8 @@ class GhostButton @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : LinearLayout(context, attrs, defStyle) {
 
+    private var mIsConfirmationButton: Boolean = false
+
     private var mAsphaltGhostButtonComponentViewBinding: ComponentGhostButtonBinding? =
         DataBindingUtil.inflate(
             LayoutInflater.from(context), R.layout.component_ghost_button, this, true
@@ -22,20 +23,35 @@ class GhostButton @JvmOverloads constructor(
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
 
+        paintView()
+    }
+
+    private fun paintView() {
+        if (this.isEnabled && mIsConfirmationButton) {
+            applyColors(
+                textColor = getColor(context, R.color.GREEN50),
+                backgroundResource = R.drawable.ghost_button_shape_green60
+            )
+        } else if (this.isEnabled && !mIsConfirmationButton) {
+            applyColors(
+                textColor = getColor(context, R.color.RED40),
+                backgroundResource = R.drawable.ghost_button_shape_red60
+            )
+        } else {
+            applyColors(
+                textColor = getColor(context, R.color.BLACK40),
+                backgroundResource = R.drawable.ghost_button_disabled_shape_black40
+            )
+        }
+    }
+
+    private fun applyColors(textColor: Int, backgroundResource: Int) {
         mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonLabelTextView?.setTextColor(
-            if (enabled) {
-                ContextCompat.getColor(context, R.color.GREEN50)
-            } else {
-                ContextCompat.getColor(context, R.color.BLACK40)
-            }
+            textColor
         )
 
         mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonContainer?.setBackgroundResource(
-            if (enabled) {
-                R.drawable.ghost_button_shape_green60
-            } else {
-                R.drawable.ghost_button_disabled_shape_black40
-            }
+            backgroundResource
         )
     }
 
@@ -49,15 +65,9 @@ class GhostButton @JvmOverloads constructor(
     }
 
     fun isConfirmationButton(isConfirmationButton: Boolean) {
-        if (!isConfirmationButton) {
-            mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonLabelTextView?.setTextColor(
-                getColor(context, R.color.RED40)
-            )
+        mIsConfirmationButton = isConfirmationButton
 
-            mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonContainer?.setBackgroundResource(
-                R.drawable.ghost_button_shape_red60
-            )
-        }
+        paintView()
     }
 
 }
