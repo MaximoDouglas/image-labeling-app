@@ -186,6 +186,7 @@ class ImageClassificationFragment : DaggerFragment() {
     private fun onImageFetchFailed() {
         stopLoadingImageAnimation()
         showOnlyNextImageButton(true)
+
         Toast.makeText(
             context,
             getString(R.string.image_classification_fragment_image_fetch_failed_message),
@@ -202,6 +203,7 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.confirmButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
         mBinding?.discardButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
 
+        mBinding?.showNextImageButton?.isEnabled = showNextImageButton
         mBinding
             ?.showNextImageButton?.visibility = if (showNextImageButton) View.VISIBLE else View.GONE
     }
@@ -346,6 +348,7 @@ class ImageClassificationFragment : DaggerFragment() {
         )
         mBinding?.showNextImageButton?.isConfirmationButton(false)
         mBinding?.showNextImageButton?.setOnClickListener {
+            mBinding?.showNextImageButton?.isEnabled = false
             showNextImage()
         }
 
