@@ -42,12 +42,14 @@ class ImageClassificationFragment : DaggerFragment() {
     private val args: ImageClassificationFragmentArgs by navArgs()
 
     private var mImageClassResponseDto: ImageClassResponseDto? = null
-    private var mBinding: FragmentImageClassificationBinding? = null
 
+    private var mBinding: FragmentImageClassificationBinding? = null
     private var mImageResponseDtoList = mutableListOf<RapidApiImageResponseDto>()
 
     private var mSearchTerm: String? = null
+
     private var mListPosition = 0
+    private var mMakeNewRequestToRapidAPI: Boolean = true
 
     private val mClassNameEditDialog = UpdateNameDialog()
 
@@ -137,8 +139,15 @@ class ImageClassificationFragment : DaggerFragment() {
         hideProgressBar()
         changeSearchTermViewVisibility()
 
+        mMakeNewRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
+
+        val needToUpdateView = mImageResponseDtoList.size == 0
+
         mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
-        updateImageView()
+
+        if (needToUpdateView) {
+            updateImageView()
+        }
     }
 
     private fun onLoadImagesFromCloudError(localizedMessage: String?) {
@@ -359,14 +368,21 @@ class ImageClassificationFragment : DaggerFragment() {
         startLoadingImageAnimation()
         incrementPosition()
 
-        val threshold = 10
-        if (mListPosition == mImageResponseDtoList.size - threshold) {
+        if (requestMoreImagesFromApi()) {
             mSearchTerm?.let {
                 mViewModel?.getRapidImage(searchTerm = it)
             }
         } else {
             updateImageView()
         }
+    }
+
+    private fun requestMoreImagesFromApi(): Boolean {
+        val threshold = 10
+        val listSize = mImageResponseDtoList.size
+        val reachThreshold = mListPosition == listSize - threshold
+
+        return reachThreshold && mMakeNewRequestToRapidAPI
     }
 
     private fun startLoadingImageAnimation() {

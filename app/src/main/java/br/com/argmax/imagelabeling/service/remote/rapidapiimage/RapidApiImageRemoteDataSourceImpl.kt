@@ -6,8 +6,11 @@ class RapidApiImageRemoteDataSourceImpl(
     private val mRapidApiImageApiDataSource: RapidApiImageApiDataSource
 ) : RapidApiImageRemoteDataSource {
 
-    override suspend fun rapidApiImageListBySearchTerm(searchTerm: String): List<RapidApiImageResponseDto> {
-        return mRapidApiImageApiDataSource.rapidApiImagesSearch(searchTerm).imageResponseDto
+    override suspend fun rapidApiImageListBySearchTerm(
+        searchTerm: String,
+        offset: Int
+    ): List<RapidApiImageResponseDto> {
+        return mRapidApiImageApiDataSource.rapidApiImagesSearch(searchTerm, offset).imageResponseDto
     }
 
 }
