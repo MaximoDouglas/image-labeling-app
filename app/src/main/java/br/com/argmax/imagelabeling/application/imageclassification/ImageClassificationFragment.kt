@@ -49,7 +49,7 @@ class ImageClassificationFragment : DaggerFragment() {
     private var mSearchTerm: String? = null
 
     private var mListPosition = 0
-    private var mMakeNewRequestToRapidAPI: Boolean = true
+    private var mEnableNewRequestToRapidAPI: Boolean = true
 
     private val mClassNameEditDialog = UpdateNameDialog()
 
@@ -136,16 +136,13 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
-        hideProgressBar()
-        changeSearchTermViewVisibility()
-
-        mMakeNewRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
-
         val needToUpdateView = mImageResponseDtoList.size == 0
 
+        mEnableNewRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
         mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
 
         if (needToUpdateView) {
+            hideProgressBar()
             updateImageView()
         }
     }
@@ -299,6 +296,7 @@ class ImageClassificationFragment : DaggerFragment() {
             mBinding?.searchTermEditText?.text.toString().let { searchTerm ->
                 mViewModel?.getRapidImage(searchTerm)
                 hideKeyboard()
+                changeSearchTermViewVisibility()
             }
         }
 
@@ -382,7 +380,7 @@ class ImageClassificationFragment : DaggerFragment() {
         val listSize = mImageResponseDtoList.size
         val reachThreshold = mListPosition == listSize - threshold
 
-        return reachThreshold && mMakeNewRequestToRapidAPI
+        return reachThreshold && mEnableNewRequestToRapidAPI
     }
 
     private fun startLoadingImageAnimation() {
