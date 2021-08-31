@@ -136,15 +136,10 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
-        val needToUpdateView = mImageResponseDtoList.size == 0
-
         mEnableNewRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
         mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
 
-        if (needToUpdateView) {
-            hideProgressBar()
-            updateImageView()
-        }
+        updateImageView()
     }
 
     private fun onLoadImagesFromCloudError(localizedMessage: String?) {
