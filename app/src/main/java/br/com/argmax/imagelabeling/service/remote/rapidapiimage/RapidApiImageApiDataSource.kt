@@ -11,6 +11,7 @@ interface RapidApiImageApiDataSource {
     @GET("images/search")
     suspend fun rapidApiImagesSearch(
         @Query(value = "q") searchTerm: String,
+        @Query(value = "offset") offset: Int,
         @Header(value = "x-rapidapi-host") apiHost: String = BuildConfig.RAPID_API_HOST,
         @Header(value = "x-rapidapi-key") apiKey: String = BuildConfig.RAPID_API_KEY
     ): RapidApiSearchResponse

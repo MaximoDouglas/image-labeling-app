@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.argmax.imagelabeling.service.entities.image.ImageRequestDto
-import br.com.argmax.imagelabeling.service.entities.image.ImageResponseDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRequestDto
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiImageResponseDto
@@ -26,8 +25,9 @@ class ImageClassificationViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<ImageClassificationViewModelState>()
-
     fun getStateLiveData(): LiveData<ImageClassificationViewModelState> = stateLiveData
+
+    private var offset: Int = 0
 
     private val handler = CoroutineExceptionHandler { _, exception ->
         stateLiveData.value = ImageClassificationViewModelState.Error(exception)
@@ -38,9 +38,11 @@ class ImageClassificationViewModel @Inject constructor(
 
         viewModelScope.launch(handler) {
             val data = withContext(contextProvider.IO) {
-                mRapidApiImageRemoteDataSource.rapidApiImageListBySearchTerm(searchTerm)
+                mRapidApiImageRemoteDataSource
+                    .rapidApiImageListBySearchTerm(searchTerm, offset)
             }
 
+            offset += data.size
             stateLiveData.value = ImageClassificationViewModelState.GetRapidImageSuccess(data)
         }
     }
@@ -49,10 +51,8 @@ class ImageClassificationViewModel @Inject constructor(
         rapidApiImageResponseDto: RapidApiImageResponseDto,
         imageClass: ImageClassResponseDto
     ) {
-        stateLiveData.value = ImageClassificationViewModelState.Loading
-
         viewModelScope.launch(handler) {
-            val data = withContext(contextProvider.IO) {
+            withContext(contextProvider.IO) {
                 mImageRemoteDataSource.sendImage(
                     ImageRequestDto(
                         url = rapidApiImageResponseDto.url,
@@ -60,8 +60,6 @@ class ImageClassificationViewModel @Inject constructor(
                     )
                 )
             }
-
-            stateLiveData.value = ImageClassificationViewModelState.SendImageSuccess(data)
         }
     }
 
@@ -105,9 +103,6 @@ class ImageClassificationViewModel @Inject constructor(
         object Loading : ImageClassificationViewModelState()
 
         data class Error(val throwable: Throwable) : ImageClassificationViewModelState()
-
-        data class SendImageSuccess(val data: ImageResponseDto) :
-            ImageClassificationViewModelState()
 
         data class GetRapidImageSuccess(val data: List<RapidApiImageResponseDto>?) :
             ImageClassificationViewModelState()
