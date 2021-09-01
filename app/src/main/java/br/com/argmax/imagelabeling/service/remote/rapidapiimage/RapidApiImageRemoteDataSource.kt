@@ -4,6 +4,9 @@ import br.com.argmax.imagelabeling.service.entities.rapidapientities.RapidApiIma
 
 interface RapidApiImageRemoteDataSource {
 
-    suspend fun rapidApiImageListBySearchTerm(searchTerm: String): List<RapidApiImageResponseDto>
+    suspend fun rapidApiImageListBySearchTerm(
+        searchTerm: String,
+        offset: Int = 0
+    ): List<RapidApiImageResponseDto>
 
 }

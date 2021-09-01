@@ -42,12 +42,14 @@ class ImageClassificationFragment : DaggerFragment() {
     private val args: ImageClassificationFragmentArgs by navArgs()
 
     private var mImageClassResponseDto: ImageClassResponseDto? = null
-    private var mBinding: FragmentImageClassificationBinding? = null
 
+    private var mBinding: FragmentImageClassificationBinding? = null
     private var mImageResponseDtoList = mutableListOf<RapidApiImageResponseDto>()
 
     private var mSearchTerm: String? = null
+
     private var mListPosition = 0
+    private var mEnableNewRequestToRapidAPI: Boolean = true
 
     private val mClassNameEditDialog = UpdateNameDialog()
 
@@ -134,10 +136,9 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
-        hideProgressBar()
-        changeSearchTermViewVisibility()
-
+        mEnableNewRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
         mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
+
         updateImageView()
     }
 
@@ -290,6 +291,7 @@ class ImageClassificationFragment : DaggerFragment() {
             mBinding?.searchTermEditText?.text.toString().let { searchTerm ->
                 mViewModel?.getRapidImage(searchTerm)
                 hideKeyboard()
+                changeSearchTermViewVisibility()
             }
         }
 
@@ -359,14 +361,21 @@ class ImageClassificationFragment : DaggerFragment() {
         startLoadingImageAnimation()
         incrementPosition()
 
-        val threshold = 10
-        if (mListPosition == mImageResponseDtoList.size - threshold) {
+        if (requestMoreImagesFromApi()) {
             mSearchTerm?.let {
                 mViewModel?.getRapidImage(searchTerm = it)
             }
         } else {
             updateImageView()
         }
+    }
+
+    private fun requestMoreImagesFromApi(): Boolean {
+        val threshold = 10
+        val listSize = mImageResponseDtoList.size
+        val reachThreshold = mListPosition == listSize - threshold
+
+        return reachThreshold && mEnableNewRequestToRapidAPI
     }
 
     private fun startLoadingImageAnimation() {
