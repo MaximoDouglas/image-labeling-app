@@ -164,7 +164,11 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun showNoMoreImagesToClassifyView(showNoMoreImagesView: Boolean) {
-        showOnlyNextImageButton(showNoMoreImagesView)
+        if (showNoMoreImagesView) {
+            hideAllButtons()
+            stopLoadingImageAnimation()
+        }
+
         mBinding?.imageView?.visibility = if (showNoMoreImagesView) View.GONE else View.VISIBLE
 
         val noMoreImagesTextViewVisibility = if (showNoMoreImagesView) View.VISIBLE else View.GONE
@@ -221,6 +225,13 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.showNextImageButton?.isEnabled = showNextImageButton
         mBinding
             ?.showNextImageButton?.visibility = if (showNextImageButton) View.VISIBLE else View.GONE
+    }
+
+    private fun hideAllButtons() {
+        mBinding?.confirmButton?.visibility = View.GONE
+        mBinding?.discardButton?.visibility = View.GONE
+
+        mBinding?.showNextImageButton?.visibility = View.GONE
     }
 
     private fun onImageFetchSuccess() {
@@ -379,7 +390,7 @@ class ImageClassificationFragment : DaggerFragment() {
         startLoadingImageAnimation()
         incrementPosition()
 
-        if (requestMoreImagesFromApi()) {
+        if (isAutomaticRequestEnabled()) {
             mSearchTerm?.let {
                 mViewModel?.getRapidImage(searchTerm = it)
             }
@@ -388,7 +399,7 @@ class ImageClassificationFragment : DaggerFragment() {
         }
     }
 
-    private fun requestMoreImagesFromApi(): Boolean {
+    private fun isAutomaticRequestEnabled(): Boolean {
         val threshold = 10
         val listSize = mImageResponseDtoList.size
         val reachThreshold = mListPosition == listSize - threshold
