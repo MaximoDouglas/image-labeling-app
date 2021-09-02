@@ -49,7 +49,7 @@ class ImageClassificationFragment : DaggerFragment() {
     private var mSearchTerm: String? = null
 
     private var mListPosition = 0
-    private var mEnableNewRequestToRapidAPI: Boolean = true
+    private var mEnableAutomaticRequestToRapidAPI: Boolean = true
 
     private val mClassNameEditDialog = UpdateNameDialog()
 
@@ -136,7 +136,7 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
-        mEnableNewRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
+        mEnableAutomaticRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
         mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
 
         updateImageView()
@@ -148,15 +148,29 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun updateImageView() {
-        mBinding?.imageView?.let { imageView ->
-            context?.let { contextNotNull ->
-                Glide.with(contextNotNull)
-                    .load(mImageResponseDtoList[mListPosition].url)
-                    .error(R.drawable.ic_broken_image)
-                    .listener(getGlideRequestListener())
-                    .into(imageView)
+        if (mListPosition >= mImageResponseDtoList.size) {
+            showNoMoreImagesToClassifyView(true)
+        } else {
+            mBinding?.imageView?.let { imageView ->
+                context?.let { contextNotNull ->
+                    Glide.with(contextNotNull)
+                        .load(mImageResponseDtoList[mListPosition].url)
+                        .error(R.drawable.ic_broken_image)
+                        .listener(getGlideRequestListener())
+                        .into(imageView)
+                }
             }
         }
+    }
+
+    private fun showNoMoreImagesToClassifyView(showNoMoreImagesView: Boolean) {
+        showOnlyNextImageButton(showNoMoreImagesView)
+        mBinding?.imageView?.visibility = if (showNoMoreImagesView) View.GONE else View.VISIBLE
+
+        val noMoreImagesTextViewVisibility = if (showNoMoreImagesView) View.VISIBLE else View.GONE
+        mBinding?.noMoreImagesTextView?.visibility = noMoreImagesTextViewVisibility
+
+        mEnableAutomaticRequestToRapidAPI = !showNoMoreImagesView
     }
 
     private fun getGlideRequestListener(): RequestListener<Drawable> {
@@ -210,6 +224,10 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun onImageFetchSuccess() {
+        if (!mEnableAutomaticRequestToRapidAPI) {
+            showNoMoreImagesToClassifyView(false)
+        }
+
         stopLoadingImageAnimation()
         enableConfirmAndDiscardButtons(true)
         showOnlyNextImageButton(false)
@@ -375,7 +393,7 @@ class ImageClassificationFragment : DaggerFragment() {
         val listSize = mImageResponseDtoList.size
         val reachThreshold = mListPosition == listSize - threshold
 
-        return reachThreshold && mEnableNewRequestToRapidAPI
+        return reachThreshold && mEnableAutomaticRequestToRapidAPI
     }
 
     private fun startLoadingImageAnimation() {
