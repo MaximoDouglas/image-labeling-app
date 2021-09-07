@@ -320,7 +320,7 @@ class ImageClassificationFragment : DaggerFragment() {
             mBinding?.searchTermEditText?.text.toString().let { searchTerm ->
                 mViewModel?.getRapidImage(searchTerm)
                 hideKeyboard()
-                changeSearchTermViewVisibility()
+                changeSearchTermViewVisibility(false)
             }
         }
 
@@ -337,6 +337,10 @@ class ImageClassificationFragment : DaggerFragment() {
                 false
             }
         )
+
+        mBinding?.searchTermEditIcon?.setOnClickListener {
+            changeSearchTermViewVisibility(true)
+        }
     }
 
     private fun hideKeyboard() {
@@ -347,16 +351,16 @@ class ImageClassificationFragment : DaggerFragment() {
         inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, flags)
     }
 
-    private fun changeSearchTermViewVisibility() {
-        if (mBinding?.searchTermDefaultView?.visibility == View.GONE) {
+    private fun changeSearchTermViewVisibility(canEditSearchTerm: Boolean) {
+        if (canEditSearchTerm) {
+            mBinding?.searchTermDefaultView?.visibility = View.GONE
+            mBinding?.searchTermEditView?.visibility = View.VISIBLE
+        } else {
             mSearchTerm = mBinding?.searchTermEditText?.text.toString()
             mBinding?.searchTermEditView?.visibility = View.GONE
 
             mBinding?.searchTermTextView?.text = mSearchTerm
             mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
-        } else {
-            mBinding?.searchTermDefaultView?.visibility = View.GONE
-            mBinding?.searchTermEditView?.visibility = View.VISIBLE
         }
     }
 
