@@ -353,15 +353,23 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private fun changeSearchTermViewVisibility(canEditSearchTerm: Boolean) {
         if (canEditSearchTerm) {
-            mBinding?.searchTermDefaultView?.visibility = View.GONE
-            mBinding?.searchTermEditView?.visibility = View.VISIBLE
+            showEditView()
         } else {
-            mSearchTerm = mBinding?.searchTermEditText?.text.toString()
-            mBinding?.searchTermEditView?.visibility = View.GONE
-
-            mBinding?.searchTermTextView?.text = mSearchTerm
-            mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
+            showSearchView()
         }
+    }
+
+    private fun showEditView() {
+        mBinding?.searchTermDefaultView?.visibility = View.GONE
+        mBinding?.searchTermEditView?.visibility = View.VISIBLE
+    }
+
+    private fun showSearchView() {
+        mSearchTerm = mBinding?.searchTermEditText?.text.toString()
+        mBinding?.searchTermTextView?.text = mSearchTerm
+
+        mBinding?.searchTermEditView?.visibility = View.GONE
+        mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
     }
 
     private fun setupButtons() {
