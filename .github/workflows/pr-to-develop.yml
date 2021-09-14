@@ -16,6 +16,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Access APOD_API_KEY
+        env:
+          RAPID_API_HOST: ${{ secrets.RAPID_API_HOST }}
+          RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
+        run:  |
+          echo RAPID_API_HOST=\"$RAPID_API_HOST\" > ./local.properties
+          echo RAPID_API_KEY=\"$RAPID_API_KEY\" >> ./local.properties
       - name: Running tests
         run: bash ./gradlew test
   
