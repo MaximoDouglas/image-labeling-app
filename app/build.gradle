@@ -13,8 +13,9 @@ def apiSecretsProperties = new Properties()
 apiSecretsProperties.load(new FileInputStream(apiSecretsFile))
 
 android {
-
     compileSdkVersion 30
+    buildToolsVersion "30.0.3"
+
     defaultConfig {
         applicationId "br.com.argmax.imagelabeling"
         minSdkVersion 24
