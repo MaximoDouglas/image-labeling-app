@@ -1,9 +1,9 @@
-name: Pull Request to Develop
+name: Pull Request to Master
 
 on:
   pull_request:
     branches:
-      - 'develop'
+      - 'master'
 
 jobs:
   test:
@@ -25,7 +25,7 @@ jobs:
           echo RAPID_API_KEY=\"$RAPID_API_KEY\" >> ./local.properties
       - name: Running tests
         run: bash ./gradlew test
-  
+
   apk:
     name: Generate APK
     runs-on: ubuntu-latest
@@ -44,11 +44,11 @@ jobs:
         run:  |
           echo RAPID_API_HOST=\"$RAPID_API_HOST\" > ./local.properties
           echo RAPID_API_KEY=\"$RAPID_API_KEY\" >> ./local.properties
-      - name: Build debug APK
+      - name: Build release APK
         run:  |
-          bash ./gradlew assembleDebug
+          bash ./gradlew assembleRelease
       - name: Upload APK to Action artfacts
         uses: actions/upload-artifact@v1
         with:
           name: app
-          path: app/build/outputs/apk/local/debug/app-local-debug.apk
+          path: app/build/outputs/apk/local/release/app-local-release-unsigned.apk
