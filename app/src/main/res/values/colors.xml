@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="PURPLE50">#6200EE</color>
-    <color name="PURPLE70">#3700B3</color>
-    <color name="PURPLE20">#BB86FC</color>
+    <color name="PURPLE500">#6200EE</color>
+    <color name="PURPLE700">#3700B3</color>
+    <color name="PURPLE200">#BB86FC</color>
+    <color name="PURPLE50">#FFF0F5</color>
 
     <color name="GREEN50">#31b057</color>
     <color name="BLACK50">#25282b</color>
