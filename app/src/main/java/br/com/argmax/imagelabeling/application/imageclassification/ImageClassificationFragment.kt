@@ -245,11 +245,13 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun showProgressBar() {
+        mBinding?.contentContainer?.visibility = View.INVISIBLE
         mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
         mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+        mBinding?.contentContainer?.visibility = View.VISIBLE
     }
 
     private fun setupInteractions() {

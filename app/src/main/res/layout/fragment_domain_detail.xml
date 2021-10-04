@@ -137,10 +137,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="16dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="8dp"
                 android:text="@string/domain_detail_fragment_classes_label_text_view"
                 android:textColor="?attr/colorPrimary"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <androidx.core.widget.ContentLoadingProgressBar
