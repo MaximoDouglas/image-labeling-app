@@ -28,7 +28,7 @@
                 android:layout_marginBottom="40dp"
                 android:gravity="center"
                 android:text="@{domain.description}"
-                android:textColor="@color/BLACK80"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="PURPLE500">#6200EE</color>
+    <color name="PURPLE700">#3700B3</color>
+    <color name="PURPLE200">#BB86FC</color>
+    <color name="PURPLE50">#FFF0F5</color>
+
     <color name="GREEN50">#31b057</color>
     <color name="BLACK50">#25282b</color>
     <color name="WHITE">#ffffff</color>
@@ -15,11 +20,6 @@
     <color name="GREEN40">#51C273</color>
     <color name="GREEN10">#E1F7E8</color>
 
-    <color name="ORANGE80">#B85518</color>
-    <color name="ORANGE60">#E6732C</color>
-    <color name="ORANGE40">#FF9A5C</color>
-    <color name="ORANGE10">#FFE7D9</color>
-
     <color name="BLUE80">#114D96</color>
     <color name="BLUE60">#216BC4</color>
     <color name="BLUE40">#5BA0F5</color>
@@ -29,11 +29,6 @@
     <color name="RED60">#CF212A</color>
     <color name="RED40">#ED646A</color>
     <color name="RED10">#FCE3E4</color>
-
-    <color name="YELLOW80">#C98C10</color>
-    <color name="YELLOW60">#E39E14</color>
-    <color name="YELLOW40">#FCC047</color>
-    <color name="YELLOW10">#FFF0D1</color>
 
     <color name="BLACK100">#25282B</color>
     <color name="BLACK80">#52575C</color>
