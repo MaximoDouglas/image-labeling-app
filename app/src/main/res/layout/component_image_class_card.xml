@@ -23,7 +23,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="30dp"
             android:text="@{imageClassResponseDto.name}"
-            android:textColor="@color/BLACK80"
+            android:textColor="?attr/colorPrimary"
             android:textSize="14sp"
             tools:text="Class name" />
 
