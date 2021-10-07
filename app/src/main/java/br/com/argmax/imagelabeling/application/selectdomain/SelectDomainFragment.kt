@@ -11,9 +11,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog.Companion.MODEL_CREATION_DIALOG_TAG
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment
 import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.selectdomain.adapters.SelectDomainAdapter
@@ -60,12 +60,12 @@ class SelectDomainFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupFloatingActionButton()
+        setupButtons()
         setupRecyclerView()
         setupViewModel()
     }
 
-    private fun setupFloatingActionButton() {
+    private fun setupButtons() {
         mModelCreationDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mViewModel?.createDomain(editTextContent)
@@ -74,6 +74,10 @@ class SelectDomainFragment : DaggerFragment() {
 
         mBinding?.selectDomainFragmentFloatingActionButton?.setOnClickListener {
             showModelCreationDialog()
+        }
+
+        mBinding?.tryAgainButton?.setOnClickListener {
+            mViewModel?.getDomainList()
         }
     }
 
@@ -110,10 +114,11 @@ class SelectDomainFragment : DaggerFragment() {
 
             is SelectDomainViewModelState.Error -> {
                 hideProgressBar()
-                print(viewModelState.throwable.localizedMessage)
+                showErrorWhileFetchingDomainsView()
             }
 
             is SelectDomainViewModelState.GetDomainListSuccess -> {
+                hideErrorView()
                 mAdapter.replaceDomainList(viewModelState.data)
                 hideProgressBar()
             }
@@ -123,6 +128,16 @@ class SelectDomainFragment : DaggerFragment() {
                 navigateToDomainDetailFragment(viewModelState.data)
             }
         }
+    }
+
+    private fun showErrorWhileFetchingDomainsView() {
+        mBinding?.selectDomainFragmentRecyclerView?.visibility = View.GONE
+        mBinding?.somethingWentWrongView?.visibility = View.VISIBLE
+    }
+
+    private fun hideErrorView() {
+        mBinding?.somethingWentWrongView?.visibility = View.GONE
+        mBinding?.selectDomainFragmentRecyclerView?.visibility = View.VISIBLE
     }
 
     private fun hideProgressBar() {
