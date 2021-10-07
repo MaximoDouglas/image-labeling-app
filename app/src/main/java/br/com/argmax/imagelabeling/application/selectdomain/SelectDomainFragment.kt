@@ -132,7 +132,6 @@ class SelectDomainFragment : DaggerFragment() {
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
                 hideProgressBar()
-                hideErrorView()
                 navigateToDomainDetailFragment(viewModelState.data)
             }
         }
