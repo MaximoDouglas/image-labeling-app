@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -119,24 +120,39 @@ class SelectDomainFragment : DaggerFragment() {
 
             is SelectDomainViewModelState.GetDomainListSuccess -> {
                 hideErrorView()
-                mAdapter.replaceDomainList(viewModelState.data)
+                val data = viewModelState.data
+
+                if (data.isNotEmpty()) {
+                    mAdapter.replaceDomainList(data)
+                } else {
+                    showEmptyDomainListReturnedView()
+                }
                 hideProgressBar()
             }
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
                 hideProgressBar()
+                hideErrorView()
                 navigateToDomainDetailFragment(viewModelState.data)
             }
         }
     }
 
+    private fun showEmptyDomainListReturnedView() {
+        mBinding?.selectDomainFragmentRecyclerView?.visibility = View.GONE
+        mBinding?.emptyDomainListTextView?.visibility = View.VISIBLE
+    }
+
     private fun showErrorWhileFetchingDomainsView() {
+        mBinding?.selectDomainFragmentFloatingActionButton?.isVisible = false
         mBinding?.selectDomainFragmentRecyclerView?.visibility = View.GONE
         mBinding?.somethingWentWrongView?.visibility = View.VISIBLE
     }
 
     private fun hideErrorView() {
+        mBinding?.selectDomainFragmentFloatingActionButton?.isVisible = true
         mBinding?.somethingWentWrongView?.visibility = View.GONE
+        mBinding?.emptyDomainListTextView?.visibility = View.GONE
         mBinding?.selectDomainFragmentRecyclerView?.visibility = View.VISIBLE
     }
 
