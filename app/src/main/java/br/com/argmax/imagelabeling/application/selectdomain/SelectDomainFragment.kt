@@ -119,6 +119,7 @@ class SelectDomainFragment : DaggerFragment() {
             }
 
             is SelectDomainViewModelState.GetDomainListSuccess -> {
+                hideProgressBar()
                 hideErrorView()
                 val data = viewModelState.data
 
@@ -127,7 +128,6 @@ class SelectDomainFragment : DaggerFragment() {
                 } else {
                     showEmptyDomainListReturnedView()
                 }
-                hideProgressBar()
             }
 
             is SelectDomainViewModelState.CreateDomainSuccess -> {
