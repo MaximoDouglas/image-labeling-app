@@ -2,10 +2,10 @@
     <string name="app_name">image-labeling-android</string>
     <string name="cancel">Cancel</string>
     <string name="OK">OK</string>
+    <string name="try_again">Try again</string>
+    <string name="something_went_wrong">Something went wrong… Please, try again.</string>
 
     <string name="select_domain_fragment_toolbar_text">Domain Selection</string>
-    <string name="select_domain_fragment_try_again">Try again</string>
-    <string name="select_domain_fragment_something_went_wrong">Something went wrong… Please, try again.</string>
     <string name="select_domain_fragment_no_domain_yet">It looks like that there is no Domain yet… Please, insert at least one to start labeling</string>
 
     <string name="model_dialog_title">Model</string>

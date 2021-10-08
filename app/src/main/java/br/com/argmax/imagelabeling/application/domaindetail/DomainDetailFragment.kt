@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,8 +14,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
 import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
@@ -82,9 +83,7 @@ class DomainDetailFragment : DaggerFragment() {
 
         setDomainDataIntoView()
         setupViewModelObserver()
-        setupToolbarBackButton()
-        setupEditButton()
-        setupDeleteButton()
+        setupButtons()
         setupRecyclerView()
         setupImageClassCreationDialog()
     }
@@ -169,10 +168,11 @@ class DomainDetailFragment : DaggerFragment() {
 
             is DomainDetailViewModelState.Error -> {
                 hideProgressBar()
-                print(viewModelState.throwable.localizedMessage)
+                showErrorWhileFetchingClassesView()
             }
 
             is DomainDetailViewModelState.GetImageClassListSuccess -> {
+                hideErrorView()
                 mAdapter.replaceData(viewModelState.data)
                 hideProgressBar()
             }
@@ -194,6 +194,19 @@ class DomainDetailFragment : DaggerFragment() {
         }
     }
 
+    private fun hideErrorView() {
+        mBinding?.domainDetailFragmentFloatingActionButton?.isVisible = true
+        mBinding?.somethingWentWrongView?.visibility = View.GONE
+//        mBinding?.emptyDomainListTextView?.visibility = View.GONE
+        mBinding?.domainDetailFragmentClassesListView?.visibility = View.VISIBLE
+    }
+
+    private fun showErrorWhileFetchingClassesView() {
+        mBinding?.domainDetailFragmentFloatingActionButton?.isVisible = false
+        mBinding?.domainDetailFragmentClassesListView?.visibility = View.GONE
+        mBinding?.somethingWentWrongView?.visibility = View.VISIBLE
+    }
+
     private fun hideProgressBar() {
         mBinding?.contentLoadingProgressBar?.visibility = View.GONE
     }
@@ -207,14 +220,14 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupImageClassCreationDialog() {
-       mImageClassCreationDialog.setOkButtonClickListener(object :
-           ModelCreationDialogClickListener {
-           override fun onConfirm(editTextContent: String) {
-               mDomainResponseDto?.id?.let { domainId ->
-                   mViewModel?.createImageClass(editTextContent, domainId)
-               }
-           }
-       })
+        mImageClassCreationDialog.setOkButtonClickListener(object :
+            ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mDomainResponseDto?.id?.let { domainId ->
+                    mViewModel?.createImageClass(editTextContent, domainId)
+                }
+            }
+        })
 
         mBinding?.domainDetailFragmentFloatingActionButton?.setOnClickListener {
             showImageClassCreationDialog()
@@ -226,6 +239,21 @@ class DomainDetailFragment : DaggerFragment() {
             childFragmentManager,
             UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
         )
+    }
+
+    private fun setupButtons() {
+        setupToolbarBackButton()
+        setupEditButton()
+        setupDeleteButton()
+        setupTryAgainButton()
+    }
+
+    private fun setupTryAgainButton() {
+        mBinding?.tryAgainButton?.setOnClickListener {
+            mDomainResponseDto?.id?.let {
+                mViewModel?.getImageClassListByDomainId(it)
+            }
+        }
     }
 
 }
