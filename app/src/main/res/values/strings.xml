@@ -4,6 +4,9 @@
     <string name="OK">OK</string>
 
     <string name="select_domain_fragment_toolbar_text">Domain Selection</string>
+    <string name="select_domain_fragment_try_again">Try again</string>
+    <string name="select_domain_fragment_something_went_wrong">Something went wrong… Please, try again.</string>
+    <string name="select_domain_fragment_no_domain_yet">It looks like that there is no Domain yet… Please, insert at least one to start labeling</string>
 
     <string name="model_dialog_title">Model</string>
     <string name="model_dialog_edit_text_hint">Type the model name/description</string>
@@ -28,5 +31,6 @@
     <string name="image_classification_fragment_delete_dialog_yes_button_text">Yes</string>
     <string name="image_classification_fragment_delete_dialog_no_button_text">No</string>
     <string name="image_classification_fragment_image_fetch_failed_message">It was not possible to load this resource</string>
+    <string name="image_classification_fragment_no_more_images">Sorry… there is no more images for the search term you provided</string>
 
 </resources>

@@ -8,10 +8,9 @@
         android:layout_height="match_parent"
         android:background="@color/PURPLE50">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/select_domain_fragment_toolbar"
@@ -43,7 +42,9 @@
                 android:indeterminate="false"
                 android:indeterminateTintMode="src_atop"
                 android:visibility="gone"
-                tools:visibility="visible" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/select_domain_fragment_toolbar" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/select_domain_fragment_recycler_view"
@@ -53,9 +54,68 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
-                app:layout_constraintTop_toBottomOf="@+id/select_domain_fragment_toolbar" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/select_domain_fragment_toolbar"
+                tools:visibility="gone" />
 
-        </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/something_went_wrong_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/something_went_wrong_text_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/select_domain_fragment_something_went_wrong"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="30sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/try_again_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:text="@string/select_domain_fragment_try_again"
+                    android:textColor="@color/WHITE"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/something_went_wrong_text_view" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/empty_domain_list_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="6dp"
+                android:layout_marginBottom="40dp"
+                android:text="@string/select_domain_fragment_no_domain_yet"
+                android:textAlignment="center"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="25sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/select_domain_fragment_floating_action_button"
