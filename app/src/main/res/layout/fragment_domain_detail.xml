@@ -161,8 +161,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/something_went_wrong_text_view"
@@ -194,6 +193,25 @@
                 app:layout_constraintTop_toBottomOf="@+id/something_went_wrong_text_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/empty_domain_list_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/domain_detail_fragment_no_classes_yet"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/content_loading_progress_bar"

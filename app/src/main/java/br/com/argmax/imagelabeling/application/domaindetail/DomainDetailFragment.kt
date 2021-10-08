@@ -162,6 +162,7 @@ class DomainDetailFragment : DaggerFragment() {
         when (viewModelState) {
             is DomainDetailViewModelState.Loading -> {
                 if (mAdapter.itemCount == 0) {
+                    mBinding?.domainDetailFragmentClassesListView?.visibility = View.GONE
                     mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
                 }
             }
@@ -172,14 +173,22 @@ class DomainDetailFragment : DaggerFragment() {
             }
 
             is DomainDetailViewModelState.GetImageClassListSuccess -> {
-                hideErrorView()
-                mAdapter.replaceData(viewModelState.data)
                 hideProgressBar()
+                hideErrorView()
+
+                val data = viewModelState.data
+
+                if (data.isNotEmpty()) {
+                    mAdapter.replaceData(viewModelState.data)
+                } else {
+                    showEmptyDomainListReturnedView()
+                }
             }
 
             is DomainDetailViewModelState.CreateImageClassSuccess -> {
-                mAdapter.addImageClass(viewModelState.data)
                 hideProgressBar()
+                hideErrorView()
+                mAdapter.addImageClass(viewModelState.data)
             }
 
             is DomainDetailViewModelState.EditDomainSuccess -> {
@@ -197,8 +206,13 @@ class DomainDetailFragment : DaggerFragment() {
     private fun hideErrorView() {
         mBinding?.domainDetailFragmentFloatingActionButton?.isVisible = true
         mBinding?.somethingWentWrongView?.visibility = View.GONE
-//        mBinding?.emptyDomainListTextView?.visibility = View.GONE
+        mBinding?.emptyDomainListTextView?.visibility = View.GONE
         mBinding?.domainDetailFragmentClassesListView?.visibility = View.VISIBLE
+    }
+
+    private fun showEmptyDomainListReturnedView() {
+        mBinding?.domainDetailFragmentClassesListView?.visibility = View.GONE
+        mBinding?.emptyDomainListTextView?.visibility = View.VISIBLE
     }
 
     private fun showErrorWhileFetchingClassesView() {

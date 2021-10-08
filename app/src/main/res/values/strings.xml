@@ -20,6 +20,7 @@
     <string name="domain_detail_fragment_image_class_creation_dialog_hint">Type the image class name</string>
     <string name="domain_detail_fragment_delete_domain_dialog_title">Deleting domain</string>
     <string name="domain_detail_fragment_delete_domain_dialog_body">Are you sure you want to delete this domain?</string>
+    <string name="domain_detail_fragment_no_classes_yet">It looks like that there is no Classes yet… Please, insert at least one to start labeling</string>
 
     <string name="image_classification_fragment_id_label_text_view">id:</string>
     <string name="image_classification_fragment_name_label_text_view">Name:</string>
