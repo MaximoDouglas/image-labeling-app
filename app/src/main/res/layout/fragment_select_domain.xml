@@ -8,16 +8,16 @@
         android:layout_height="match_parent"
         android:background="@color/PURPLE50">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/select_domain_fragment_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorPrimary"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
@@ -32,90 +32,89 @@
 
             </androidx.appcompat.widget.Toolbar>
 
-            <androidx.core.widget.ContentLoadingProgressBar
-                android:id="@+id/content_loading_progress_bar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:layout_margin="8dp"
-                android:indeterminate="false"
-                android:indeterminateTintMode="src_atop"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/select_domain_fragment_toolbar" />
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/select_domain_fragment_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/select_domain_fragment_toolbar"
                 tools:visibility="gone" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/something_went_wrong_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/something_went_wrong_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="6dp"
-                    android:layout_marginBottom="40dp"
-                    android:text="@string/something_went_wrong"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="30sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/content_loading_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:indeterminate="false"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/try_again_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:text="@string/try_again"
-                    android:textColor="@color/WHITE"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/something_went_wrong_text_view" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/something_went_wrong_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="gone">
 
             <TextView
-                android:id="@+id/empty_domain_list_text_view"
+                android:id="@+id/something_went_wrong_text_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="6dp"
                 android:layout_marginBottom="40dp"
-                android:text="@string/select_domain_fragment_no_domain_yet"
+                android:text="@string/something_went_wrong"
                 android:textAlignment="center"
                 android:textColor="?attr/colorPrimary"
-                android:textSize="25sp"
-                android:visibility="gone"
+                android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/try_again_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:text="@string/try_again"
+                android:textColor="@color/WHITE"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/something_went_wrong_text_view" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/empty_domain_list_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="40dp"
+            android:text="@string/select_domain_fragment_no_domain_yet"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/select_domain_fragment_floating_action_button"
