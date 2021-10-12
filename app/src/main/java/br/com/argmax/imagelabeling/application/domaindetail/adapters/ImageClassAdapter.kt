@@ -19,6 +19,15 @@ class ImageClassAdapter(
 
     private var mData: MutableList<ImageClassResponseDto> = mutableListOf()
 
+    fun addImageClass(imageClassResponseDto: ImageClassResponseDto) {
+        mData.add(imageClassResponseDto)
+        notifyItemChanged(itemCount)
+    }
+
+    override fun getItemCount(): Int {
+        return mData.size
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun replaceData(imageClassResponseDtoList: List<ImageClassResponseDto>) {
         mData = imageClassResponseDtoList.toMutableList()
@@ -37,17 +46,8 @@ class ImageClassAdapter(
         return ImageClassCardViewHolder(componentImageClassCardBinding)
     }
 
-    override fun getItemCount(): Int {
-        return mData.size
-    }
-
     override fun onBindViewHolder(holder: ImageClassCardViewHolder, position: Int) {
         holder.updateData(mData[position])
-    }
-
-    fun addImageClass(imageClassResponseDto: ImageClassResponseDto) {
-        mData.add(imageClassResponseDto)
-        notifyItemChanged(itemCount)
     }
 
     inner class ImageClassCardViewHolder(

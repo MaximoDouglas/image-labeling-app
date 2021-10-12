@@ -60,10 +60,6 @@ class GhostButton @JvmOverloads constructor(
         mAsphaltGhostButtonComponentViewBinding?.executePendingBindings()
     }
 
-    fun getText(): CharSequence? {
-        return mAsphaltGhostButtonComponentViewBinding?.asphaltGhostButtonLabelTextView?.text
-    }
-
     fun isConfirmationButton(isConfirmationButton: Boolean) {
         mIsConfirmationButton = isConfirmationButton
 
