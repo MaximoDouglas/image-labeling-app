@@ -34,7 +34,7 @@ class SelectDomainViewModel @Inject constructor(
                 mDomainRemoteDataSource.domainList()
             }
 
-            stateLiveData.value = SelectDomainViewModelState.GetDomainListSuccess(data)
+            stateLiveData.value = SelectDomainViewModelState.GetDomainListSuccess(listOf())
         }
     }
 
