@@ -84,11 +84,9 @@ class DomainDetailViewModel @Inject constructor(
     }
 
     sealed class DomainDetailViewModelState {
-        object Loading : DomainDetailViewModelState()
-
-        object DeleteDomainSuccess : DomainDetailViewModelState()
-
         data class Error(val throwable: Throwable) : DomainDetailViewModelState()
+
+        object Loading : DomainDetailViewModelState()
 
         data class GetImageClassListSuccess(val data: List<ImageClassResponseDto>) :
             DomainDetailViewModelState()
@@ -97,6 +95,8 @@ class DomainDetailViewModel @Inject constructor(
             DomainDetailViewModelState()
 
         data class EditDomainSuccess(val data: DomainResponseDto) : DomainDetailViewModelState()
+
+        object DeleteDomainSuccess : DomainDetailViewModelState()
     }
 
 }
