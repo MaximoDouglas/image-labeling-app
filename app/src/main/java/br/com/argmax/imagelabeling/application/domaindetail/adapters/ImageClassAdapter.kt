@@ -12,7 +12,7 @@ import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageCla
 import br.com.argmax.imagelabeling.databinding.ViewHolderImageClassCardBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.view_holder_image_class_card.imageClassCardComponent
+import kotlinx.android.synthetic.main.view_holder_image_class_card.*
 
 class ImageClassAdapter(
     val mOnImageClassCardClickListener: OnImageClassCardClickListener

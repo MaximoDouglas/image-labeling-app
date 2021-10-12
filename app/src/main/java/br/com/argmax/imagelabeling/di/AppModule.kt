@@ -7,12 +7,12 @@ import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSourceI
 import br.com.argmax.imagelabeling.service.remote.image.ImageApiDataSource
 import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSourceImpl
-import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageApiDataSource
-import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
-import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSourceImpl
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassApiDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSourceImpl
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageApiDataSource
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSourceImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module

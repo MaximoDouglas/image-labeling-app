@@ -11,10 +11,10 @@ import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRespons
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class DomainDetailViewModel @Inject constructor(
     private val mImageClassRemoteDataSource: ImageClassRemoteDataSource,

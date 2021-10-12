@@ -12,7 +12,7 @@ import br.com.argmax.imagelabeling.application.selectdomain.listeners.OnDomainCa
 import br.com.argmax.imagelabeling.databinding.ViewHolderDomainCardBinding
 import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.view_holder_domain_card.domainCardComponent
+import kotlinx.android.synthetic.main.view_holder_domain_card.*
 
 class SelectDomainAdapter(
     val onDomainCardClickListener: OnDomainCardClickListener

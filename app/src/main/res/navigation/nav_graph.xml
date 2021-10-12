@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/imageClassificationFragment"
         android:name="br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationFragment"
-        android:label="ImageClassificationFragment" >
+        android:label="ImageClassificationFragment">
 
         <argument
             android:name="imageCLassResponseDto"
