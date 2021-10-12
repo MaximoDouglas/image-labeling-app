@@ -26,7 +26,7 @@ class SelectDomainAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DomainViewHolder {
-        val domainCardViewHolderBinding: ComponentDomainCardBinding =
+        val componentDomainCardBinding: ComponentDomainCardBinding =
             DataBindingUtil.inflate(
                 LayoutInflater.from(parent.context),
                 R.layout.component_domain_card,
@@ -34,7 +34,7 @@ class SelectDomainAdapter(
                 false
             )
 
-        return DomainViewHolder(domainCardViewHolderBinding)
+        return DomainViewHolder(componentDomainCardBinding)
     }
 
     override fun getItemCount(): Int {
