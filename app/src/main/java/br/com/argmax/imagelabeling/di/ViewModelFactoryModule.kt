@@ -16,7 +16,9 @@ import kotlin.reflect.KClass
 abstract class ViewModelFactoryModule {
 
     @Binds
-    abstract fun bindViewModelFactory(viewModelFactoryProvider: ViewModelFactoryProvider): ViewModelProvider.Factory
+    abstract fun bindViewModelFactory(
+        viewModelFactoryProvider: ViewModelFactoryProvider
+    ): ViewModelProvider.Factory
 
 }
 
@@ -26,7 +28,9 @@ abstract class SelectDomainViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(SelectDomainViewModel::class)
-    abstract fun bindsSelectDomainViewModel(selectDomainViewModel: SelectDomainViewModel): ViewModel
+    abstract fun bindsSelectDomainViewModel(
+        selectDomainViewModel: SelectDomainViewModel
+    ): ViewModel
 
 }
 
@@ -36,7 +40,9 @@ abstract class DomainDetailViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(DomainDetailViewModel::class)
-    abstract fun bindsDomainDetailViewModel(domainDetailViewModel: DomainDetailViewModel): ViewModel
+    abstract fun bindsDomainDetailViewModel(
+        domainDetailViewModel: DomainDetailViewModel
+    ): ViewModel
 
 }
 
@@ -46,7 +52,9 @@ abstract class ImageClassificationViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(ImageClassificationViewModel::class)
-    abstract fun bindsImageClassificationViewModel(imageClassificationViewModel: ImageClassificationViewModel): ViewModel
+    abstract fun bindsImageClassificationViewModel(
+        imageClassificationViewModel: ImageClassificationViewModel
+    ): ViewModel
 
 }
 

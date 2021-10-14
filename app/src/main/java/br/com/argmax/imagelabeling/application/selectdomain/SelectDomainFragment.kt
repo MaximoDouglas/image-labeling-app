@@ -137,9 +137,8 @@ class SelectDomainFragment : DaggerFragment() {
         }
     }
 
-    private fun showEmptyDomainListReturnedView() {
-        mBinding?.selectDomainFragmentRecyclerView?.visibility = View.GONE
-        mBinding?.emptyDomainListTextView?.visibility = View.VISIBLE
+    private fun hideProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
     }
 
     private fun showErrorWhileFetchingDomainsView() {
@@ -155,8 +154,9 @@ class SelectDomainFragment : DaggerFragment() {
         mBinding?.selectDomainFragmentRecyclerView?.visibility = View.VISIBLE
     }
 
-    private fun hideProgressBar() {
-        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+    private fun showEmptyDomainListReturnedView() {
+        mBinding?.selectDomainFragmentRecyclerView?.visibility = View.GONE
+        mBinding?.emptyDomainListTextView?.visibility = View.VISIBLE
     }
 
     private fun navigateToDomainDetailFragment(domainResponseDto: DomainResponseDto) {

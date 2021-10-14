@@ -20,11 +20,11 @@ class SelectDomainViewModel @Inject constructor(
 
     private val stateLiveData = MutableLiveData<SelectDomainViewModelState>()
 
-    fun getStateLiveData(): LiveData<SelectDomainViewModelState> = stateLiveData
-
     private val handler = CoroutineExceptionHandler { _, exception ->
         stateLiveData.value = SelectDomainViewModelState.Error(exception)
     }
+
+    fun getStateLiveData(): LiveData<SelectDomainViewModelState> = stateLiveData
 
     fun getDomainList() {
         stateLiveData.value = SelectDomainViewModelState.Loading

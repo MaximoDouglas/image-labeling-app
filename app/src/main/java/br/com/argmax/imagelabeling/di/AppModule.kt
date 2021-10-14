@@ -31,7 +31,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideDomainRemoteDataSource(domainApiDataSource: DomainApiDataSource): DomainRemoteDataSource {
+    fun provideDomainRemoteDataSource(
+        domainApiDataSource: DomainApiDataSource
+    ): DomainRemoteDataSource {
         return DomainRemoteDataSourceImpl(domainApiDataSource)
     }
 
@@ -47,7 +49,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideImageClassRemoteDataSource(imageClassApiDataSource: ImageClassApiDataSource): ImageClassRemoteDataSource {
+    fun provideImageClassRemoteDataSource(
+        imageClassApiDataSource: ImageClassApiDataSource
+    ): ImageClassRemoteDataSource {
         return ImageClassRemoteDataSourceImpl(imageClassApiDataSource)
     }
 
@@ -63,7 +67,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideRapidImageRemoteDataSource(rapidImageApiDataSource: RapidApiImageApiDataSource): RapidApiImageRemoteDataSource {
+    fun provideRapidImageRemoteDataSource(
+        rapidImageApiDataSource: RapidApiImageApiDataSource
+    ): RapidApiImageRemoteDataSource {
         return RapidApiImageRemoteDataSourceImpl(rapidImageApiDataSource)
     }
 
@@ -79,7 +85,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideImageRemoteDataSource(imageApiDataSource: ImageApiDataSource): ImageRemoteDataSource {
+    fun provideImageRemoteDataSource(
+        imageApiDataSource: ImageApiDataSource
+    ): ImageRemoteDataSource {
         return ImageRemoteDataSourceImpl(imageApiDataSource)
     }
 
@@ -117,7 +125,9 @@ object RemoteServiceModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideOkHttpClientBuilder(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient.Builder {
+    fun provideOkHttpClientBuilder(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient.Builder {
         val builder = OkHttpClient.Builder().readTimeout(15, TimeUnit.SECONDS)
         builder.addInterceptor(loggingInterceptor)
 
