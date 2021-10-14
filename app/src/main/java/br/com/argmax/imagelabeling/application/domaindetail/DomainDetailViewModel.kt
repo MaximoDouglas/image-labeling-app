@@ -24,11 +24,11 @@ class DomainDetailViewModel @Inject constructor(
 
     private val stateLiveData = MutableLiveData<DomainDetailViewModelState>()
 
-    fun getStateLiveData(): LiveData<DomainDetailViewModelState> = stateLiveData
-
     private val handler = CoroutineExceptionHandler { _, exception ->
         stateLiveData.value = DomainDetailViewModelState.Error(exception)
     }
+
+    fun getStateLiveData(): LiveData<DomainDetailViewModelState> = stateLiveData
 
     fun getImageClassListByDomainId(domainId: Int) {
         stateLiveData.value = DomainDetailViewModelState.Loading
