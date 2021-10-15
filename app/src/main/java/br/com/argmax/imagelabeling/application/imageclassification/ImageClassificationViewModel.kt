@@ -25,13 +25,13 @@ class ImageClassificationViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val stateLiveData = MutableLiveData<ImageClassificationViewModelState>()
-    fun getStateLiveData(): LiveData<ImageClassificationViewModelState> = stateLiveData
-
     private var offset: Int = 0
 
     private val handler = CoroutineExceptionHandler { _, exception ->
         stateLiveData.value = ImageClassificationViewModelState.Error(exception)
     }
+
+    fun getStateLiveData(): LiveData<ImageClassificationViewModelState> = stateLiveData
 
     fun getRapidImage(searchTerm: String) {
         stateLiveData.value = ImageClassificationViewModelState.Loading

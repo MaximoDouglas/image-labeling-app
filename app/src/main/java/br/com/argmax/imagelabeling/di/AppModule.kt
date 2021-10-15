@@ -7,12 +7,12 @@ import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSourceI
 import br.com.argmax.imagelabeling.service.remote.image.ImageApiDataSource
 import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.image.ImageRemoteDataSourceImpl
-import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageApiDataSource
-import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
-import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSourceImpl
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassApiDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSourceImpl
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageApiDataSource
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSource
+import br.com.argmax.imagelabeling.service.remote.rapidapiimage.RapidApiImageRemoteDataSourceImpl
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -31,7 +31,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideDomainRemoteDataSource(domainApiDataSource: DomainApiDataSource): DomainRemoteDataSource {
+    fun provideDomainRemoteDataSource(
+        domainApiDataSource: DomainApiDataSource
+    ): DomainRemoteDataSource {
         return DomainRemoteDataSourceImpl(domainApiDataSource)
     }
 
@@ -47,7 +49,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideImageClassRemoteDataSource(imageClassApiDataSource: ImageClassApiDataSource): ImageClassRemoteDataSource {
+    fun provideImageClassRemoteDataSource(
+        imageClassApiDataSource: ImageClassApiDataSource
+    ): ImageClassRemoteDataSource {
         return ImageClassRemoteDataSourceImpl(imageClassApiDataSource)
     }
 
@@ -63,7 +67,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideRapidImageRemoteDataSource(rapidImageApiDataSource: RapidApiImageApiDataSource): RapidApiImageRemoteDataSource {
+    fun provideRapidImageRemoteDataSource(
+        rapidImageApiDataSource: RapidApiImageApiDataSource
+    ): RapidApiImageRemoteDataSource {
         return RapidApiImageRemoteDataSourceImpl(rapidImageApiDataSource)
     }
 
@@ -79,7 +85,9 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideImageRemoteDataSource(imageApiDataSource: ImageApiDataSource): ImageRemoteDataSource {
+    fun provideImageRemoteDataSource(
+        imageApiDataSource: ImageApiDataSource
+    ): ImageRemoteDataSource {
         return ImageRemoteDataSourceImpl(imageApiDataSource)
     }
 
@@ -117,7 +125,9 @@ object RemoteServiceModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideOkHttpClientBuilder(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient.Builder {
+    fun provideOkHttpClientBuilder(
+        loggingInterceptor: HttpLoggingInterceptor
+    ): OkHttpClient.Builder {
         val builder = OkHttpClient.Builder().readTimeout(15, TimeUnit.SECONDS)
         builder.addInterceptor(loggingInterceptor)
 

@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
+import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailFragmentDirections.actionDomainDetailFragmentToImageClassificationFragment
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
 import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
@@ -37,7 +38,7 @@ class DomainDetailFragment : DaggerFragment() {
     private val mDomainEditDialog = UpdateNameDialog()
 
     private var mDomainResponseDto: DomainResponseDto? = null
-    private val args: DomainDetailFragmentArgs by navArgs()
+    private val mArgs: DomainDetailFragmentArgs by navArgs()
 
     private val mAdapter = ImageClassAdapter(object : OnImageClassCardClickListener {
         override fun onCardClick(imageCLassResponseDto: ImageClassResponseDto) {
@@ -47,9 +48,7 @@ class DomainDetailFragment : DaggerFragment() {
 
     private fun navigateToImageClassificationFragment(imageCLassResponseDto: ImageClassResponseDto) {
         findNavController().navigate(
-            DomainDetailFragmentDirections.actionDomainDetailFragmentToImageClassificationFragment(
-                imageCLassResponseDto
-            )
+            actionDomainDetailFragmentToImageClassificationFragment(imageCLassResponseDto)
         )
     }
 
@@ -68,7 +67,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun unwrapArgs() {
-        mDomainResponseDto = args.domainResponseDto
+        mDomainResponseDto = mArgs.domainResponseDto
     }
 
     private fun initViewModel() {
@@ -86,53 +85,6 @@ class DomainDetailFragment : DaggerFragment() {
         setupButtons()
         setupRecyclerView()
         setupImageClassCreationDialog()
-    }
-
-    private fun setupEditButton() {
-        mDomainEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
-            override fun onConfirm(editTextContent: String) {
-                mDomainResponseDto?.id?.let { domainId ->
-                    mViewModel?.editDomain(editTextContent, domainId)
-                }
-            }
-        })
-
-        mBinding?.domainDetailFragmentDomainDescriptionEditIcon?.setOnClickListener {
-            showDomainEditDialog()
-        }
-    }
-
-    private fun showDomainEditDialog() {
-        mDomainEditDialog.show(
-            childFragmentManager,
-            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
-        )
-    }
-
-    private fun setupToolbarBackButton() {
-        mBinding?.domainDetailFragmentToolbarBackIcon?.setOnClickListener {
-            navigateBack()
-        }
-    }
-
-    private fun navigateBack() {
-        findNavController().navigateUp()
-    }
-
-    private fun setupDeleteButton() {
-        mBinding?.domainDetailFragmentToolbarDeleteIcon?.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle(getString(R.string.domain_detail_fragment_delete_domain_dialog_title))
-                .setMessage(getString(R.string.domain_detail_fragment_delete_domain_dialog_body))
-                .setPositiveButton("Yes") { _, _ -> deleteDomain() }
-                .setNegativeButton("No", null)
-                .show()
-        }
-    }
-
-    private fun deleteDomain() {
-        mDomainResponseDto?.id?.let { mViewModel?.deleteDomain(it) }
     }
 
     private fun setDomainDataIntoView() {
@@ -203,6 +155,16 @@ class DomainDetailFragment : DaggerFragment() {
         }
     }
 
+    private fun hideProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+    }
+
+    private fun showErrorWhileFetchingClassesView() {
+        mBinding?.domainDetailFragmentFloatingActionButton?.isVisible = false
+        mBinding?.domainDetailFragmentClassesListView?.visibility = View.GONE
+        mBinding?.somethingWentWrongView?.visibility = View.VISIBLE
+    }
+
     private fun hideErrorView() {
         mBinding?.domainDetailFragmentFloatingActionButton?.isVisible = true
         mBinding?.somethingWentWrongView?.visibility = View.GONE
@@ -215,14 +177,66 @@ class DomainDetailFragment : DaggerFragment() {
         mBinding?.emptyDomainListTextView?.visibility = View.VISIBLE
     }
 
-    private fun showErrorWhileFetchingClassesView() {
-        mBinding?.domainDetailFragmentFloatingActionButton?.isVisible = false
-        mBinding?.domainDetailFragmentClassesListView?.visibility = View.GONE
-        mBinding?.somethingWentWrongView?.visibility = View.VISIBLE
+    private fun navigateBack() {
+        findNavController().navigateUp()
     }
 
-    private fun hideProgressBar() {
-        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+    private fun setupButtons() {
+        setupToolbarBackButton()
+        setupEditButton()
+        setupDeleteButton()
+        setupTryAgainButton()
+    }
+
+    private fun setupToolbarBackButton() {
+        mBinding?.domainDetailFragmentToolbarBackIcon?.setOnClickListener {
+            navigateBack()
+        }
+    }
+
+    private fun setupEditButton() {
+        mDomainEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mDomainResponseDto?.id?.let { domainId ->
+                    mViewModel?.editDomain(editTextContent, domainId)
+                }
+            }
+        })
+
+        mBinding?.domainDetailFragmentDomainDescriptionEditIcon?.setOnClickListener {
+            showDomainEditDialog()
+        }
+    }
+
+    private fun showDomainEditDialog() {
+        mDomainEditDialog.show(
+            childFragmentManager,
+            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
+        )
+    }
+
+    private fun setupDeleteButton() {
+        mBinding?.domainDetailFragmentToolbarDeleteIcon?.setOnClickListener {
+            AlertDialog.Builder(context)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(getString(R.string.domain_detail_fragment_delete_domain_dialog_title))
+                .setMessage(getString(R.string.domain_detail_fragment_delete_domain_dialog_body))
+                .setPositiveButton("Yes") { _, _ -> deleteDomain() }
+                .setNegativeButton("No", null)
+                .show()
+        }
+    }
+
+    private fun deleteDomain() {
+        mDomainResponseDto?.id?.let { mViewModel?.deleteDomain(it) }
+    }
+
+    private fun setupTryAgainButton() {
+        mBinding?.tryAgainButton?.setOnClickListener {
+            mDomainResponseDto?.id?.let {
+                mViewModel?.getImageClassListByDomainId(it)
+            }
+        }
     }
 
     private fun setupRecyclerView() {
@@ -253,21 +267,6 @@ class DomainDetailFragment : DaggerFragment() {
             childFragmentManager,
             UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
         )
-    }
-
-    private fun setupButtons() {
-        setupToolbarBackButton()
-        setupEditButton()
-        setupDeleteButton()
-        setupTryAgainButton()
-    }
-
-    private fun setupTryAgainButton() {
-        mBinding?.tryAgainButton?.setOnClickListener {
-            mDomainResponseDto?.id?.let {
-                mViewModel?.getImageClassListByDomainId(it)
-            }
-        }
     }
 
 }

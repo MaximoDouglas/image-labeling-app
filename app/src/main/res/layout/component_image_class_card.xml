@@ -9,11 +9,17 @@
             name="imageClassResponseDto"
             type="br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto" />
 
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:onClick="@{(v)-> clickListener.onClick(v)}"
         app:cardCornerRadius="8dp">
 
         <TextView
