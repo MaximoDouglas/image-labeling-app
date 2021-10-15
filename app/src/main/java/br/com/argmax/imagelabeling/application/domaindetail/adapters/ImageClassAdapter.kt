@@ -1,5 +1,6 @@
 package br.com.argmax.imagelabeling.application.domaindetail.adapters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,8 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter.ImageClassCardViewHolder
 import br.com.argmax.imagelabeling.application.domaindetail.listeners.OnImageClassCardClickListener
-import br.com.argmax.imagelabeling.databinding.ViewHolderImageClassCardBinding
+import br.com.argmax.imagelabeling.databinding.ComponentImageClassCardBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.view_holder_image_class_card.imageClassCardComponent
 
 class ImageClassAdapter(
     val mOnImageClassCardClickListener: OnImageClassCardClickListener
@@ -20,53 +19,48 @@ class ImageClassAdapter(
 
     private var mData: MutableList<ImageClassResponseDto> = mutableListOf()
 
-    fun replaceData(imageClassResponseDtoList: List<ImageClassResponseDto>) {
-        mData = imageClassResponseDtoList.toMutableList()
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageClassCardViewHolder {
-        val imageClassViewHolderBinding: ViewHolderImageClassCardBinding =
-            DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                R.layout.view_holder_image_class_card,
-                parent,
-                false
-            )
-
-        return ImageClassCardViewHolder(imageClassViewHolderBinding.root)
+    fun addImageClass(imageClassResponseDto: ImageClassResponseDto) {
+        mData.add(imageClassResponseDto)
+        notifyItemChanged(itemCount)
     }
 
     override fun getItemCount(): Int {
         return mData.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun replaceData(imageClassResponseDtoList: List<ImageClassResponseDto>) {
+        mData = imageClassResponseDtoList.toMutableList()
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageClassCardViewHolder {
+        val componentImageClassCardBinding: ComponentImageClassCardBinding =
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.component_image_class_card,
+                parent,
+                false
+            )
+
+        return ImageClassCardViewHolder(componentImageClassCardBinding)
+    }
+
     override fun onBindViewHolder(holder: ImageClassCardViewHolder, position: Int) {
         holder.updateData(mData[position])
     }
 
-    fun addImageClass(imageClassResponseDto: ImageClassResponseDto) {
-        mData.add(imageClassResponseDto)
-        notifyItemChanged(itemCount)
-    }
-
     inner class ImageClassCardViewHolder(
-        itemView: View
-    ) : RecyclerView.ViewHolder(itemView), LayoutContainer, View.OnClickListener {
-
-        override val containerView: View?
-            get() = itemView
-
-        init {
-            imageClassCardComponent.setOnClickListener(this)
-        }
+        private val binding: ComponentImageClassCardBinding
+    ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         fun updateData(imageClassResponseDto: ImageClassResponseDto) {
-            imageClassCardComponent.setImageClassResponseDto(imageClassResponseDto)
+            binding.imageClassResponseDto = imageClassResponseDto
+            binding.clickListener = this
         }
 
         override fun onClick(p0: View?) {
-            val imageClassResponseDto = imageClassCardComponent.getImageClassResponseDto()
+            val imageClassResponseDto = binding.imageClassResponseDto
             imageClassResponseDto?.let {
                 mOnImageClassCardClickListener.onCardClick(it)
             }

@@ -117,7 +117,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/domain_detail_fragment_classes_list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/domain_detail_fragment_toolbar_view"
@@ -142,11 +144,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/domain_detail_fragment_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/domain_detail_fragment_classes_label_text_view" />
@@ -156,12 +158,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/something_went_wrong_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/domain_detail_fragment_toolbar_view"
+            tools:visibility="gone">
 
             <TextView
                 android:id="@+id/something_went_wrong_text_view"
@@ -210,8 +213,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            app:layout_constraintTop_toBottomOf="@+id/domain_detail_fragment_toolbar_view"
+            tools:visibility="gone" />
 
         <androidx.core.widget.ContentLoadingProgressBar
             android:id="@+id/content_loading_progress_bar"
@@ -219,14 +222,14 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
             android:indeterminate="false"
             android:indeterminateTintMode="src_atop"
-            android:visibility="gone"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/domain_detail_fragment_toolbar_view"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/domain_detail_fragment_floating_action_button"

@@ -38,20 +38,16 @@ class ImageClassificationFragment : DaggerFragment() {
     lateinit var mViewModelFactoryProvider: ViewModelFactoryProvider
 
     private var mViewModel: ImageClassificationViewModel? = null
-
-    private val args: ImageClassificationFragmentArgs by navArgs()
+    private var mBinding: FragmentImageClassificationBinding? = null
+    private val mArgs: ImageClassificationFragmentArgs by navArgs()
 
     private var mImageClassResponseDto: ImageClassResponseDto? = null
-
-    private var mBinding: FragmentImageClassificationBinding? = null
     private var mImageResponseDtoList = mutableListOf<RapidApiImageResponseDto>()
+    private val mClassNameEditDialog = UpdateNameDialog()
 
     private var mSearchTerm: String? = null
-
     private var mListPosition = 0
     private var mEnableAutomaticRequestToRapidAPI: Boolean = true
-
-    private val mClassNameEditDialog = UpdateNameDialog()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,7 +64,7 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun unwrapArgs() {
-        mImageClassResponseDto = args.imageCLassResponseDto
+        mImageClassResponseDto = mArgs.imageCLassResponseDto
     }
 
     private fun initViewModel() {
@@ -102,49 +98,75 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.imageClassNameTextView?.text = imageClassName
     }
 
-    private fun setupViewModel() {
-        mViewModel?.getStateLiveData()?.removeObservers(viewLifecycleOwner)
+    private fun setupButtons() {
+        mBinding?.discardButton?.setText(getString(R.string.image_classification_fragment_discard_button_label))
+        mBinding?.discardButton?.isConfirmationButton(false)
+        mBinding?.discardButton?.setOnClickListener {
+            showNextImage()
+        }
 
-        mViewModel?.getStateLiveData()?.observe(
-            viewLifecycleOwner,
-            Observer { viewModelState ->
-                handleViewModelState(viewModelState)
-            })
+        mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
+        mBinding?.confirmButton?.isConfirmationButton(true)
+        mBinding?.confirmButton?.setOnClickListener {
+            confirmImageClassification()
+            showNextImage()
+        }
+
+        mBinding?.showNextImageButton?.setText(
+            getString(R.string.image_classification_fragment_show_next_image_button_label)
+        )
+        mBinding?.showNextImageButton?.isConfirmationButton(false)
+        mBinding?.showNextImageButton?.setOnClickListener {
+            mBinding?.showNextImageButton?.isEnabled = false
+            showNextImage()
+        }
+
+        enableConfirmAndDiscardButtons(false)
     }
 
-    private fun handleViewModelState(viewModelState: ImageClassificationViewModelState) {
-        when (viewModelState) {
-            is ImageClassificationViewModelState.Loading -> {
-                showProgressBar()
+    private fun showNextImage() {
+        startLoadingImageAnimation()
+        incrementPosition()
+
+        if (isAutomaticRequestEnabled()) {
+            mSearchTerm?.let {
+                mViewModel?.getRapidImage(searchTerm = it)
             }
-            is ImageClassificationViewModelState.Error -> {
-                onLoadImagesFromCloudError(viewModelState.throwable.localizedMessage)
-            }
-            is ImageClassificationViewModelState.GetRapidImageSuccess -> {
-                viewModelState.data?.let {
-                    onGetImagesSuccess(it)
-                }
-            }
-            is ImageClassificationViewModelState.EditImageClassSuccess -> {
-                hideProgressBar()
-                setImageClassDataIntoView(viewModelState.data)
-            }
-            is ImageClassificationViewModelState.DeleteImageClassSuccess -> {
-                navigateUp()
-            }
+        } else {
+            updateImageView()
         }
     }
 
-    private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
-        mEnableAutomaticRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
-        mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
-
-        updateImageView()
+    private fun startLoadingImageAnimation() {
+        showImageView(false)
+        enableConfirmAndDiscardButtons(false)
+        showProgressBar()
     }
 
-    private fun onLoadImagesFromCloudError(localizedMessage: String?) {
-        hideProgressBar()
-        print(localizedMessage)
+    private fun showImageView(showImageView: Boolean) {
+        mBinding?.imageView?.visibility = if (showImageView) View.VISIBLE else View.GONE
+    }
+
+    private fun enableConfirmAndDiscardButtons(enabledConfirmAndDiscardButtons: Boolean) {
+        mBinding?.confirmButton?.isEnabled = enabledConfirmAndDiscardButtons
+        mBinding?.discardButton?.isEnabled = enabledConfirmAndDiscardButtons
+    }
+
+    private fun showProgressBar() {
+        mBinding?.contentContainer?.visibility = View.INVISIBLE
+        mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
+    }
+
+    private fun incrementPosition() {
+        mListPosition += 1
+    }
+
+    private fun isAutomaticRequestEnabled(): Boolean {
+        val threshold = 10
+        val listSize = mImageResponseDtoList.size
+        val reachThreshold = mListPosition == listSize - threshold
+
+        return reachThreshold && mEnableAutomaticRequestToRapidAPI
     }
 
     private fun updateImageView() {
@@ -175,6 +197,23 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.noMoreImagesTextView?.visibility = noMoreImagesTextViewVisibility
 
         mEnableAutomaticRequestToRapidAPI = !showNoMoreImagesView
+    }
+
+    private fun hideAllButtons() {
+        mBinding?.confirmButton?.visibility = View.GONE
+        mBinding?.discardButton?.visibility = View.GONE
+
+        mBinding?.showNextImageButton?.visibility = View.GONE
+    }
+
+    private fun stopLoadingImageAnimation() {
+        hideProgressBar()
+        showImageView(true)
+    }
+
+    private fun hideProgressBar() {
+        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
+        mBinding?.contentContainer?.visibility = View.VISIBLE
     }
 
     private fun getGlideRequestListener(): RequestListener<Drawable> {
@@ -213,11 +252,6 @@ class ImageClassificationFragment : DaggerFragment() {
         ).show()
     }
 
-    private fun enableConfirmAndDiscardButtons(enabledConfirmAndDiscardButtons: Boolean) {
-        mBinding?.confirmButton?.isEnabled = enabledConfirmAndDiscardButtons
-        mBinding?.discardButton?.isEnabled = enabledConfirmAndDiscardButtons
-    }
-
     private fun showOnlyNextImageButton(showNextImageButton: Boolean) {
         mBinding?.confirmButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
         mBinding?.discardButton?.visibility = if (showNextImageButton) View.GONE else View.VISIBLE
@@ -225,13 +259,6 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.showNextImageButton?.isEnabled = showNextImageButton
         mBinding
             ?.showNextImageButton?.visibility = if (showNextImageButton) View.VISIBLE else View.GONE
-    }
-
-    private fun hideAllButtons() {
-        mBinding?.confirmButton?.visibility = View.GONE
-        mBinding?.discardButton?.visibility = View.GONE
-
-        mBinding?.showNextImageButton?.visibility = View.GONE
     }
 
     private fun onImageFetchSuccess() {
@@ -244,14 +271,63 @@ class ImageClassificationFragment : DaggerFragment() {
         showOnlyNextImageButton(false)
     }
 
-    private fun showProgressBar() {
-        mBinding?.contentContainer?.visibility = View.INVISIBLE
-        mBinding?.contentLoadingProgressBar?.visibility = View.VISIBLE
+    private fun confirmImageClassification() {
+        mImageClassResponseDto?.let { imageClassResponseDto ->
+            val rapidApiImageResponseDto = mImageResponseDtoList[mListPosition]
+
+            mViewModel?.confirmImageClassification(
+                rapidApiImageResponseDto,
+                imageClassResponseDto
+            )
+        }
     }
 
-    private fun hideProgressBar() {
-        mBinding?.contentLoadingProgressBar?.visibility = View.GONE
-        mBinding?.contentContainer?.visibility = View.VISIBLE
+    private fun setupViewModel() {
+        mViewModel?.getStateLiveData()?.removeObservers(viewLifecycleOwner)
+
+        mViewModel?.getStateLiveData()?.observe(
+            viewLifecycleOwner,
+            Observer { viewModelState ->
+                handleViewModelState(viewModelState)
+            })
+    }
+
+    private fun handleViewModelState(viewModelState: ImageClassificationViewModelState) {
+        when (viewModelState) {
+            is ImageClassificationViewModelState.Loading -> {
+                showProgressBar()
+            }
+            is ImageClassificationViewModelState.Error -> {
+                onLoadImagesFromCloudError()
+            }
+            is ImageClassificationViewModelState.GetRapidImageSuccess -> {
+                viewModelState.data?.let {
+                    onGetImagesSuccess(it)
+                }
+            }
+            is ImageClassificationViewModelState.EditImageClassSuccess -> {
+                hideProgressBar()
+                setImageClassDataIntoView(viewModelState.data)
+            }
+            is ImageClassificationViewModelState.DeleteImageClassSuccess -> {
+                navigateUp()
+            }
+        }
+    }
+
+    private fun onLoadImagesFromCloudError() {
+        hideProgressBar()
+    }
+
+    private fun onGetImagesSuccess(rapidApiImageResponseDtoList: List<RapidApiImageResponseDto>) {
+        mEnableAutomaticRequestToRapidAPI = rapidApiImageResponseDtoList.isNotEmpty()
+        mImageResponseDtoList.addAll(rapidApiImageResponseDtoList)
+
+        updateImageView()
+    }
+
+    private fun navigateUp() {
+        findNavController().navigateUp()
     }
 
     private fun setupInteractions() {
@@ -264,10 +340,6 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.toolbarBackIcon?.setOnClickListener {
             navigateUp()
         }
-    }
-
-    private fun navigateUp() {
-        findNavController().navigateUp()
     }
 
     private fun setupToolbarDeleteButton() {
@@ -294,27 +366,6 @@ class ImageClassificationFragment : DaggerFragment() {
         mImageClassResponseDto?.id?.let { imageClassResponse ->
             mViewModel?.deleteImageClass(imageClassResponse)
         }
-    }
-
-    private fun setupEditButton() {
-        mClassNameEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
-            override fun onConfirm(editTextContent: String) {
-                mImageClassResponseDto?.let { imageClassResponseDto ->
-                    mViewModel?.editImageClassName(editTextContent, imageClassResponseDto)
-                }
-            }
-        })
-
-        mBinding?.imageClassNameEditIcon?.setOnClickListener {
-            showClassNameEditDialog()
-        }
-    }
-
-    private fun showClassNameEditDialog() {
-        mClassNameEditDialog.show(
-            childFragmentManager,
-            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
-        )
     }
 
     private fun setupSearchButtonClick() {
@@ -374,80 +425,25 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
     }
 
-    private fun setupButtons() {
-        mBinding?.discardButton?.setText(getString(R.string.image_classification_fragment_discard_button_label))
-        mBinding?.discardButton?.isConfirmationButton(false)
-        mBinding?.discardButton?.setOnClickListener {
-            showNextImage()
-        }
-
-        mBinding?.confirmButton?.setText(getString(R.string.image_classification_fragment_confirm_button_label))
-        mBinding?.confirmButton?.isConfirmationButton(true)
-        mBinding?.confirmButton?.setOnClickListener {
-            confirmImageClassification()
-            showNextImage()
-        }
-
-        mBinding?.showNextImageButton?.setText(
-            getString(R.string.image_classification_fragment_show_next_image_button_label)
-        )
-        mBinding?.showNextImageButton?.isConfirmationButton(false)
-        mBinding?.showNextImageButton?.setOnClickListener {
-            mBinding?.showNextImageButton?.isEnabled = false
-            showNextImage()
-        }
-
-        enableConfirmAndDiscardButtons(false)
-    }
-
-    private fun showNextImage() {
-        startLoadingImageAnimation()
-        incrementPosition()
-
-        if (isAutomaticRequestEnabled()) {
-            mSearchTerm?.let {
-                mViewModel?.getRapidImage(searchTerm = it)
+    private fun setupEditButton() {
+        mClassNameEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mImageClassResponseDto?.let { imageClassResponseDto ->
+                    mViewModel?.editImageClassName(editTextContent, imageClassResponseDto)
+                }
             }
-        } else {
-            updateImageView()
+        })
+
+        mBinding?.imageClassNameEditIcon?.setOnClickListener {
+            showClassNameEditDialog()
         }
     }
 
-    private fun isAutomaticRequestEnabled(): Boolean {
-        val threshold = 10
-        val listSize = mImageResponseDtoList.size
-        val reachThreshold = mListPosition == listSize - threshold
-
-        return reachThreshold && mEnableAutomaticRequestToRapidAPI
+    private fun showClassNameEditDialog() {
+        mClassNameEditDialog.show(
+            childFragmentManager,
+            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
+        )
     }
 
-    private fun startLoadingImageAnimation() {
-        showImageView(false)
-        enableConfirmAndDiscardButtons(false)
-        showProgressBar()
-    }
-
-    private fun stopLoadingImageAnimation() {
-        hideProgressBar()
-        showImageView(true)
-    }
-
-    private fun showImageView(showImageView: Boolean) {
-        mBinding?.imageView?.visibility = if (showImageView) View.VISIBLE else View.GONE
-    }
-
-    private fun confirmImageClassification() {
-        mImageClassResponseDto?.let { imageClassResponseDto ->
-            val rapidApiImageResponseDto = mImageResponseDtoList[mListPosition]
-
-            mViewModel?.confirmImageClassification(
-                rapidApiImageResponseDto,
-                imageClassResponseDto
-            )
-        }
-    }
-
-    private fun incrementPosition() {
-        mListPosition += 1
-    }
 }

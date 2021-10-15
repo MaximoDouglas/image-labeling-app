@@ -11,10 +11,10 @@ import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRespons
 import br.com.argmax.imagelabeling.service.remote.domain.DomainRemoteDataSource
 import br.com.argmax.imagelabeling.service.remote.imageclass.ImageClassRemoteDataSource
 import br.com.argmax.imagelabeling.utils.CoroutineContextProvider
-import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 class DomainDetailViewModel @Inject constructor(
     private val mImageClassRemoteDataSource: ImageClassRemoteDataSource,
@@ -24,11 +24,11 @@ class DomainDetailViewModel @Inject constructor(
 
     private val stateLiveData = MutableLiveData<DomainDetailViewModelState>()
 
-    fun getStateLiveData(): LiveData<DomainDetailViewModelState> = stateLiveData
-
     private val handler = CoroutineExceptionHandler { _, exception ->
         stateLiveData.value = DomainDetailViewModelState.Error(exception)
     }
+
+    fun getStateLiveData(): LiveData<DomainDetailViewModelState> = stateLiveData
 
     fun getImageClassListByDomainId(domainId: Int) {
         stateLiveData.value = DomainDetailViewModelState.Loading
@@ -84,11 +84,9 @@ class DomainDetailViewModel @Inject constructor(
     }
 
     sealed class DomainDetailViewModelState {
-        object Loading : DomainDetailViewModelState()
-
-        object DeleteDomainSuccess : DomainDetailViewModelState()
-
         data class Error(val throwable: Throwable) : DomainDetailViewModelState()
+
+        object Loading : DomainDetailViewModelState()
 
         data class GetImageClassListSuccess(val data: List<ImageClassResponseDto>) :
             DomainDetailViewModelState()
@@ -97,6 +95,8 @@ class DomainDetailViewModel @Inject constructor(
             DomainDetailViewModelState()
 
         data class EditDomainSuccess(val data: DomainResponseDto) : DomainDetailViewModelState()
+
+        object DeleteDomainSuccess : DomainDetailViewModelState()
     }
 
 }

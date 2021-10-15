@@ -6,10 +6,13 @@ import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassRespons
 interface ImageClassRemoteDataSource {
 
     suspend fun imageClassListByDomainId(domainId: Int): List<ImageClassResponseDto>
-    
+
     suspend fun createImageClass(imageClassRequestDto: ImageClassRequestDto): ImageClassResponseDto
 
-    suspend fun editImageClassName(imageClassId: Int, imageClassRequestDto: ImageClassRequestDto): ImageClassResponseDto
+    suspend fun editImageClassName(
+        imageClassId: Int,
+        imageClassRequestDto: ImageClassRequestDto
+    ): ImageClassResponseDto
 
     suspend fun deleteImageClass(imageClassId: Int)
 

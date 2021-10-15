@@ -1,7 +1,7 @@
 package br.com.argmax.imagelabeling.service.remote.domain
 
-import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 import br.com.argmax.imagelabeling.service.entities.domain.DomainRequestDto
+import br.com.argmax.imagelabeling.service.entities.domain.DomainResponseDto
 
 class DomainRemoteDataSourceImpl(
     private val mDomainApiDataSource: DomainApiDataSource
