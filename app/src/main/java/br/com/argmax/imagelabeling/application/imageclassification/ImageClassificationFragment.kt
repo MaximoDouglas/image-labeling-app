@@ -43,7 +43,10 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private var mImageClassResponseDto: ImageClassResponseDto? = null
     private var mImageResponseDtoList = mutableListOf<RapidApiImageResponseDto>()
-    private val mClassNameEditDialog = UpdateNameDialog()
+    private val mClassNameEditDialog = UpdateNameDialog(
+        getString(R.string.class_editing_dialog_title),
+        getString(R.string.class_editing_dialog_hint)
+    )
 
     private var mSearchTerm: String? = null
     private var mListPosition = 0

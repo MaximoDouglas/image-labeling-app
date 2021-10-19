@@ -9,7 +9,10 @@ import androidx.fragment.app.DialogFragment
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.databinding.DialogModelCreationBinding
 
-class UpdateNameDialog : DialogFragment() {
+class UpdateNameDialog(
+    private val mDialogTitle: String,
+    private val mEditTextHint: String
+) : DialogFragment() {
 
     private var mBinding: DialogModelCreationBinding? = null
     private var mModelCreationDialogClickListener: ModelCreationDialogClickListener? = null
@@ -22,6 +25,7 @@ class UpdateNameDialog : DialogFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         mBinding = inflate(inflater, R.layout.dialog_model_creation, container, false)
+        setupViewData()
 
         return mBinding?.root
     }
@@ -30,6 +34,11 @@ class UpdateNameDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupButtons()
+    }
+
+    private fun setupViewData() {
+        mBinding?.modelCreationDialogTitleTextView?.text = mDialogTitle
+        mBinding?.modelCreationDialogEditText?.hint = mEditTextHint
     }
 
     private fun setupButtons() {
