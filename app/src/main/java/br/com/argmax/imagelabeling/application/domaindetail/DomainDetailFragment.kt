@@ -34,8 +34,16 @@ class DomainDetailFragment : DaggerFragment() {
     private var mViewModel: DomainDetailViewModel? = null
 
     private var mBinding: FragmentDomainDetailBinding? = null
-    private val mImageClassCreationDialog = UpdateNameDialog()
-    private val mDomainEditDialog = UpdateNameDialog()
+
+    private val mImageClassCreationDialog = UpdateNameDialog(
+        getString(R.string.class_creation_dialog_title),
+        getString(R.string.class_creation_dialog_hint)
+    )
+
+    private val mDomainEditDialog = UpdateNameDialog(
+        getString(R.string.domain_editing_dialog_title),
+        getString(R.string.domain_editing_dialog_hint)
+    )
 
     private var mDomainResponseDto: DomainResponseDto? = null
     private val mArgs: DomainDetailFragmentArgs by navArgs()
