@@ -20,7 +20,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "RAPID_API_HOST", "bing-image-search1.p.rapidapi.com")
+        buildConfigField("String", "RAPID_API_HOST", "\"bing-image-search1.p.rapidapi.com\"")
         buildConfigField("String", "RAPID_API_KEY", apiSecretsProperties['RAPID_API_KEY'])
     }
 
