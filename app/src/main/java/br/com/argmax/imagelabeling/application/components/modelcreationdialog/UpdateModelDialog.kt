@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.databinding.DialogModelCreationBinding
 
-class UpdateNameDialog(
+class UpdateModelDialog(
     private val mDialogTitle: String,
     private val mEditTextHint: String
 ) : DialogFragment() {
