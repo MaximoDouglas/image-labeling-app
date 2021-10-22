@@ -35,15 +35,9 @@ class DomainDetailFragment : DaggerFragment() {
 
     private var mBinding: FragmentDomainDetailBinding? = null
 
-    private val mImageClassCreationDialog = UpdateNameDialog(
-        getString(R.string.class_creation_dialog_title),
-        getString(R.string.class_creation_dialog_hint)
-    )
+    private var mImageClassCreationDialog: UpdateNameDialog? = null
 
-    private val mDomainEditDialog = UpdateNameDialog(
-        getString(R.string.domain_editing_dialog_title),
-        getString(R.string.domain_editing_dialog_hint)
-    )
+    private var mDomainEditDialog: UpdateNameDialog? = null
 
     private var mDomainResponseDto: DomainResponseDto? = null
     private val mArgs: DomainDetailFragmentArgs by navArgs()
@@ -90,6 +84,7 @@ class DomainDetailFragment : DaggerFragment() {
 
         setDomainDataIntoView()
         setupViewModelObserver()
+        setupEditDomainDialog()
         setupButtons()
         setupRecyclerView()
         setupImageClassCreationDialog()
@@ -189,6 +184,21 @@ class DomainDetailFragment : DaggerFragment() {
         findNavController().navigateUp()
     }
 
+    private fun setupEditDomainDialog() {
+        mDomainEditDialog = UpdateNameDialog(
+            getString(R.string.domain_editing_dialog_title),
+            getString(R.string.domain_editing_dialog_hint)
+        )
+
+        mDomainEditDialog?.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+            override fun onConfirm(editTextContent: String) {
+                mDomainResponseDto?.id?.let { domainId ->
+                    mViewModel?.editDomain(editTextContent, domainId)
+                }
+            }
+        })
+    }
+
     private fun setupButtons() {
         setupToolbarBackButton()
         setupEditButton()
@@ -203,21 +213,13 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupEditButton() {
-        mDomainEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
-            override fun onConfirm(editTextContent: String) {
-                mDomainResponseDto?.id?.let { domainId ->
-                    mViewModel?.editDomain(editTextContent, domainId)
-                }
-            }
-        })
-
         mBinding?.domainDetailFragmentDomainDescriptionEditIcon?.setOnClickListener {
             showDomainEditDialog()
         }
     }
 
     private fun showDomainEditDialog() {
-        mDomainEditDialog.show(
+        mDomainEditDialog?.show(
             childFragmentManager,
             UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
         )
@@ -256,7 +258,12 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupImageClassCreationDialog() {
-        mImageClassCreationDialog.setOkButtonClickListener(object :
+        mImageClassCreationDialog = UpdateNameDialog(
+            getString(R.string.class_creation_dialog_title),
+            getString(R.string.class_creation_dialog_hint)
+        )
+
+        mImageClassCreationDialog?.setOkButtonClickListener(object :
             ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mDomainResponseDto?.id?.let { domainId ->
@@ -271,7 +278,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun showImageClassCreationDialog() {
-        mImageClassCreationDialog.show(
+        mImageClassCreationDialog?.show(
             childFragmentManager,
             UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
         )
