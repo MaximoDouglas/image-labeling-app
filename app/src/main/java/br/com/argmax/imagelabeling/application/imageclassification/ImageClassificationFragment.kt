@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateModelDialog
 import br.com.argmax.imagelabeling.application.imageclassification.ImageClassificationViewModel.ImageClassificationViewModelState
 import br.com.argmax.imagelabeling.databinding.FragmentImageClassificationBinding
 import br.com.argmax.imagelabeling.service.entities.imageclass.ImageClassResponseDto
@@ -43,10 +43,8 @@ class ImageClassificationFragment : DaggerFragment() {
 
     private var mImageClassResponseDto: ImageClassResponseDto? = null
     private var mImageResponseDtoList = mutableListOf<RapidApiImageResponseDto>()
-    private val mClassNameEditDialog = UpdateNameDialog(
-        getString(R.string.class_editing_dialog_title),
-        getString(R.string.class_editing_dialog_hint)
-    )
+
+    private var mClassNameEditDialog: UpdateModelDialog? = null
 
     private var mSearchTerm: String? = null
     private var mListPosition = 0
@@ -81,7 +79,7 @@ class ImageClassificationFragment : DaggerFragment() {
         setupView()
         setupViewModel()
         setupInteractions()
-        setupEditButton()
+        setupEditClassNameDialog()
     }
 
     private fun setupView() {
@@ -428,8 +426,13 @@ class ImageClassificationFragment : DaggerFragment() {
         mBinding?.searchTermDefaultView?.visibility = View.VISIBLE
     }
 
-    private fun setupEditButton() {
-        mClassNameEditDialog.setOkButtonClickListener(object : ModelCreationDialogClickListener {
+    private fun setupEditClassNameDialog() {
+        mClassNameEditDialog = UpdateModelDialog(
+            getString(R.string.class_editing_dialog_title),
+            getString(R.string.class_editing_dialog_hint)
+        )
+
+        mClassNameEditDialog?.setOkButtonClickListener(object : ModelCreationDialogClickListener {
             override fun onConfirm(editTextContent: String) {
                 mImageClassResponseDto?.let { imageClassResponseDto ->
                     mViewModel?.editImageClassName(editTextContent, imageClassResponseDto)
@@ -443,9 +446,9 @@ class ImageClassificationFragment : DaggerFragment() {
     }
 
     private fun showClassNameEditDialog() {
-        mClassNameEditDialog.show(
+        mClassNameEditDialog?.show(
             childFragmentManager,
-            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
+            UpdateModelDialog.MODEL_CREATION_DIALOG_TAG
         )
     }
 

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateModelDialog
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailFragmentDirections.actionDomainDetailFragmentToImageClassificationFragment
 import br.com.argmax.imagelabeling.application.domaindetail.DomainDetailViewModel.DomainDetailViewModelState
 import br.com.argmax.imagelabeling.application.domaindetail.adapters.ImageClassAdapter
@@ -35,9 +35,9 @@ class DomainDetailFragment : DaggerFragment() {
 
     private var mBinding: FragmentDomainDetailBinding? = null
 
-    private var mImageClassCreationDialog: UpdateNameDialog? = null
+    private var mImageClassCreationDialog: UpdateModelDialog? = null
 
-    private var mDomainEditDialog: UpdateNameDialog? = null
+    private var mDomainEditDialog: UpdateModelDialog? = null
 
     private var mDomainResponseDto: DomainResponseDto? = null
     private val mArgs: DomainDetailFragmentArgs by navArgs()
@@ -185,7 +185,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupEditDomainDialog() {
-        mDomainEditDialog = UpdateNameDialog(
+        mDomainEditDialog = UpdateModelDialog(
             getString(R.string.domain_editing_dialog_title),
             getString(R.string.domain_editing_dialog_hint)
         )
@@ -221,7 +221,7 @@ class DomainDetailFragment : DaggerFragment() {
     private fun showDomainEditDialog() {
         mDomainEditDialog?.show(
             childFragmentManager,
-            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
+            UpdateModelDialog.MODEL_CREATION_DIALOG_TAG
         )
     }
 
@@ -258,7 +258,7 @@ class DomainDetailFragment : DaggerFragment() {
     }
 
     private fun setupImageClassCreationDialog() {
-        mImageClassCreationDialog = UpdateNameDialog(
+        mImageClassCreationDialog = UpdateModelDialog(
             getString(R.string.class_creation_dialog_title),
             getString(R.string.class_creation_dialog_hint)
         )
@@ -280,7 +280,7 @@ class DomainDetailFragment : DaggerFragment() {
     private fun showImageClassCreationDialog() {
         mImageClassCreationDialog?.show(
             childFragmentManager,
-            UpdateNameDialog.MODEL_CREATION_DIALOG_TAG
+            UpdateModelDialog.MODEL_CREATION_DIALOG_TAG
         )
     }
 

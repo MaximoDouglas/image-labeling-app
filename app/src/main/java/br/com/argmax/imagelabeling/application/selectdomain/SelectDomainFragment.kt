@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.argmax.imagelabeling.R
 import br.com.argmax.imagelabeling.application.components.modelcreationdialog.ModelCreationDialogClickListener
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog
-import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateNameDialog.Companion.MODEL_CREATION_DIALOG_TAG
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateModelDialog
+import br.com.argmax.imagelabeling.application.components.modelcreationdialog.UpdateModelDialog.Companion.MODEL_CREATION_DIALOG_TAG
 import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainFragmentDirections.actionSelectDomainFragmentToDomainDetailFragment
 import br.com.argmax.imagelabeling.application.selectdomain.SelectDomainViewModel.SelectDomainViewModelState
 import br.com.argmax.imagelabeling.application.selectdomain.adapters.SelectDomainAdapter
@@ -32,7 +32,7 @@ class SelectDomainFragment : DaggerFragment() {
     private var mViewModel: SelectDomainViewModel? = null
 
     private var mBinding: FragmentSelectDomainBinding? = null
-    private var mDomainCreationDialog: UpdateNameDialog? = null
+    private var mDomainCreationDialog: UpdateModelDialog? = null
 
     private val mAdapter = SelectDomainAdapter(object : OnDomainCardClickListener {
         override fun onCardClick(domainResponseDto: DomainResponseDto) {
@@ -68,7 +68,7 @@ class SelectDomainFragment : DaggerFragment() {
     }
 
     private fun setupDomainCreationDialog() {
-        mDomainCreationDialog = UpdateNameDialog(
+        mDomainCreationDialog = UpdateModelDialog(
             getString(R.string.domain_creation_dialog_title),
             getString(R.string.domain_creation_dialog_hint)
         )
