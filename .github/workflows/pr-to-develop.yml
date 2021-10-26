@@ -18,11 +18,11 @@ jobs:
           java-version: 1.8
       - name: Access API secrets
         env:
-          RAPID_API_HOST: ${{ secrets.RAPID_API_HOST }}
-          RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
+          RAPID_API_HOST: ${{ secrets.RAPID_API_KEY }}
+          RAPID_API_KEY: ${{ secrets.IMAGE_LABELING_BASE_URL }}
         run:  |
-          echo RAPID_API_HOST=\"$RAPID_API_HOST\" > ./local.properties
-          echo RAPID_API_KEY=\"$RAPID_API_KEY\" >> ./local.properties
+          echo RAPID_API_KEY=\"RAPID_API_KEY\" > ./local.properties
+          echo IMAGE_LABELING_BASE_URL=\"IMAGE_LABELING_BASE_URL\" >> ./local.properties
       - name: Running tests
         run: bash ./gradlew test
   
@@ -39,11 +39,11 @@ jobs:
           java-version: 1.8
       - name: Access API secrets
         env:
-          RAPID_API_HOST: ${{ secrets.RAPID_API_HOST }}
-          RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
-        run:  |
-          echo RAPID_API_HOST=\"$RAPID_API_HOST\" > ./local.properties
-          echo RAPID_API_KEY=\"$RAPID_API_KEY\" >> ./local.properties
+          RAPID_API_HOST: ${{ secrets.RAPID_API_KEY }}
+          RAPID_API_KEY: ${{ secrets.IMAGE_LABELING_BASE_URL }}
+        run: |
+          echo RAPID_API_KEY=\"RAPID_API_KEY\" > ./local.properties
+          echo IMAGE_LABELING_BASE_URL=\"IMAGE_LABELING_BASE_URL\" >> ./local.properties
       - name: Build debug APK
         run:  |
           bash ./gradlew assembleDebug

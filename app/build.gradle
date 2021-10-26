@@ -1,11 +1,7 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
-
 apply plugin: "androidx.navigation.safeargs"
 
 def apiSecretsFile = rootProject.file("local.properties")
@@ -24,7 +20,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "RAPID_API_HOST", apiSecretsProperties['RAPID_API_HOST'])
+        buildConfigField("String", "RAPID_API_HOST", "\"bing-image-search1.p.rapidapi.com\"")
         buildConfigField("String", "RAPID_API_KEY", apiSecretsProperties['RAPID_API_KEY'])
     }
 
@@ -39,8 +35,8 @@ android {
 
     productFlavors {
         local {
-            buildConfigField "String", "IMAGE_LABELING_API_URL", "\"http://10.0.2.2:3000/\""
-            buildConfigField "String", "RAPID_BASE_URL", "\"https://rapidapi.p.rapidapi.com/\""
+            buildConfigField("String", "IMAGE_LABELING_API_URL", apiSecretsProperties['IMAGE_LABELING_BASE_URL'])
+            buildConfigField("String", "RAPID_BASE_URL", "\"https://rapidapi.p.rapidapi.com/\"")
         }
     }
 
