@@ -7,6 +7,8 @@ You just need to create an image __Domain__ (e.g. **animal**) and its __Classes_
 
 1. In the first screen, create a new domain by tapping in the *plus* button. Let's call it "animals".
     * This will lead you to Classes creation screen
+    * ![Alt Text](docs/1.gif)
+
 2. Create new classes, let's call them "cat" and "dog".
 3. Tap on the class you want to start labeling (let's do it for "dogs"). This will lead you to the fetch and label screen.
 4. In the menu, you will see a search field, tap on the indicated place to insert a search term to find useful images for the dog class. For instance, type "puppy" and hit the search icon.
