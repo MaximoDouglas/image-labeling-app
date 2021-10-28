@@ -5,16 +5,14 @@ You just need to create an image __Domain__ (e.g. **animal**) and its __Classes_
 
 ### **Step by step usage for labeling**
 
-1. In the first screen, create a new domain by tapping in the *plus* button. Let's call it "animals".
-    * This will lead you to Classes creation screen
-    * ![Alt Text](docs/1.gif)
-
+1. In the first screen, create a new domain by tapping in the *plus* button. Let's call it "animals". This will lead you to Classes creation screen.
+  * <img src="docs/1.gif" width="300" height="600" />
 2. Create new classes, let's call them "cat" and "dog".
-3. Tap on the class you want to start labeling (let's do it for "dogs"). This will lead you to the fetch and label screen.
-4. In the menu, you will see a search field, tap on the indicated place to insert a search term to find useful images for the dog class. For instance, type "puppy" and hit the search icon.
-5. You probably will be able to see an image of a young good boy.
-6. If the image you see belongs to the class you are labeling hit "Confirm", if not, hit "Discard".
-7. When you think that it's enough for this search term, you can edit it and continue labeling for this class or go back and select another class to label.
+  * <img src="docs/2-3.gif" width="300" height="600" />
+4. Tap on "dog". This will lead the user to the labeling screen. Tap on the search field and type the search term "puppy" to find images for the dog class and hit the search icon. Now you just need to "Confirm" or "Discard" images. 
+  * <img src="docs/4-5-6.gif" width="300" height="600" />
+9. When you think that it's enough for this search term, you can edit it and continue labeling for this class or go back and select another class to label. 
+  * <img src="docs/7.gif" width="300" height="600" />
 
 ### **How to download the images**
 
