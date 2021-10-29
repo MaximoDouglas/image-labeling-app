@@ -38,5 +38,13 @@ You just need to create an image __Domain__ (e.g. **animal**) and its __Classes_
 8. The result APK can be found at: ./app/build/outputs/apk/local/debug/app-local-debug.apk
 
 ## Setting up the Android side - with Android Studio
-1. As you can imagine, you just need to clone the project and modify the content of your local.properties as described on step 2 of the [Non Android Studio users](#setting-up-the-android-side-non-android-studio-users) section.
+1. If you already run Android projects, you can just clone the project and create (if it was not already created) a file named local.properties with the following content:
+```
+  sdk.dir=<your sdk location>
+  RAPID_API_KEY="<your rapid API key>"
+  IMAGE_LABELING_BASE_URL="http://<your API server IP>:<port>/"
+  ```
+5. To get and API Key, go to [this Rapid API page](https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/bing-image-search1/)
+6. To get the IMAGE_LABELING_BASE_URL please refer to the [API documentation](https://github.com/MaximoDouglas/image-labeling-api)
+7. With everything set up, you just need to run both the API and this project to start labeling.
 
