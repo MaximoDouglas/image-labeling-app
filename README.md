@@ -1,23 +1,50 @@
 ## Image Labeling System - Android
+1. [Labeling images](#labeling-images)
+2. [Simplified architecture](#simplified-architecture)
+3. [Setting up the Android side - without Android Studio](#setting-up-the-android-side---without-android-studio)
+4. [Setting up the Android side - with Android Studio](#setting-up-the-android-side---with-android-studio)
+5. Setting up the API side - [go to the API repository](https://github.com/MaximoDouglas/image-labeling-api)
+
 This is the Android app side of a project created to facilitate the __data acquisition__ and the __data labelling__ steps for supervised computer vision tasks. 
 
-You just need to create an image __Domain__ (e.g. **animal**) and its __Classes__ (e.g. **Dog**, **Cat** and **Duck**). As the user select one class, he is taken to the image classification screen and, with just one click, he will be able to label the image as belonging to the respective class or discard it.
+You just need to create an image __Domain__ (e.g. **animal**) and its __Classes__ (e.g. **Dog**, **Cat** and **Duck**) to start the labeling.
 
-### Simplified architecture
+## Labeling images
+
+1. In the first screen, create a new domain by tapping in the *plus* button. Let's call it "animals". This will lead you to Classes creation screen.
+  * <img src="docs/1.gif" width="300" height="600" />
+2. Create new classes, let's call them "cat" and "dog".
+  * <img src="docs/2-3.gif" width="300" height="600" />
+4. Tap on "dog". This will lead the user to the labeling screen. Tap on the search field and type the search term "puppy" to find images for the dog class and hit the search icon. Now you just need to "Confirm" or "Discard" images. 
+  * <img src="docs/4-5-6.gif" width="300" height="600" />
+9. When you think that it's enough for this search term, you can edit it and continue labeling for this class or go back and select another class to label. 
+  * <img src="docs/7.gif" width="300" height="600" />
+
+## Simplified architecture
 ![Image Labeling system simple diagram](image-labeling.png)
 
-### Usage description
-- In the Android app home screen, you can select a __imagem domain__ or create a new one (e.g. **animal**);
-- If you choose to create a new domain:
-  - The device send the __image domain__ object to the __Ruby API__ ([Code Here](https://github.com/MaximoDouglas/image-labeling-api));
-- By selecting an __image domain__ in the home screen, you will lead to the __image domain__ details screen, in which, you will be able to create a new __image class__ for this __image domain__ or select an existing one;
-- If you choose to create a new domain:
-  - The device send the __image class__ object to the __Ruby API__ ([Code Here](https://github.com/MaximoDouglas/image-labeling-api));
-- By selecting a __image class__, you will be redirected to the image classification screen, where the magic happens;
-- In the classification screen, the you will be able to edit the __image class__ details as well as to input an search term that will be used to request images from the RapidAPI API;
-- Once you type a search term and hit the search button (this can be done at anytime you want), the app will request images from the RapidAPI that matches this search term;
-- The images will be shown in the screen together with two buttons:
-  - Dicard, that will do nothing besides passing to the next image;
-  - Confirm, that will confirme that the shown image belongs to the __image class__ you are working on - which means that the app will send to the __Ruby API__ ([Code Here](https://github.com/MaximoDouglas/image-labeling-api)) an Image object that contains the image URL and its label;
-- Once the labeling task is complete for this class, you can now go back to the domain detail screen and select another class to label images with just one click;
-- If you have finished labeling for this image domain, you can go back to the home screen and select or create new __image domains__ to label them;
+## Setting up the Android side - without Android Studio
+
+1. Install both Java 8 and the Android SDK (save the SDK location)
+2. Inside the project root folder create a file named local.properties with the content as described bellow:
+  ```
+  sdk.dir=<your sdk location>
+  RAPID_API_KEY="<your rapid API key>"
+  IMAGE_LABELING_BASE_URL="http://<your API server IP>:<port>/"
+  ```
+5. To get and API Key, go to [this Rapid API page](https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/bing-image-search1/)
+6. To get the IMAGE_LABELING_BASE_URL please refer to the [API documentation](https://github.com/MaximoDouglas/image-labeling-api)
+7. With all of this set up, you just need to run: `bash ./gradlew assembleDebug`
+8. The result APK can be found at: ./app/build/outputs/apk/local/debug/app-local-debug.apk
+
+## Setting up the Android side - with Android Studio
+1. If you already run Android projects, you can just clone the project and create (if it was not already created) a file named local.properties with the following content:
+```
+  sdk.dir=<your sdk location>
+  RAPID_API_KEY="<your rapid API key>"
+  IMAGE_LABELING_BASE_URL="http://<your API server IP>:<port>/"
+  ```
+5. To get and API Key, go to [this Rapid API page](https://rapidapi.com/microsoft-azure-org-microsoft-cognitive-services/api/bing-image-search1/)
+6. To get the IMAGE_LABELING_BASE_URL please refer to the [API documentation](https://github.com/MaximoDouglas/image-labeling-api)
+7. With everything set up, you just need to run both the API and this project to start labeling.
+
